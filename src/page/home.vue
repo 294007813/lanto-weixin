@@ -1,7 +1,7 @@
 <template>
 <div class="animated fadeIn home">
   <div class="banner">
-    <mt-swipe :auto="0">
+    <mt-swipe :auto="8000">
       <mt-swipe-item><img src="../assets/img/home/banner1.png"/></mt-swipe-item>
       <mt-swipe-item><img src="../assets/img/home/banner2.png"/></mt-swipe-item>
       <mt-swipe-item><img src="../assets/img/home/banner3.png"/></mt-swipe-item>
