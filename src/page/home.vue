@@ -1,36 +1,37 @@
 <template>
 <div class="animated fadeIn home">
-    <div class="above">
-      <img src="../assets/img/home/main-page.png">
-    </div>
-  <ul class="button1">
-    <router-link :to="{ path: '/maintain' }" tag="li">
-      <div><img src="../assets/img/home/maintain.png" class="eye"/><p>找维修</p></div>
-    </router-link>
-    <li>
-      <div><img src="../assets/img/home/query.png"/><p>档案查询</p></div>
-    </li>
-    <router-link :to="{ path: '/doctor'}" tag="li">
-      <div><img src="../assets/img/home/doctor.png"/><p>车大夫</p></div>
-    </router-link>
-  </ul>
-  <ul class="button2">
-    <li>
-      <div><img src="../assets/img/home/mall.png" class="mall"/><p>车品商城</p></div>
-    </li>
-    <router-link :to="{ path: '/info' }" tag="li">
-      <div><img src="../assets/img/home/info.png"/><p>信息服务</p></div>
-    </router-link>
+  <div class="banner">
+    <mt-swipe :auto="0">
+      <mt-swipe-item><img src="../assets/img/home/banner1.png"/></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/img/home/banner2.png"/></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/img/home/banner3.png"/></mt-swipe-item>
+      <mt-swipe-item><img src="../assets/img/home/banner4.png"/></mt-swipe-item>
+    </mt-swipe>
+  </div>
+  <ul class="icons">
+    <li><img src="../assets/img/home/fix.png"/><p>找维修</p></li>
+    <li><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
+    <li><img src="../assets/img/home/doctor.png"/><p>车大夫</p></li>
+    <li><img src="../assets/img/home/mall.png"/><p>车品商城</p></li>
+    <li><img src="../assets/img/home/info.png"/><p>信息服务</p></li>
   </ul>
   <div class="info">
-    <div class="title"><img src="../assets/img/home/message.png"/><span>资讯</span>
-      <img src="../assets/img/home/add.png" class="add"/>
+    <div class="title">
+      <span>资讯</span><div><span>更多</span><i></i></div>
     </div>
-    <div class="infopic">
-      <img src="../assets/img/other/info1.jpg"/>
-      <img src="../assets/img/other/info2.png"/>
-      <img src="../assets/img/other/info3.jpg"/>
-      <img src="../assets/img/other/info4.jpg"/>
+    <div class="msg">
+      <p>汽车有了电子健康档案，维修厂你怎么看？</p>
+      <div>
+        <img src="../assets/img/other/info2.png"/>
+      </div>
+      <span>办事指南-2017.10.23</span>
+    </div>
+    <div class="msg">
+      <p>交通运输部办公厅关于开展汽车电子健康档案系统建设试点工作的通知</p>
+      <div>
+        <img src="../assets/img/other/info3.jpg">
+      </div>
+      <span>法律法规-2017.10.23</span>
     </div>
   </div>
 </div>
@@ -48,98 +49,95 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.home{
+<style scoped lang="scss">
+  .home{
+    margin-bottom: 50px;
+  }
+.banner{
+  height: 135px;
+  .mint-swipe-item{
+    img{
+      width: 100%;
+      position: relative;
+      top: 50%;
+      transform: translatey(-50%);
+    }
+  }
+}
+.icons{
+  display: -webkit-flex; /* Safari */
+  display: flex;
   width: 100%;
-  height: 100%;
-  background-color: #e6f9ff;
+  padding: 20px 0;
+  font-size: 12px;
+  color: #666666;
+  border-bottom: 10px solid #f8f8f8;
+  li{
+    width: 20%;
+    text-align: center;
+    img{
+      width: 35px;
+    }
+    p{
+      margin-top: 5px;
+    }
+  }
 }
-.above,ul{
-  width: 100%;
-  overflow: hidden;
-}
-.above img{
-  width: 100%;
-}
-.button1 li{
-  width: 33.3%;
-}
-.button2 li{
-  width: 50%;
-  margin-bottom: 10px;
-}
-ul{
-  margin-top: 20px;
-}
-ul li{
-  float: left;
-  text-align: center;
 
-}
 
-ul li div{
-  display: inline-block;
-  width: 75px;
-  height: 75px;
-  font-size: 14px;
-  color: #999999;
-  position: relative;
-  border: 1px solid #e6f9ff;
-}
-ul li div:hover{
-  border-radius: 100%;
-  border: 1px solid #c4f1ff;
-  background-color: white;
-}
-ul li div img{
-  width: 30px;
-  margin-top: 5px;
-}
-.eye{
-  width: 50px;
-}
-.mall{
-  width: 35px;
-}
-ul li div p{
-  width: 100%;
-  position: absolute;
-  bottom: 5px;
-
-}
 .info{
   width: 100%;
   overflow: hidden;
-  margin-bottom: 50px;
-  padding: 5px;
-  background-color: white;
-}
-.info .title{
-  padding: 0 5px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 12px;
-  color: #606060;
-}
-  .info .title img{
-    width: 16px;
-    height: 16px;
-    margin: 7px 5px;
-  }
-  .info .title span{
-    font-size: 12px;
-  }
-  .add{
-    float: right;
-  }
-  .infopic{
+  padding: 0 10px;
+  .title {
     width: 100%;
-    overflow: hidden;
+    height: 40px;
+    font-size: 13px;
+    line-height: 40px;
+    border-bottom: 1px solid #f7f7f7;
+    >div{
+      float: right;
+    }
+    i{
+      display: inline-block;
+      /*margin: 72px;*/
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+      width: 10px; height: 10px;
+      transform: rotate(-45deg);
+    }
   }
-.infopic img{
-  width: 25%;
-  display: block;
-  padding: 5px;
-  float: left;
+  .msg{
+    padding: 10px 0;
+    border-bottom: 1px solid #f7f7f7;
+    height: 130px;
+    font-size: 14px;
+    position: relative;
+    p{
+      margin-right: 105px;
+    }
+    div{
+      width: 105px;
+      height: 105px;
+      overflow: hidden;
+      position: absolute;
+      top:10px;
+      right: 0;
+      border-radius: 10px;
+      img{
+        height: 100%;
+        width: auto;
+      }
+    }
+    span{
+      display: block;
+      font-size: 12px;
+      color: #8f8f8f;
+      position: absolute;
+      bottom: 10px;
+    }
+  }
 }
+
+
 </style>

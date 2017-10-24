@@ -79,16 +79,20 @@ li{
   float: left;
   height: 100%;
   display: block;
-  padding: 5px ;
+  padding: 5px 0;
   text-align: center;
+  position: relative;
 }
 li img{
   width: 25px;
-  height: 25px;
+  /*height: 25px;*/
 }
 li p{
   font-size: 12px;
   color: #8b9094;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 .active p{
   color: #1383ca
