@@ -1,40 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Index from '@/page/index'
 import Home from '@/page/home'
 import Doctor from '@/page/doctor'
 import Info from '@/page/info'
 import Maintain from '@/page/maintain'
 import My from '@/page/my'
+import Login from '@/page/login'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/doctor',
-      name: 'doctor',
-      component: Doctor
-    },
-    {
-      path: '/info',
-      name: 'info',
-      component: Info
-    },
-    {
-      path: '/maintain',
-      name: 'maintain',
-      component: Maintain
-    },
-    {
-      path: '/my',
-      name: 'my',
-      component: My
-    }
+    {path: '/', name: 'index', component: Index, children: [
+      {path: '/home', name: 'home', alias: '', component: Home},
+      {path: '/doctor', name: 'doctor', component: Doctor},
+      {path: '/info', name: 'info', component: Info},
+      {path: '/maintain', name: 'maintain', component: Maintain},
+      {path: '/my', name: 'my', component: My, meta: { requiresAuth: true }}
+    ]},
+    {path: '/login', name: 'login', component: Login}
+
+
   ]
 })

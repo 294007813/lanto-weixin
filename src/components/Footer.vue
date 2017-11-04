@@ -1,6 +1,6 @@
 <template>
   <ul class="footer">
-    <router-link :class="{active: findex==1}" :to="{ path: '/' }" tag="li">
+    <router-link :class="{active: findex==1}" :to="{ path: '/home' }" tag="li">
       <img src="../assets/img/footer/home.png" v-show="findex==1">
       <img src="../assets/img/footer/unhome.png" v-show="findex!=1">
       <p>首页</p>
@@ -49,7 +49,7 @@
     },
     methods:{
       fChange() {
-        switch (this.$route.matched[0].name){
+        switch (this.$route.matched[1].name){
           case 'home': {this.findex= 1; break;}
           case 'maintain': {this.findex= 2; break;}
           case 'doctor': {this.findex= 3; break;}
@@ -62,7 +62,7 @@
 </script>
 
 
-<style scoped>
+<style scoped lang="scss">
 .footer{
     width: 100%;
     height: 50px;
@@ -84,8 +84,12 @@ li{
   position: relative;
 }
 li img{
-  width: 25px;
+  width: 24px;
   /*height: 25px;*/
+
+}
+li:last-child img{
+  width: 20px;
 }
 li p{
   font-size: 12px;
