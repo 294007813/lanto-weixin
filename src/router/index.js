@@ -8,6 +8,7 @@ import Info from '@/page/info'
 import Maintain from '@/page/maintain'
 import My from '@/page/my'
 import Login from '@/page/login'
+import Register from '@/page/register'
 
 Vue.use(Router)
 
@@ -20,7 +21,8 @@ export default new Router({
       {path: '/maintain', name: 'maintain', component: Maintain},
       {path: '/my', name: 'my', component: My, meta: { requiresAuth: true }}
     ]},
-    {path: '/login', name: 'login', component: Login}
+    {path: '/login', name: 'login', component: Login},
+    {path: '/register', name: 'register', component: Register}
 
 
   ]

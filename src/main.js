@@ -7,6 +7,8 @@ import '@/assets/common.css'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+import './login.js'
+
 Vue.config.productionTip = false
 Vue.use(MintUI)
 
@@ -17,3 +19,4 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
