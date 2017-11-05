@@ -53,7 +53,7 @@
           },
           data: JSON.stringify(data)
         }).then(function (response) {
-          console.log(response)
+//          console.log(response)
           if(response.data.code=='000000'){
             localStorage.setItem("ACCESSTOKEN",response.data.data.accessToken);
             localStorage.setItem("USERINFO",JSON.stringify(response.data.data));
