@@ -18,7 +18,7 @@
       'lt-footer':Footer
     },
     beforeCreate(){
-      console.log(uuid())
+//      console.log(uuid())
       let data={
         device: uuid(),
         password: "EpPrCgbF",

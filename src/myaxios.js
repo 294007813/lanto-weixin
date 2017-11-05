@@ -20,7 +20,22 @@ axios.interceptors.response.use(
       }
       case '130503':{
         localStorage.removeItem("SYSTEMTOKEN")
-
+        let data={
+          device: uuid(),
+          password: "EpPrCgbF",
+          username: "wechatqixiu"
+        }
+        axios({
+          method: 'post',
+          url: '/system/terminalsystem/login',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          data: JSON.stringify(data)
+        }).then(function (response) {
+//        console.log(response)
+          localStorage.setItem("SYSTEMTOKEN", response.data.data.systemToken)
+        })
         break
       }
     }

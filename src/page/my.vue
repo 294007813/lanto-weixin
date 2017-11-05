@@ -2,7 +2,7 @@
   <div class="">
     <div class="head">
       <img src="../assets/img/my/photo.png">
-      <span>name</span>
+      <span>{{name}}</span>
       <p><i></i></p>
     </div>
     <div class="list">
@@ -23,18 +23,46 @@
     <div class="list">
       <span>意见反馈</span> <p><i></i></p>
     </div>
-    <div class="list">
+    <div class="list" @click="logout">
       <span>退出账号</span> <p><i></i></p>
     </div>
   </div>
 </template>
 
 <script>
+  import { MessageBox } from 'mint-ui'
 export default {
   name: 'query',
   data () {
     return {
+      name:""
+    }
+  },
+  beforeMount(){
+    let userinfo=JSON.parse(localStorage.getItem("USERINFO"))
+//    console.log(userinfo)
+    this.name= userinfo.userName? userinfo.userName: userinfo.telphone
+  },
+  methods:{
+    logout(){
+      let self= this
+      this.axios({
+        method: 'get',
+        url: '/user/useraccount/logout/'+ localStorage.getItem("ACCESSTOKEN")
+      }).then(function (response) {
+        if(response.data.code!='000000'){
+          MessageBox('提示', response.data.status);
+        }else{
+          localStorage.removeItem("ACCESSTOKEN")
+          localStorage.removeItem("USERINFO")
+          MessageBox.alert('退出成功').then(action => {
+            self.$router.replace({
+              path:'/'
+            })
+          });
 
+        }
+      })
     }
   }
 }
