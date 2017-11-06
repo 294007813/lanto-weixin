@@ -6,6 +6,10 @@
       placeholder="搜索">
     </mt-search>
     <baidu-map class="map" center="上海" :zoom="zoom" @ready="handler">
+      <bm-point-collection
+        :points="points"
+        color="yellow"
+      ></bm-point-collection>
     </baidu-map>
   </div>
 </template>
@@ -16,8 +20,33 @@ export default {
   data () {
     return {
       searchv:'',
-      zoom: 14
+      zoom: 14,
+      points:[]
     }
+  },
+  beforeMount(){
+    let self=this, data={
+      systemToken: localStorage.getItem("SYSTEMTOKEN")
+    }
+    this.axios({
+      method: 'post',
+      url: '/maintain/getRangeCorps',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      data: JSON.stringify(data)
+    }).then(function (response) {
+      console.log(response)
+      let points = [], datas=response.data.data;
+      for( let i in datas){
+        points.push({
+          lng: datas[i].longitude,
+          lat: datas[i].latitude
+        })
+      }
+      self.points= points
+
+    })
   },
   methods:{
     handler ({BMap, map}) {
@@ -36,6 +65,6 @@ export default {
   }
   .map{
     width: 100%;
-    height: calc(100vh - 85px);
+    height: calc(100vh - 95px);
   }
 </style>

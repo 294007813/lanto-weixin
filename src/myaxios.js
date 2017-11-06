@@ -12,13 +12,6 @@ axios.interceptors.response.use(
     switch (response.data.code){
       case '130403':{
         localStorage.removeItem("ACCESSTOKEN");
-        router.replace({
-          path: '/login',
-          query: {redirect: router.currentRoute.fullPath}
-        });
-        break
-      }
-      case '130503':{
         localStorage.removeItem("SYSTEMTOKEN")
         let data={
           device: uuid(),
@@ -35,7 +28,17 @@ axios.interceptors.response.use(
         }).then(function (response) {
 //        console.log(response)
           localStorage.setItem("SYSTEMTOKEN", response.data.data.systemToken)
+          router.replace({
+            path: '/login',
+            query: {redirect: router.currentRoute.fullPath}
+          });
         })
+
+
+        break
+      }
+      case '130503':{
+
         break
       }
     }
