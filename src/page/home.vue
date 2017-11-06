@@ -9,15 +9,15 @@
     </mt-swipe>
   </div>
   <ul class="icons">
-    <li><img src="../assets/img/home/fix.png"/><p>找维修</p></li>
+    <li @click="goFix"><img src="../assets/img/home/fix.png"/><p>找维修</p></li>
     <li><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
-    <li><img src="../assets/img/home/doctor.png"/><p>车大夫</p></li>
+    <li @click="goDoctor"><img src="../assets/img/home/doctor.png"/><p>车大夫</p></li>
     <li><img src="../assets/img/home/mall.png"/><p>车品商城</p></li>
-    <li><img src="../assets/img/home/info.png"/><p>信息服务</p></li>
+    <li @click="goInfo"><img src="../assets/img/home/info.png"/><p>信息服务</p></li>
   </ul>
   <div class="info">
     <div class="title">
-      <span>资讯</span><div><span>更多</span><i></i></div>
+      <span>资讯</span><div @click="goInfo"><span>更多</span><i></i></div>
     </div>
     <div class="msg">
       <p>汽车有了电子健康档案，维修厂你怎么看？</p>
@@ -43,6 +43,17 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods:{
+    goFix(){
+      this.$router.push({ path: '/maintain'})
+    },
+    goDoctor(){
+      this.$router.push({ path: '/doctor'})
+    },
+    goInfo(){
+      this.$router.push({ path: '/info'})
     }
   }
 }
