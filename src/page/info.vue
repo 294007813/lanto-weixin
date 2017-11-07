@@ -11,28 +11,28 @@
   <!-- tab-container -->
   <mt-tab-container v-model="selected">
     <mt-tab-container-item id="1">
-      <div class="msg">
+      <div @click="goOut" class="msg">
         <p>汽车有了电子健康档案，维修厂你怎么看？</p>
         <div>
           <img src="../assets/img/other/info2.png"/>
         </div>
         <span>办事指南-2017.10.23</span>
       </div>
-      <div class="msg">
+      <div @click="goOut" class="msg">
         <p>交通运输部办公厅关于开展汽车电子健康档案系统建设试点工作的通知</p>
         <div>
           <img src="../assets/img/other/info3.jpg">
         </div>
         <span>法律法规-2017.10.23</span>
       </div>
-      <div class="msg">
+      <div @click="goOut" class="msg">
         <p>汽车有了电子健康档案，维修厂你怎么看？</p>
         <div>
           <img src="../assets/img/other/info2.png"/>
         </div>
         <span>办事指南-2017.10.23</span>
       </div>
-      <div class="msg">
+      <div @click="goOut" class="msg">
         <p>交通运输部办公厅关于开展汽车电子健康档案系统建设试点工作的通知</p>
         <div>
           <img src="../assets/img/other/info3.jpg">
@@ -41,7 +41,13 @@
       </div>
     </mt-tab-container-item>
     <mt-tab-container-item id="2">
-
+      <div @click="goOut" class="msg">
+        <p>汽车有了电子健康档案，维修厂你怎么看？</p>
+        <div>
+          <img src="../assets/img/other/info2.png"/>
+        </div>
+        <span>办事指南-2017.10.23</span>
+      </div>
     </mt-tab-container-item>
     <mt-tab-container-item id="3">
 
@@ -50,7 +56,13 @@
 
     </mt-tab-container-item>
     <mt-tab-container-item id="5">
-
+      <div class="msg">
+        <p>交通运输部办公厅关于开展汽车电子健康档案系统建设试点工作的通知</p>
+        <div>
+          <img src="../assets/img/other/info3.jpg">
+        </div>
+        <span>法律法规-2017.10.23</span>
+      </div>
     </mt-tab-container-item>
   </mt-tab-container>
 </div>
@@ -65,6 +77,11 @@ export default {
   data () {
     return {
       selected:"1"
+    }
+  },
+  methods:{
+    goOut(){
+      window.location.href= 'http://static.shanghaiqixiu.org/article/1.html'
     }
   },
   components:{

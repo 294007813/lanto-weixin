@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import { MessageBox } from 'mint-ui'
+  import { MessageBox, Toast } from 'mint-ui'
   export default {
     name: 'login',
     data () {
@@ -30,6 +30,7 @@
     },
     mounted(){
       console.log(this.$route.query.redirect)
+      Toast('请登录！');
     },
     methods:{
       goBack(){

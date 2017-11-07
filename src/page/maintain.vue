@@ -5,10 +5,10 @@
       cancel-text="取消"
       placeholder="搜索">
     </mt-search>
-    <baidu-map class="map" center="上海" :zoom="zoom" @ready="handler">
+    <baidu-map class="map" center="上海市闵行区" :zoom="zoom" @ready="handler">
       <bm-point-collection
         :points="points"
-        color="yellow"
+        color="red"
       ></bm-point-collection>
     </baidu-map>
   </div>
@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       searchv:'',
-      zoom: 14,
+      zoom: 13,
       points:[]
     }
   },

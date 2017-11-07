@@ -10,7 +10,7 @@
   </div>
   <ul class="icons">
     <li @click="goFix"><img src="../assets/img/home/fix.png"/><p>找维修</p></li>
-    <li><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
+    <li @click="goCarList"><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
     <li @click="goDoctor"><img src="../assets/img/home/doctor.png"/><p>车大夫</p></li>
     <li><img src="../assets/img/home/mall.png"/><p>车品商城</p></li>
     <li @click="goInfo"><img src="../assets/img/home/info.png"/><p>信息服务</p></li>
@@ -54,6 +54,9 @@ export default {
     },
     goInfo(){
       this.$router.push({ path: '/info'})
+    },
+    goCarList(){
+      this.$router.push({ path: '/carList'})
     }
   }
 }
