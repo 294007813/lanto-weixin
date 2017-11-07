@@ -5,13 +5,13 @@
       <span>{{name}}</span>
       <p><i></i></p>
     </div>
-    <div class="list">
+    <div class="list" @click="goCarList">
       <span>健康档案</span> <p><i></i></p>
     </div>
     <div class="list">
       <span>专家列表</span> <p><i></i></p>
     </div>
-    <div class="list">
+    <div class="list" >
       <span>我的提问</span> <p><i></i></p>
     </div>
     <div class="list">
@@ -63,6 +63,9 @@ export default {
 
         }
       })
+    },
+    goCarList(){
+      this.$router.push({ path: '/carList'})
     }
   }
 }

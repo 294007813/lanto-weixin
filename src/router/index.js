@@ -10,6 +10,7 @@ import My from '@/page/my'
 import Login from '@/page/login'
 import Register from '@/page/register'
 import CarList from '@/page/carlist'
+import RecordList from '@/page/recordlist'
 
 Vue.use(Router)
 
@@ -24,7 +25,8 @@ export default new Router({
     ]},
     {path: '/login', name: 'login', component: Login},
     {path: '/register', name: 'register', component: Register},
-    {path: '/carlist', name: 'carlist', component: CarList, meta: { requiresAuth: true }}
+    {path: '/carlist', name: 'carlist', component: CarList, meta: { requiresAuth: true }},
+    {path: '/recordlist', name: 'recordlist', component: RecordList, meta: { requiresAuth: true }}
 
 
   ]

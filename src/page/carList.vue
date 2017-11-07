@@ -5,7 +5,7 @@
       cancel-text="取消"
       placeholder="搜索车牌号码">
     </mt-search>
-    <div class="block">
+    <div @click="goRecordList" class="block">
       <div class="title"><img src="../assets/img/record/list.png"/><span>苏AS566X</span></div>
       <div class="info">
         <p><span>车辆品牌：凯迪拉克</span> <span class="right">车系：XT5</span></p>
@@ -40,6 +40,13 @@ export default {
     return{
       searchv:""
     }
+  },
+  methods:{
+    goRecordList(){
+      this.$router.push({
+        path:'/recordList'
+      })
+    }
   }
 }
 </script>
@@ -58,8 +65,8 @@ export default {
       height: 30px;
       overflow: hidden;
       img{
-        width: 20px;
-        margin-top: 5px;
+        width: 15px;
+        margin-top: 7px;
       }
       span{
         font-size: 16px;
