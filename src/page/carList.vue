@@ -36,6 +36,28 @@
 
 <script>
 export default {
+  created(){
+    let data = {
+      systemToken: localStorage.getItem("SYSTEMTOKEN"),
+      vehicleplatenumber: localStorage.getItem("ACCESSTOKEN"),
+      limit: 0,
+      page: 0,
+    }
+    this.axios({
+      method: 'post',
+      url: '/vehicle/owner/queryVehicelist',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      data: JSON.stringify(data)
+    })
+    .then(res => {
+      console.log(res);
+      if(res.status === 200) {
+        
+      }
+    })
+  },
   data(){
     return{
       searchv:""

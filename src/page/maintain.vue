@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div id="allmap">
     <mt-search
       v-model="searchv"
       cancel-text="取消"
@@ -15,6 +15,12 @@
 </template>
 
 <script>
+  var map = new BMap.Map("allmap")
+	var point = new BMap.Point(116.404, 39.915)
+	map.centerAndZoom(point, 15)
+	var marker = new BMap.Marker(point)  // 创建标注
+	map.addOverlay(marker);              // 将标注添加到地图中
+	marker.setAnimation(BMAP_ANIMATION_BOUNCE) //跳动的动画
 export default {
   name: '',
   data () {
@@ -28,6 +34,7 @@ export default {
     let self=this, data={
       systemToken: localStorage.getItem("SYSTEMTOKEN")
     }
+    console.log(data);
     this.axios({
       method: 'post',
       url: '/maintain/getRangeCorps',
@@ -45,12 +52,11 @@ export default {
         })
       }
       self.points= points
-
     })
   },
   methods:{
     handler ({BMap, map}) {
-      console.log(BMap, map)
+      // console.log(BMap, map)
 
 //      this.zoom = 5
     }
