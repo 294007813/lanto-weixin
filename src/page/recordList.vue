@@ -2,15 +2,15 @@
 <div>
   <div class="basinfo">
     <div class="title"><img src="../assets/img/record/list.png"/><span>基本信息</span></div>
-    <ul class="info">
-      <li><i>*</i><span>车牌号码</span><p>苏AS566X</p></li>
-      <li><span>车辆品牌</span><p>凯迪拉克</p></li>
-      <li><span>车系</span><p></p></li>
-      <li><span>排量</span><p>2.0T</p></li>
-      <li><span>生产年份</span><p>2017</p></li>
-      <li><span>购买日期</span><p>2017-10-09</p></li>
-      <li><i>*</i><span>车架号</span><p>LBVNU39039SC84</p></li>
-      <li><span>发动机号</span><p></p></li>
+    <ul class="info" v-for='(item, index) in info' :key='index'>
+      <li><i>*</i><span>车牌号码</span><p>{{ item.vehicleplatenumber }}</p></li>
+      <li><span>车辆品牌</span><p>{{ item.brand }}</p></li>
+      <li><span>车系</span><p>{{ item.cartype }}</p></li>
+      <li><span>排量</span><p>{{  }}T</p></li>
+      <li><span>生产年份</span><p>{{ item.manufacturedate }}</p></li>
+      <li><span>购买日期</span><p>{{ item.registerdate }}</p></li>
+      <li><i>*</i><span>车架号</span><p>{{ item.vin }}</p></li>
+      <li><span>发动机号</span><p>{{ item.engineno }}</p></li>
     </ul>
   </div>
 
@@ -20,7 +20,7 @@
       <li><span>维修企业</span><p>上海永畅修理厂</p></li>
       <li><span>结算日期</span><p>2017-09-08</p></li>
       <li><span>送修里程</span><p>19023</p></li>
-      <div class="more"><span>详情</span><i></i></div>
+      <div class="more" @click="goVehicleDetail"><span>详情</span><i></i></div>
     </ul>
     <ul class="info thick">
       <li><span>维修企业</span><p>上海永畅修理厂</p></li>
@@ -36,8 +36,51 @@
 export default {
   data(){
     return{
-
+      info: [],
+      info2: []
     }
+  },
+  methods: {
+    goVehicleDetail() {
+       this.$router.push({
+        path:'/vehicleDetail'
+      })
+    }
+  },
+  created() {
+    let data = {
+      accessToken: localStorage.getItem("ACCESSTOKEN"),
+      vehicleplatenumber: '',
+      vehicleId: location.hash.split('?')[1].split('=')[1],
+      limit: 10,
+      page: 1
+    }
+    let data2 = {
+      accessToken: localStorage.getItem("ACCESSTOKEN"),
+      repairbasicinfoId: 0
+    }
+
+    this.axios({
+      method: 'post',
+      url: '/vehicle/owner/queryVehicelist',
+      headers: {'Content-type': 'application/json'},
+      data: JSON.stringify(data)
+    })
+    .then(res => {
+      this.info = res.data.data.content
+      console.log(this.info);
+    })
+
+    this.axios({
+      method: 'post',
+      url: '/vehicle/carfile/queryDetail',
+      headers: { 'Content-type': 'application/json'},
+      data: JSON.stringify(data2)
+    })
+    .then(res => {
+      // this.info2 = res.data.data
+      // console.log(this.info2);
+    })
   }
 }
 </script>

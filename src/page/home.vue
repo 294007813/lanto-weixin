@@ -1,13 +1,14 @@
 <template>
 <div class="animated fadeIn home">
-  <div class="banner">
+  <!-- <div class="banner">
     <mt-swipe :auto="8000">
       <mt-swipe-item><img src="../assets/img/home/banner1.png"/></mt-swipe-item>
       <mt-swipe-item><img src="../assets/img/home/banner2.png"/></mt-swipe-item>
       <mt-swipe-item><img src="../assets/img/home/banner3.png"/></mt-swipe-item>
       <mt-swipe-item><img src="../assets/img/home/banner4.png"/></mt-swipe-item>
     </mt-swipe>
-  </div>
+  </div> -->
+  <div class="top">首页</div>
   <ul class="icons">
     <li @click="goFix"><img src="../assets/img/home/fix.png"/><p>找维修</p></li>
     <li @click="goCarList"><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
@@ -67,16 +68,24 @@ export default {
   .home{
     margin-bottom: 50px;
   }
-.banner{
-  height: 135px;
-  .mint-swipe-item{
-    img{
-      width: 100%;
-      position: relative;
-      top: 50%;
-      transform: translatey(-50%);
-    }
-  }
+// .banner{
+//   height: 135px;
+//   .mint-swipe-item{
+//     img{
+//       width: 100%;
+//       position: relative;
+//       top: 50%;
+//       transform: translatey(-50%);
+//     }
+//   }
+// }
+.top {
+  height: 40px;
+  background-color: #469df6;
+  color: #fff;
+  line-height: 40px;
+  font-size: 16px;
+  text-align: center;
 }
 .icons{
   display: -webkit-flex; /* Safari */
@@ -93,7 +102,7 @@ export default {
       width: 35px;
     }
     p{
-      margin-top: 5px;
+      margin-top: 10px;
     }
   }
 }

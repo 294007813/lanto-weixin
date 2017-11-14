@@ -62,23 +62,19 @@
         }
         if(this.timer) return;
 
-        let data={
-          access_token: localStorage.getItem('SYSTEMTOKEN'),
-          usertel: this.tel
-        }
         this.axios({
           method: 'post',
-          url: '/message/sms/sendcaptcha',
+          url: '/message/sms/sendcaptcha/'+ localStorage.getItem('SYSTEMTOKEN') + '/' + this.tel,
           headers: {
             'Content-type': 'application/json'
-          },
-          data: JSON.stringify(data)
+          }
         }).then(function (response) {
           console.log(response)
           if(response.data.code=='000000'){
             Toast('发送成功，请查收！');
-          }else Toast(response.data.status);
-
+          }else {
+            Toast(response.data.status);
+          }
         })
 
 
@@ -87,7 +83,6 @@
         let num= 0;
         if (!this.timer) {
           this.count = TIME_COUNT;
-
           this.timer = setInterval(() => {
             if (this.count > 0 && this.count <= TIME_COUNT) {
               num= this.count

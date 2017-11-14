@@ -1,47 +1,50 @@
 <template>
-  <div class="">
+  <div>
     <div class="head">
-      <img src="../assets/img/my/photo.png">
-      <span>{{name}}</span>
-      <p><i></i></p>
+      <b>{{name}}</b>
+      <u @click="popupVisible=!popupVisible"></u>
+      <span>{{ tel }}</span>
+      <img @click="logout" src="../assets/img/my/user.png" alt="">
     </div>
     <div class="list" @click="goCarList">
-      <span>健康档案</span> <p><i></i></p>
-    </div>
-    <div class="list">
-      <span>专家列表</span> <p><i></i></p>
+      <img src="../assets/img/my/health.png" alt=""><span>健康档案</span> <p><i></i></p>
     </div>
     <div class="list" >
-      <span>我的提问</span> <p><i></i></p>
+      <img src="../assets/img/my/my_questions.png" alt=""><span>我的提问</span> <p><i></i></p>
     </div>
     <div class="list">
-      <span>满意度调查</span> <p><i></i></p>
+      <img src="../assets/img/my/expert_info.png" alt=""><span>专家信息</span> <p><i></i></p>
+    </div>
+    
+    <div class="list">
+      <img src="../assets/img/my/Satisfaction_degree.png" alt=""><span>满意度调查</span> <p><i></i></p>
     </div>
     <div class="list">
-      <span>投诉举报</span> <p><i></i></p>
+      <img src="../assets/img/my/set.png" alt=""><span>设置</span> <p><i></i></p>
     </div>
     <div class="list">
-      <span>意见反馈</span> <p><i></i></p>
+      <img src="../assets/img/my/feedback.png" alt=""><span>意见反馈</span> <p><i></i></p>
     </div>
-    <div class="list" @click="logout">
-      <span>退出账号</span> <p><i></i></p>
+    <div class="list">
+      <img src="../assets/img/my/report.png" alt=""><span>投诉举报</span> <p><i></i></p>
     </div>
   </div>
 </template>
 
 <script>
   import { MessageBox } from 'mint-ui'
-export default {
+  export default {
   name: 'query',
   data () {
     return {
-      name:""
+      name:"",
+      tel: ''
     }
   },
   beforeMount(){
     let userinfo=JSON.parse(localStorage.getItem("USERINFO"))
-//    console.log(userinfo)
     this.name= userinfo.userName? userinfo.userName: userinfo.telphone
+    this.tel=userinfo.telphone.substr(0,3)+"****"+ userinfo.telphone.substr(7)
   },
   methods:{
     logout(){
@@ -79,32 +82,64 @@ export default {
 }
 .head{
   height: 100px;
-  line-height: 70px;
+  line-height: 60px;
   border-top: 10px solid #f8f8f8;
   border-bottom: 10px solid #f8f8f8;
   padding: 0 10px;
+  position: relative;
+  b {
+    font-size: 20px;
+  }
   img{
     width: 60px;
     margin: 10px;
+    float: right;
+  }
+  u {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../assets/img/my/edit.png);
+    background-size: 100% 100%;
+    margin-left: 10px;
+  }
+  span {
+    position: absolute;
+    left: 10px;
+    top: 25px;
+    color: #999;
   }
 }
 .list{
-  height: 40px;
-  line-height: 40px;
+  height: 50px;
+  line-height: 50px;
   padding: 0 10px;
   border-bottom: 1px solid #f8f8f8;
-}
-p{
-  height: 100%;
-  float: right;
-}
-i{
-  display: inline-block;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-  width: 10px;
-  height: 10px;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  position: relative;
+
+  img {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 13px;
+    left: 18px;
+  }
+  span {
+    margin-left: 45px;
+  }
+  p{
+    height: 100%;
+    float: right;
+  }
+  i{
+    display: inline-block;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    width: 10px;
+    height: 10px;
+    color: #999;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
 }
 </style>

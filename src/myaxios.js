@@ -3,7 +3,7 @@ import router from './router'
 
 // axios 配置
 axios.defaults.timeout = 10000;
-axios.defaults.baseURL = 'http://test.qixiu.shanghaiqixiu.org/';
+axios.defaults.baseURL = 'http://dev.qixiu.shanghaiqixiu.org/';
 
 // http response 拦截器
 axios.interceptors.response.use(

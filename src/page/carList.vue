@@ -1,36 +1,28 @@
 <template>
-  <div>
-    <mt-search
-      v-model="searchv"
-      cancel-text="取消"
-      placeholder="搜索车牌号码">
-    </mt-search>
-    <div @click="goRecordList" class="block">
-      <div class="title"><img src="../assets/img/record/list.png"/><span>苏AS566X</span></div>
-      <div class="info">
-        <p><span>车辆品牌：凯迪拉克</span> <span class="right">车系：XT5</span></p>
-        <p><span>车架号：LBVNU39039SC84</span></p>
-        <p><span>发动机号：M0301606123</span></p>
-      </div>
+  <div class='box'>
+    <div class='search'>
+      <input type="search" placeholder="搜索车牌号码">
     </div>
 
-    <div class="block">
-      <div class="title"><img src="../assets/img/record/list.png"/><span>苏AS566X</span></div>
-      <div class="info">
-        <p><span>车辆品牌：凯迪拉克</span> <span class="right">车系：XT5</span></p>
-        <p><span>车架号：LBVNU39039SC84</span></p>
-        <p><span>发动机号：M0301606123</span></p>
-      </div>
-    </div>
 
-    <div class="block">
-      <div class="title"><img src="../assets/img/record/list.png"/><span>苏AS566X</span></div>
-      <div class="info">
-        <p><span>车辆品牌：凯迪拉克</span> <span class="right">车系：XT5</span></p>
-        <p><span>车架号：LBVNU39039SC84</span></p>
-        <p><span>发动机号：M0301606123</span></p>
+    <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='""' :bottomPullText='bottomText' @bottom-status-change='change'
+ ref="loadmore">
+      <div @click="goRecordList(item.vehicleId)"  class="block" v-for='(item, index) in carList' :key='index'>
+        <div class="title">
+          <img width="15" height="15" src="../assets/img/record/list.png"/>
+          <span>{{ item.vehicleplatenumber }}</span>
+          <img class="arrow" src="../assets/img/my/right-arrow.png" width="7px" height="14px">
+        </div>
+        <div class="info">
+          <p><span>车辆品牌：{{ item.brand }}</span></p>
+          <p><span>车  架  号：{{ item.vin }}</span></p>
+          <p><span>发动机号：{{ item.engineno }}</span></p>
+        </div>
       </div>
-    </div>
+    </mt-loadmore>
+
+
+
   </div>
 </template>
 
@@ -38,10 +30,10 @@
 export default {
   created(){
     let data = {
-      systemToken: localStorage.getItem("SYSTEMTOKEN"),
-      vehicleplatenumber: localStorage.getItem("ACCESSTOKEN"),
-      limit: 0,
-      page: 0,
+      accessToken: localStorage.getItem("ACCESSTOKEN"),
+      vehicleplatenumber: '',
+      limit: 10,
+      page: this.page
     }
     this.axios({
       method: 'post',
@@ -52,28 +44,101 @@ export default {
       data: JSON.stringify(data)
     })
     .then(res => {
-      console.log(res);
-      if(res.status === 200) {
-        
-      }
+      this.carList = res.data.data.content
+      this.lastPage = res.data.data.lastPage
     })
   },
+
+
   data(){
     return{
-      searchv:""
+      searchv: "",
+      carList: [],
+      bottomText: '加载更多...',
+      lastPage: 'ddd',
+      page: 1,
+      allLoaded: false
     }
   },
+
+
+
   methods:{
-    goRecordList(){
+    goRecordList(id){
       this.$router.push({
-        path:'/recordList'
+        path:'/recordList',
+        query:{id: id}
       })
+    },
+    loadBottom() {
+      this.page+=1
+      console.log(this.lastPage);
+      if(this.lastPage){
+        this.allLoaded = true;
+        return
+      }
+
+      let data = {
+        accessToken: localStorage.getItem("ACCESSTOKEN"),
+        vehicleplatenumber: '',
+        limit: 10,
+        page: this.page,
+      }
+      this.axios({
+        method: 'post',
+        url: '/vehicle/owner/queryVehicelist',
+        headers: {'Content-type': 'application/json'},
+        data: JSON.stringify(data)
+      }).then(res => {
+        // es6黑科技写法, 数组的属性扩散   http://es6.ruanyifeng.com/#docs/array
+          this.carList=[...this.carList, ...res.data.data.content]
+          this.lastPage = res.data.data.lastPage
+          
+          console.log(this.carList)
+      })
+    },
+    change(val){
+      console.log(val)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+.box {
+  padding-top: 50px;
+  .search {
+    padding: 8px 12px;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    input {
+      background: url(../assets/img/record/search.png) no-repeat 10px 10px;
+      font-size: 14px;
+      background-color: #eee;
+      background-size: 18px 18px;
+      text-indent: 32px;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      width: 100%;
+      height: 35px;
+      position: relative;
+    }
+    span {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      height: 35px;
+      width: 50px;
+      line-height: 35px;
+      text-align: center;
+    }
+  } 
+
   .mint-search{
     height: auto!important;
   }
@@ -81,14 +146,18 @@ export default {
     width: 100%;
     padding: 0 10px;
     border-top: 10px solid #f8f8f8;
+    // margin-top: 50px;
     .title{
       width: 100%;
       border-bottom: 1px solid #f8f8f8;
       height: 30px;
       overflow: hidden;
       img{
-        width: 15px;
         margin-top: 7px;
+      }
+      .arrow {
+        float: right;
+        margin-right: 10px;
       }
       span{
         font-size: 16px;
@@ -112,4 +181,5 @@ export default {
       }
     }
   }
+}
 </style>
