@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <router-view/>
+      <router-view></router-view>
   </div>
 </template>
 
@@ -20,4 +20,7 @@
   /*.fade-enter,  .fade-leave-to!* .fade-leave-active in below version 2.1.8 *! {*/
     /*opacity: 0*/
   /*}*/
+  #app {
+    background-color: #fff;
+  }
 </style>

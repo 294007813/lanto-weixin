@@ -6,7 +6,7 @@
       </form>
     </div>
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='bottomDropText' :bottomPullText='bottomPullText' ref="loadmore">
-      <div @click="goRecordList(item.vehicleId)"  class="block" v-for='(item, index) in carList' :key='index'>
+      <div @click="goRecordList(item.vehicleId, item.vehicleplatenumber)"  class="block" v-for='(item, index) in carList' :key='index'>
         <div class="title">
           <img width="15" height="15" src="../assets/img/record/list.png"/>
           <span>{{ item.vehicleplatenumber }}</span>
@@ -23,8 +23,8 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui'
 export default {
-
   created(){
     let data = {
       accessToken: localStorage.getItem("ACCESSTOKEN"),
@@ -43,6 +43,7 @@ export default {
     .then(res => {
       this.carList = res.data.data.content
       this.lastPage = res.data.data.lastPage
+      console.log(this.carList);
     })
   },
 
@@ -61,10 +62,10 @@ export default {
   },
 
   methods:{
-    goRecordList(id){
+    goRecordList(id, vehicleplatenumber){
       this.$router.push({
         path:'/recordList',
-        query:{id: id}
+        query:{id: id,vehicleplatenumber: vehicleplatenumber}
       })
     },
     //下拉加载更多
@@ -101,6 +102,7 @@ export default {
       if(e.keyCode=='13'){
         if(this.vehicleplatenumber.trim() == ''){
           Toast('请输入车牌号')
+          return
         }
         let data = {
           accessToken: localStorage.getItem("ACCESSTOKEN"),

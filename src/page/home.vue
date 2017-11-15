@@ -59,6 +59,7 @@ export default {
 <style scoped lang="scss">
   .home{
     margin-bottom: 50px;
+    background-color: #fff;
   }
 // .top {
 //   height: 40px;

@@ -7,35 +7,35 @@
         <ul>
             <li>
                 <span class="left">维修企业名称</span>
-                <span class="right">上海市蓝途新能源汽车修理厂</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.companyname }}</span>
             </li>
             <li>
                 <span class="left">结算清单编号</span>
-                <span class="right">1234444</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.costlistcode }}</span>
             </li>
             <li>
                 <span class="left">车辆识别代码</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.vin }}</span>
             </li>
             <li>
                 <span class="left">送修日期</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.repairdate }}</span>
             </li>
             <li>
                 <span class="left">送修里程</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.repairmileage  }}</span>
             </li>
             <li>
                 <span class="left">结算日期</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.settledate  }}</span>
             </li>
             <li>
                 <span class="left">车牌号码</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.vehicleplatenumber  }}</span>
             </li>
             <li>
                 <span class="left">故障描述</span>
-                <span class="right">1234567890</span>
+                <span class="right">{{ repairInfo.repairBasicinfo.faultdescription  }}</span>
             </li>
         </ul>
         <div class="title">
@@ -43,16 +43,10 @@
             <span>维修项目</span>
         </div>
         <ul class="repairItem">
-            <li>
+            <li v-for='(item, index) in repairInfo.repairprojectlist' :key='index'>
                 <div>
-                    <p>名称: 前保险杠拆除和安装</p>
-                    <p>工时: 160.8</p>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <p>名称: 前保险杠拆除和安装</p>
-                    <p>工时: 160.8</p>
+                    <p>名称: {{ item.repairproject }}</p>
+                    <p>工时: {{ item.workinghours }}</p>
                 </div>
             </li>
         </ul>
@@ -61,18 +55,11 @@
             <span>维修配件</span>
         </div>
         <ul class="repairOther">
-            <li>
+            <li v-for='(item, index) in repairInfo.vehiclepartslist' :key="index">
                 <div>
-                    <p>名称: 前左轮罩盖(棉段黑色)</p>
-                    <p>编号: 121212</p>
-                    <p> 数量: 1</p>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <p>名称: 前左轮罩盖(棉段黑色)</p>
-                    <p>编号: 121212</p>
-                    <p> 数量: 1</p>
+                    <p>名称: {{ item.partsname }}</p>
+                    <p>编号: {{ item.partscode }}</p>
+                    <p>数量: {{ item.partsquantity }}</p>
                 </div>
             </li>
         </ul>
@@ -81,10 +68,29 @@
 
 <script>
 export default {
-
+    beforeMount(){
+        let data={
+            "accessToken": localStorage.getItem("ACCESSTOKEN"),
+            "repairbasicinfoId": this.$route.query.repairbasicinfoId
+        }
+        this.axios({
+            method: 'post',
+            url: 'vehicle/carfile/queryDetail',
+            headers: {'Content-type': 'application/json'},
+            data: JSON.stringify(data)
+        })
+        .then(res=>{
+            this.repairInfo = res.data.data
+            console.log(this.repairInfo);
+        })
+    },
+     data(){
+        return{
+            repairInfo: {}
+        }
+    }
 }
 </script>
-
 <style lang='scss' scoped>
     .box {
         

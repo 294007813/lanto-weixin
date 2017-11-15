@@ -77,10 +77,12 @@ export default {
         line-height: 25px;
         p{
           font-size: 14px;
+          margin-bottom: 0;
         }
         span{
           font-size: 12px;
           color: #9a9a9a;
+          
         }
       }
     }

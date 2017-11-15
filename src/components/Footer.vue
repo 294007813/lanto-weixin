@@ -97,6 +97,7 @@ li p{
   width: 100%;
   position: absolute;
   bottom: 0;
+  margin: 0;
 }
 .active p{
   color: #1383ca

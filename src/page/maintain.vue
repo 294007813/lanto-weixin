@@ -7,7 +7,7 @@
     <div class='search'>
       <div class="wrap">
         <form>
-          <input type="search" placeholder="搜索维修站点" @keyup="key($event)">
+          <input type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
         </form>
       </div>
       <span @click='popupVisible=!popupVisible'>筛选</span>
@@ -15,8 +15,6 @@
     <div id="container"></div> 
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
       <div class='content'>
-
-
         <div class="companyType">
           <p>企业类型</p>
           <em @click='popupVisible=!popupVisible'>x</em>
@@ -64,7 +62,8 @@ export default {
         {lng: 121.465, lat: 31.158},
         {lng: 121.475, lat: 31.168},
       ],
-      popupVisible: false
+      popupVisible: false,
+      repairName: ''
     }
   },
 
@@ -131,13 +130,35 @@ export default {
     }
   },
   methods:{
-    handler ({BMap, map}) {
+    handler({BMap, map}){
       // console.log(BMap, map)
       //      this.zoom = 5
     },
     key(e){
       if(e.keyCode=='13'){
-          console.log(1111);
+        let data={
+          systemToken: localStorage.getItem("SYSTEMTOKEN"),
+          // corpName: this.repairName
+        }
+        this.axios({
+          method: 'post',
+          url: '/maintain/getRangeCorps',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          data: JSON.stringify(data)
+        })
+        .then(response => {
+          let points = [], datas=response.data.data;
+          console.log(datas);
+          // for( let i in datas){
+          //   points.push({
+          //     lng: datas[i].longitude,
+          //     lat: datas[i].latitude
+          //   })
+          // }
+          // this.points=points
+        })
       }
     }
   }
@@ -159,7 +180,7 @@ export default {
   //   }
   // }
   .search {
-    padding: 8px 12px;
+    padding: 6px 10px;
     position: relative;
     .wrap {
       margin-right: 60px;
@@ -172,16 +193,17 @@ export default {
         border-radius: 8px;
         outline: none;
         border: none;
-        height: 35px;
+        height: 30px;
         width: 100%;
         position: relative;
+        margin-bottom:0;
       }
     }
     
     span {
       position: absolute;
-      top: 8px;
-      right: 12px;
+      top: 5px;
+      right: 10px;
       height: 35px;
       width: 60px;
       line-height: 35px;

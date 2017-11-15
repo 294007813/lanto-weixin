@@ -7,26 +7,26 @@
       <img @click="logout" src="../assets/img/my/user.png" alt="">
     </div>
     <div class="list" @click="goCarList">
-      <img src="../assets/img/my/health.png" alt=""><span>健康档案</span> <p><i></i></p>
+      <img src="../assets/img/my/health.png" alt=""><span>健康档案</span> <i></i>
     </div>
     <div class="list" >
-      <img src="../assets/img/my/my_questions.png" alt=""><span>我的提问</span> <p><i></i></p>
+      <img src="../assets/img/my/my_questions.png" alt=""><span>我的提问</span> <i></i>
     </div>
     <div class="list">
-      <img src="../assets/img/my/expert_info.png" alt=""><span>专家信息</span> <p><i></i></p>
+      <img src="../assets/img/my/expert_info.png" alt=""><span>专家信息</span> <i></i>
     </div>
     
     <div class="list">
-      <img src="../assets/img/my/Satisfaction_degree.png" alt=""><span>满意度调查</span> <p><i></i></p>
+      <img src="../assets/img/my/Satisfaction_degree.png" alt=""><span>满意度调查</span> <i></i>
     </div>
     <div class="list">
-      <img src="../assets/img/my/set.png" alt=""><span>设置</span> <p><i></i></p>
+      <img src="../assets/img/my/set.png" alt=""><span>设置</span> <i></i>
     </div>
     <div class="list">
-      <img src="../assets/img/my/feedback.png" alt=""><span>意见反馈</span> <p><i></i></p>
+      <img src="../assets/img/my/feedback.png" alt=""><span>意见反馈</span> <i></i>
     </div>
     <div class="list">
-      <img src="../assets/img/my/report.png" alt=""><span>投诉举报</span> <p><i></i></p>
+      <img src="../assets/img/my/report.png" alt=""><span>投诉举报</span> <i></i>
     </div>
   </div>
 </template>
@@ -116,7 +116,6 @@
   padding: 0 10px;
   border-bottom: 1px solid #f8f8f8;
   position: relative;
-
   img {
     position: absolute;
     width: 22px;
@@ -127,12 +126,10 @@
   span {
     margin-left: 45px;
   }
-  p{
-    height: 100%;
-    float: right;
-  }
   i{
-    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 18px;
     border-right: 1px solid;
     border-bottom: 1px solid;
     width: 10px;
@@ -142,4 +139,8 @@
     transform: rotate(-45deg);
   }
 }
+.list:nth-child(6) {
+  border-top: 10px solid #f8f8f8;
+}
+
 </style>
