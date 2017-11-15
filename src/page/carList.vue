@@ -1,12 +1,11 @@
 <template>
   <div class='box'>
     <div class='search'>
-      <input type="search" placeholder="搜索车牌号码">
+      <form>
+        <input type="search" placeholder="搜索车牌号码" v-model='vehicleplatenumber' @keyup="key($event)">
+      </form>
     </div>
-
-
-    <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='""' :bottomPullText='bottomText' @bottom-status-change='change'
- ref="loadmore">
+    <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='bottomDropText' :bottomPullText='bottomPullText' ref="loadmore">
       <div @click="goRecordList(item.vehicleId)"  class="block" v-for='(item, index) in carList' :key='index'>
         <div class="title">
           <img width="15" height="15" src="../assets/img/record/list.png"/>
@@ -20,14 +19,12 @@
         </div>
       </div>
     </mt-loadmore>
-
-
-
   </div>
 </template>
 
 <script>
 export default {
+
   created(){
     let data = {
       accessToken: localStorage.getItem("ACCESSTOKEN"),
@@ -54,14 +51,14 @@ export default {
     return{
       searchv: "",
       carList: [],
-      bottomText: '加载更多...',
+      bottomPullText: '加载更多...',
+      bottomDropText: '释放更新',
       lastPage: 'ddd',
       page: 1,
-      allLoaded: false
+      allLoaded: false,
+      vehicleplatenumber: ''
     }
   },
-
-
 
   methods:{
     goRecordList(id){
@@ -70,14 +67,16 @@ export default {
         query:{id: id}
       })
     },
+    //下拉加载更多
     loadBottom() {
       this.page+=1
-      console.log(this.lastPage);
       if(this.lastPage){
-        this.allLoaded = true;
+        this.bottomText = '没有更多了...'
+        this.bottomDropText = '没有更多了...'
+        this.bottomPullText = '没有更多了...'
+        this.$refs.loadmore.onBottomLoaded()
         return
       }
-
       let data = {
         accessToken: localStorage.getItem("ACCESSTOKEN"),
         vehicleplatenumber: '',
@@ -93,12 +92,35 @@ export default {
         // es6黑科技写法, 数组的属性扩散   http://es6.ruanyifeng.com/#docs/array
           this.carList=[...this.carList, ...res.data.data.content]
           this.lastPage = res.data.data.lastPage
-          
           console.log(this.carList)
       })
+      this.$refs.loadmore.onBottomLoaded()
     },
-    change(val){
-      console.log(val)
+    // 输入车牌号进行搜索
+    key(e){
+      if(e.keyCode=='13'){
+        if(this.vehicleplatenumber.trim() == ''){
+          Toast('请输入车牌号')
+        }
+        let data = {
+          accessToken: localStorage.getItem("ACCESSTOKEN"),
+          vehicleplatenumber: this.vehicleplatenumber,
+          limit: 10,
+          page: 0
+        }
+        this.axios({
+          method: 'post',
+          url: '/vehicle/owner/queryVehicelist',
+          headers: {'Content-type': 'application/json'},
+          data: JSON.stringify(data)
+        }).then(res => {
+          this.carList = res.data.data.content
+          this.allLoaded = true
+          if(this.carList.length == 0){
+            Toast('未找到匹配车辆')
+          }
+        })
+      }
     }
   }
 }

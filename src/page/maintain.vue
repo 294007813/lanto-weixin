@@ -1,12 +1,14 @@
 <template>
   <div id="allmap">
-    <div class="top">
+    <!-- <div class="top">
       找维修
       <span>检测站</span>  
-    </div>
+    </div> -->
     <div class='search'>
       <div class="wrap">
-        <input type="text" placeholder="搜索维修站点">
+        <form>
+          <input type="search" placeholder="搜索维修站点" @keyup="key($event)">
+        </form>
       </div>
       <span @click='popupVisible=!popupVisible'>筛选</span>
     </div>
@@ -133,30 +135,29 @@ export default {
       // console.log(BMap, map)
       //      this.zoom = 5
     },
-    goShuaiXuan() {
-      
-    },
-    handleClick() {
-
+    key(e){
+      if(e.keyCode=='13'){
+          console.log(1111);
+      }
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  .top {
-    height: 40px;
-    background-color: #469df6;
-    color: #fff;
-    line-height: 40px;
-    font-size: 16px;
-    text-align: center;
-    span {
-      float: right;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-  }
+  // .top {
+  //   height: 40px;
+  //   background-color: #469df6;
+  //   color: #fff;
+  //   line-height: 40px;
+  //   font-size: 16px;
+  //   text-align: center;
+  //   span {
+  //     float: right;
+  //     font-size: 14px;
+  //     margin-right: 10px;
+  //   }
+  // }
   .search {
     padding: 8px 12px;
     position: relative;
