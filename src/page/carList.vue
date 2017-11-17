@@ -14,7 +14,7 @@
         </div>
         <div class="info">
           <p><span>车辆品牌：{{ item.brand }}</span></p>
-          <p><span>车  架  号：{{ item.vin }}</span></p>
+          <p><span>车 架 号：{{ item.vin }}</span></p>
           <p><span>发动机号：{{ item.engineno }}</span></p>
         </div>
       </div>
@@ -161,7 +161,7 @@ export default {
       line-height: 35px;
       text-align: center;
     }
-  } 
+  }
 
   .mint-search{
     height: auto!important;

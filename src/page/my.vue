@@ -141,6 +141,7 @@
 }
 .list:nth-child(6) {
   border-top: 10px solid #f8f8f8;
+  box-sizing: content-box;
 }
 
 </style>

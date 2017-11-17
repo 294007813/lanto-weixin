@@ -8,7 +8,7 @@
     <router-link :class="{active: findex==2}" :to="{ path: '/maintain' }" tag="li">
       <img src="../assets/img/footer/maintain.png" v-show="findex==2">
       <img src="../assets/img/footer/unmaintain.png" v-show="findex!=2">
-      <p>找维修</p>
+      <p>维修服务</p>
     </router-link>
     <router-link :class="{active: findex==3}" :to="{ path: '/doctor' }" tag="li">
       <img src="../assets/img/footer/ask.png" v-show="findex==3">
