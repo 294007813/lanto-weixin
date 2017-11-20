@@ -18,7 +18,7 @@
     <router-link :class="{active: findex==4}" :to="{ path: '/info' }" tag="li">
       <img src="../assets/img/footer/news.png" v-show="findex==4">
       <img src="../assets/img/footer/unnews.png" v-show="findex!=4">
-      <p>信息服务</p>
+      <p>公共服务</p>
     </router-link>
     <router-link :class="{active: findex==5}" :to="{ path: '/my' }" tag="li">
       <img src="../assets/img/footer/my.png" v-show="findex==5">

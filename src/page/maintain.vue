@@ -20,12 +20,12 @@
               <em @click='popupVisible=!popupVisible'></em>
             </div>
             <div class="son">
-              <div class="active">全部</div>
-              <div @click='compangIsActive'>一类维修企业</div>
-              <div @click='compangIsActive'>二类维修企业</div>
-              <div @click='compangIsActive'>三类维修企业</div>
-              <div @click='compangIsActive'>摩托车维修厂</div>
-              <div @click='compangIsActive'>汽车快修厂</div>
+              <div @click='companyIsActive' class='active'>全部</div>
+              <div @click='companyIsActive'>一类维修企业</div>
+              <div @click='companyIsActive'>二类维修企业</div>
+              <div @click='companyIsActive'>三类维修企业</div>
+              <div @click='companyIsActive'>摩托车维修厂</div>
+              <div @click='companyIsActive'>汽车快修厂</div>
             </div>
           </li>
           <!-- 星级评分 -->
@@ -34,12 +34,12 @@
               <p>星级评分</p>
             </div>
             <div class="son">
-              <div class="active">全部</div>
-              <div>1星</div>
-              <div>2星</div>
-              <div>3星</div>
-              <div>4星</div>
-              <div>5星</div>
+              <div @click='starIsActive' class="active">全部</div>
+              <div @click='starIsActive'>1星</div>
+              <div @click='starIsActive'>2星</div>
+              <div @click='starIsActive'>3星</div>
+              <div @click='starIsActive'>4星</div>
+              <div @click='starIsActive'>5星</div>
             </div>
           </li>
         </ul>
@@ -101,7 +101,7 @@
 
 
       <div class="confirm">
-        <button>清空</button>
+        <button @click='clear'>清空</button>
         <button>确定</button>
       </div>
       </div>
@@ -122,9 +122,10 @@ export default {
       zoom: 13,
       points: [],
       popupVisible: false,
-      repairName: '',
-      pointX: 121.389,
-      pointY: 31.117
+      repairName: '',    
+      pointX: 121.389,   // 地图中心点纬度
+      pointY: 31.117,    // 地图中心点经度
+      scale: 12   // 地图放大级别 
     }
   },
 
@@ -157,7 +158,7 @@ export default {
       var markers=[];
       var map = new BMap.Map("container")          // 创建地图实例  
       var point = new BMap.Point(this.pointX, this.pointY)  // 创建点坐标  
-      map.centerAndZoom(point, 12)                 // 初始化地图，设置中心点坐标和地图级别  
+      map.centerAndZoom(point, this.scale)                 // 初始化地图，设置中心点坐标和地图级别  
       map.enableScrollWheelZoom(true)     //开启鼠标滚轮缩放
       map.addControl(new BMap.NavigationControl())  //添加放大缩小控件
 
@@ -228,10 +229,27 @@ export default {
           this.points=points
           this.pointX=this.points[0].lng
           this.pointY=this.points[0].lat
+          this.scale = 15
         })
       }
     },
-    compangIsActive() {
+    companyIsActive(e) {
+      var that = e.target
+      console.log(that.className)
+      for(var i=0; i<that.parentNode.children.length; i++){
+        that.parentNode.children[i].className=''
+      }
+      that.className='active'
+    },
+    starIsActive(e) {
+      var that = e.target
+      console.log(that.className)
+      for(var i=0; i<that.parentNode.children.length; i++){
+        that.parentNode.children[i].className=''
+      }
+      that.className='active'
+    },
+    clear(){
       
     }
   }

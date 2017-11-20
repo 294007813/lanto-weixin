@@ -12,6 +12,7 @@ import Register from '@/page/register'
 import CarList from '@/page/carlist'
 import RecordList from '@/page/recordlist'
 import VehicleDetail from '@/page/vehicleDetail'
+import RepairSearchList from '@/page/repairSearchList'
 
 Vue.use(Router)
 
@@ -28,6 +29,7 @@ export default new Router({
     {path: '/register', name: 'register', component: Register},
     {path: '/carlist', name: 'carlist', component: CarList, meta: { requiresAuth: true }},
     {path: '/recordlist', name: 'recordlist', component: RecordList, meta: { requiresAuth: true }},
-    {path: '/vehicleDetail', name: 'vehicleDetail', component: VehicleDetail, meta: { requiresAuth: true }}
+    {path: '/vehicleDetail', name: 'vehicleDetail', component: VehicleDetail, meta: { requiresAuth: true }},
+    {path: '/repairSearchList', name: 'repairSearchList', component: RepairSearchList, meta: { requiresAuth: true }}
   ]
 })
