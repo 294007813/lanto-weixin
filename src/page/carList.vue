@@ -6,7 +6,7 @@
       </form>
     </div>
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='bottomDropText' :bottomPullText='bottomPullText' ref="loadmore">
-      <div @click="goRecordList(item.vehicleId, item.vehicleplatenumber)"  class="block" v-for='(item, index) in carList' :key='index'>
+      <div @click="goRecordList(item.repairbasicinfoId, item.vehicleplatenumber)"  class="block" v-for='(item, index) in carList' :key='index'>
         <div class="title">
           <img width="15" height="15" src="../assets/img/record/list.png"/>
           <span>{{ item.vehicleplatenumber }}</span>
@@ -43,6 +43,9 @@ export default {
     .then(res => {
       this.carList = res.data.data.content
       this.lastPage = res.data.data.lastPage
+      if(this.carList.length == 0){
+        Toast('暂无数据')
+      }
       console.log(this.carList);
     })
   },
@@ -65,7 +68,7 @@ export default {
     goRecordList(id, vehicleplatenumber){
       this.$router.push({
         path:'/recordList',
-        query:{id: id,vehicleplatenumber: vehicleplatenumber}
+        query:{repairbasicinfoId: id,vehicleplatenumber: vehicleplatenumber}
       })
     },
     //下拉加载更多
@@ -99,7 +102,7 @@ export default {
     },
     // 输入车牌号进行搜索
     key(e){
-      if(e.keyCode=='13'){
+      if(e.keyCode=='13' && document.hasFocus()){
         if(this.vehicleplatenumber.trim() == ''){
           Toast('请输入车牌号')
           return
@@ -107,7 +110,7 @@ export default {
         let data = {
           accessToken: localStorage.getItem("ACCESSTOKEN"),
           vehicleplatenumber: this.vehicleplatenumber,
-          limit: 10,
+          limit: 0,
           page: 0
         }
         this.axios({
@@ -116,11 +119,12 @@ export default {
           headers: {'Content-type': 'application/json'},
           data: JSON.stringify(data)
         }).then(res => {
+          if(res.data.data.content.length == 0){
+            Toast('未找到匹配车辆')
+            return
+          }
           this.carList = res.data.data.content
           this.allLoaded = true
-          if(this.carList.length == 0){
-            Toast('未找到匹配车辆')
-          }
         })
       }
     }
@@ -144,13 +148,14 @@ export default {
       font-size: 14px;
       background-color: #eee;
       background-size: 18px 18px;
-      text-indent: 32px;
+      text-indent: 20px;
       border-radius: 5px;
       outline: none;
       border: none;
       width: 100%;
       height: 35px;
       position: relative;
+      text-align: left;
     }
     span {
       position: absolute;

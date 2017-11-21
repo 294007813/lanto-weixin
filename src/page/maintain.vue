@@ -19,7 +19,7 @@
               <p>企业类型</p>
               <em @click='popupVisible=!popupVisible'></em>
             </div>
-            <div class="son">
+            <div class="son" ref='companyWrap'>
               <div @click='companyIsActive' class='active'>全部</div>
               <div @click='companyIsActive'>一类维修企业</div>
               <div @click='companyIsActive'>二类维修企业</div>
@@ -33,7 +33,7 @@
             <div class="title">
               <p>星级评分</p>
             </div>
-            <div class="son">
+            <div class="son" ref='starWrap'>
               <div @click='starIsActive' class="active">全部</div>
               <div @click='starIsActive'>1星</div>
               <div @click='starIsActive'>2星</div>
@@ -48,61 +48,66 @@
           <p>车辆品牌</p>
         </div>
         <div class='carBrand'>
-          <mt-index-list :height='150'>
+          <mt-index-list :height='165'>
             <mt-index-section index="A">
-              <mt-cell title="奥迪">
+              <mt-cell :class="{choosed: true}" title="">
+                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                <span>奥迪</span>
               </mt-cell>
-              <mt-cell title="阿姆斯特朗">
+              <mt-cell :class="{choosed: false}" title="">
+                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                <span>奥拓</span>
               </mt-cell>
-              <mt-cell title="奥拓">
-              </mt-cell>
+              <mt-cell :class="{choosed: false}" title="">
+                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                <span>阿姆斯特朗</span>
               </mt-cell>
             </mt-index-section>
             <mt-index-section index="B">
-               <mt-cell title="宝骏">
+              <mt-cell title="">
                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>宝骏</span>
+                <span>宝马</span>
               </mt-cell>
-              <mt-cell title="布加迪">
-              </mt-cell>
-            </mt-index-section>
-            <mt-index-section index="C">
-               <mt-cell title="">
+              <mt-cell title="">
                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
                 <span>宝骏</span>
               </mt-cell>
               <mt-cell title="">
-                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                 <span>布加迪</span>
-              </mt-cell>
-            </mt-index-section>
-            <mt-index-section index="D">
-               <mt-cell title="">
                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>宝骏</span>
-              </mt-cell>
-              <mt-cell title="">
-                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                 <span>布加迪</span>
+                <span>保时捷</span>
               </mt-cell>
             </mt-index-section>
-            <mt-index-section index="E">
-               <mt-cell title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>宝骏</span>
-              </mt-cell>
-              <mt-cell title="">
-                 <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                 <span>布加迪</span>
-              </mt-cell>
-            </mt-index-section>
+            <mt-index-section index="C"></mt-index-section>
+            <mt-index-section index="D"></mt-index-section>
+            <mt-index-section index="E"></mt-index-section>
+            <mt-index-section index="F"></mt-index-section>
+            <mt-index-section index="G"></mt-index-section>
+            <mt-index-section index="H"></mt-index-section>
+            <mt-index-section index="I"></mt-index-section>
+            <mt-index-section index="J"></mt-index-section>
+            <mt-index-section index="K"></mt-index-section>
+            <mt-index-section index="L"></mt-index-section>
+            <mt-index-section index="M"></mt-index-section>
+            <mt-index-section index="N"></mt-index-section>
+            <mt-index-section index="O"></mt-index-section>
+            <mt-index-section index="P"></mt-index-section>
+            <mt-index-section index="Q"></mt-index-section>
+            <mt-index-section index="R"></mt-index-section>
+            <mt-index-section index="S"></mt-index-section>
+            <mt-index-section index="T"></mt-index-section>
+            <mt-index-section index="U"></mt-index-section>
+            <mt-index-section index="V"></mt-index-section>
+            <mt-index-section index="W"></mt-index-section>
+            <mt-index-section index="X"></mt-index-section>
+            <mt-index-section index="Y"></mt-index-section>
+            <mt-index-section index="Z"></mt-index-section>
           </mt-index-list>
         </div>
 
 
       <div class="confirm">
         <button @click='clear'>清空</button>
-        <button>确定</button>
+        <button @click='submit'>确定</button>
       </div>
       </div>
     </mt-popup>
@@ -114,6 +119,7 @@
 </template>
 
 <script> 
+import { Toast, MessageBox } from 'mint-ui'
 export default {
   name: '',
   data () {
@@ -125,7 +131,8 @@ export default {
       repairName: '',    
       pointX: 121.389,   // 地图中心点纬度
       pointY: 31.117,    // 地图中心点经度
-      scale: 12   // 地图放大级别 
+      scale: 12,   // 地图放大级别 
+      value: ''
     }
   },
 
@@ -204,7 +211,7 @@ export default {
   },
   methods:{
     key(e){
-      if(e.keyCode=='13'){
+      if(e.keyCode=='13' && document.hasFocus()){
         let data={
           systemToken: localStorage.getItem("SYSTEMTOKEN"),
           corpName: this.repairName
@@ -218,7 +225,7 @@ export default {
           data: JSON.stringify(data)
         })
         .then(response => {
-          let points = [], datas=response.data.data;
+          let points = [], datas=response.data.data
           console.log(datas);
           for( let i in datas){
             points.push({
@@ -226,37 +233,51 @@ export default {
               lat: datas[i].latitude
             })
           }
+          if(points.length==0){
+            MessageBox({
+              message: '未找到该维修站点',
+              position: 'bottom',
+              duration: 2000
+            });
+            return
+          }
           this.points=points
           this.pointX=this.points[0].lng
           this.pointY=this.points[0].lat
-          this.scale = 15
+          this.scale = 14
         })
       }
     },
     companyIsActive(e) {
       var that = e.target
-      console.log(that.className)
       for(var i=0; i<that.parentNode.children.length; i++){
         that.parentNode.children[i].className=''
       }
       that.className='active'
     },
     starIsActive(e) {
-      var that = e.target
-      console.log(that.className)
-      for(var i=0; i<that.parentNode.children.length; i++){
-        that.parentNode.children[i].className=''
-      }
-      that.className='active'
+      this.companyIsActive(e)
     },
     clear(){
-      
-    }
+      var divs = this.$refs.companyWrap.children
+      var dvs = this.$refs.starWrap.children
+      for(var i=0; i<divs.length; i++){
+        divs[i].className=''
+      }
+      divs[0].className='active'
+      for(var j=0; j<dvs.length; j++){
+        dvs[j].className=''
+      }
+      dvs[0].className='active'
+    },
+    submit() {
+      this.popupVisible = true
+    } 
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   #allmap {
     position: relative;
     .fixGuide {
@@ -293,12 +314,14 @@ export default {
         font-size: 14px;
         background-color: #eee;
         background-size: 18px 18px;
-        text-indent: 32px;
+        text-indent: 20px;
         border-radius: 8px;
         outline: none;
         border: none;
         height: 30px;
         width: 100%;
+        margin-bottom: 0;
+        text-align: left;
       }
     }
     
@@ -324,7 +347,7 @@ export default {
       background-color: #fff;
       position: relative;
       color: #2d2d2d;
-      padding-top: 5px; 
+      padding-top: 1%; 
       height: 100%;
       
       ul.companyType_starLevel {
@@ -334,10 +357,12 @@ export default {
             p { 
               text-indent: 10px;
               font-size: 14px;
-              font-weight: 600;
+              font-weight: 500;
               line-height: 40px;
               border-bottom: 1px solid #eee;
               font-size: 16px;
+              color: #666;
+              margin-bottom: 0;
             }
             em {
               position: absolute;
@@ -345,7 +370,7 @@ export default {
               height: 12px;
               text-align: center;
               right: 15px;
-              top: 18px;
+              top: 3%;
               background-image: url(../assets/img/record/Close.png);
               background-size: 12px 12px;
             }
@@ -362,7 +387,7 @@ export default {
               border: 1px solid #ddd;
               border-radius: 5px; 
               padding: 8px 5px;
-              margin-top: 10px;
+              margin-top: 3%;
             }
             div:nth-child(3n) {
               margin-right: 0;
@@ -372,22 +397,39 @@ export default {
       }
       .title { 
         p { 
+          color: #666;
           text-indent: 10px;
           font-size: 14px;
-          font-weight: 600;
+          font-weight: 500;
           line-height: 40px;
           border-bottom: 1px solid #eee;
           font-size: 16px;
         }
       }
       .carBrand {
+        height: 100%;
+        overflow: auto;
+        .mint-indexlist-navlist {
+          overflow: auto;
+        }
+        .mint-indexsection-index {
+          padding:  5px 10px; 
+        }
         .mint-cell-title {
-          flex-grow: 0 !important;
+          flex: 0;
+        }
+        .mint-cell-value {
+          span{
+            margin-left: 15px;
+            color: #333;
+          }
+        }
+        .choosed {
+          background: url(../assets/img/record/gouxuan.png) no-repeat;
+          background-position: 85% center;
+          background-size: 20px 20px;
         }
       }
-
-
-
       .confirm {
         height: 50px;
         width: 100%;
@@ -416,11 +458,6 @@ export default {
           color: #fff;
         }
       }
-
-
-
-
-
 
       .active {
         background-color: #d8e7fd;

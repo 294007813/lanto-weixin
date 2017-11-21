@@ -7,8 +7,10 @@
       <li><span>车辆品牌</span><p>{{ item.brand }}</p></li>
       <li><span>车系</span><p>{{ item.cartype }}</p></li>
       <li><span>排量</span><p>{{  }}T</p></li>
-      <li><span>生产年份</span><p>{{ item.manufacturedate.substr(0,4)+'-'+item.manufacturedate.substr(4,2)+'-'+item.manufacturedate.substr(6) }}</p></li>
-      <li><span>购买日期</span><p>{{ item.registerdate.substr(0,4)+'-'+item.registerdate.substr(4,2)+'-'+item.registerdate.substr(6) }}</p></li>
+      <li><span>生产年份</span><p>{{  }}</p></li>
+      <!-- item.manufacturedate.substr(0,4)+'-'+item.manufacturedate.substr(4,2)+'-'+item.manufacturedate.substr(6) -->
+      <li><span>购买日期</span><p>{{  }}</p></li>
+      <!-- item.registerdate.substr(0,4)+'-'+item.registerdate.substr(4,2)+'-'+item.registerdate.substr(6) -->
       <li><i>*</i><span>车架号</span><p>{{ item.vin }}</p></li>
       <li><span>发动机号</span><p>{{ item.engineno }}</p></li>
     </ul>
@@ -52,8 +54,7 @@ export default {
       accessToken: localStorage.getItem("ACCESSTOKEN"),
       limit: 10,
       page: 0,
-      vehicleId: this.$route.query.id,
-      vehicleplatenumber: this.$route.query.vehicleplatenumber
+      vehicleId: this.$route.query.id
     }
 
     this.axios({
@@ -63,8 +64,8 @@ export default {
       data: JSON.stringify(data)
     })
     .then(res => {
-      this.info = res.data.data.content
-      console.log(this.info);
+      this.info = res.data.data
+      console.log('----',   this.info);
     })
     this.axios({
       method: 'post',

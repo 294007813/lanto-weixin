@@ -95,9 +95,12 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
   .info{
     margin: 50px 0;
+    .mint-tab-item-label {
+      color: #000;
+    }
   }
   .msg{
     padding: 10px;

@@ -4,7 +4,7 @@
       <b>{{name}}</b>
       <u @click="popupVisible=!popupVisible"></u>
       <span>{{ tel }}</span>
-      <img @click="logout" src="../assets/img/my/user.png" alt="">
+      <img src="../assets/img/my/user.png" alt="">
     </div>
     <div class="list" @click="goCarList">
       <img src="../assets/img/my/health.png" alt=""><span>健康档案</span> <i></i>
@@ -19,10 +19,10 @@
     <div class="list">
       <img src="../assets/img/my/Satisfaction_degree.png" alt=""><span>满意度调查</span> <i></i>
     </div>
-    <div class="list">
+    <div class="list" @click='goSetting(tel)'>
       <img src="../assets/img/my/set.png" alt=""><span>设置</span> <i></i>
     </div>
-    <div class="list">
+    <div class="list" @click='goSuggestion'>
       <img src="../assets/img/my/feedback.png" alt=""><span>意见反馈</span> <i></i>
     </div>
     <div class="list">
@@ -47,35 +47,29 @@
     this.tel=userinfo.telphone.substr(0,3)+"****"+ userinfo.telphone.substr(7)
   },
   methods:{
-    logout(){
-      let self= this
-      this.axios({
-        method: 'get',
-        url: '/user/useraccount/logout/'+ localStorage.getItem("ACCESSTOKEN")
-      }).then(function (response) {
-        if(response.data.code!='000000'){
-          MessageBox('提示', response.data.status);
-        }else{
-          localStorage.removeItem("ACCESSTOKEN")
-          localStorage.removeItem("USERINFO")
-          MessageBox.alert('退出成功').then(action => {
-            self.$router.replace({
-              path:'/'
-            })
-          });
-
-        }
-      })
-    },
     goCarList(){
       this.$router.push({ path: '/carList'})
+    },
+    goSetting(){
+      this.$router.push({
+        path: '/setting',
+        query: {
+          num: this.tel
+        }
+        })
+    },
+    goSuggestion() {
+      this.$router.push({ path: '/suggestion'})
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+body {
+  background-color: #f8f8f8;
+}
 .div{
   width: 100%;
   position: relative;

@@ -13,7 +13,7 @@
     <router-link :class="{active: findex==3}" :to="{ path: '/doctor' }" tag="li">
       <img src="../assets/img/footer/ask.png" v-show="findex==3">
       <img src="../assets/img/footer/unask.png" v-show="findex!=3">
-      <p>车大夫</p>
+      <p>车大夫门诊</p>
     </router-link>
     <router-link :class="{active: findex==4}" :to="{ path: '/info' }" tag="li">
       <img src="../assets/img/footer/news.png" v-show="findex==4">

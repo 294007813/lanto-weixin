@@ -108,7 +108,10 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+body {
+  background-color: #fff;
+}
 .top{
   height: 40px;
   line-height: 40px;
@@ -139,11 +142,13 @@
   width: 80%;
   margin: 20px auto;
   color: #1383ca;
+  
 }
 .mint-button{
   width: 60%;
   margin: auto;
   display: block;
+  
 }
 .noac{
   text-align: center;
@@ -152,5 +157,13 @@
   span{
     margin: 0 20px;
   }
+}
+.mint-cell-title {
+  width: 80px !important;
+}
+.mint-field-core {
+  border: none !important;
+  background-color: #fff !important;
+  margin-top: 15px;
 }
 </style>
