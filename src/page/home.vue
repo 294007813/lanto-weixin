@@ -1,13 +1,76 @@
 <template>
 <div class="animated fadeIn home">
-  <!-- <div class="top">首页</div> -->
-  <ul class="icons">
-    <li @click="goFix"><img src="../assets/img/home/fix.png"/><p>维修服务</p></li>
-    <li @click="goCarList"><img src="../assets/img/home/query.png"/><p>档案查询</p></li>
-    <li @click="goDoctor"><img src="../assets/img/home/doctor.png"/><p>车大夫</p></li>
-    <li><img src="../assets/img/home/mall.png"/><p>车品商城</p></li>
-    <li @click="goInfo"><img src="../assets/img/home/info.png"/><p>公共服务</p></li>
-  </ul>
+  <!-- 轮播开始 -->
+  <div id="Gallery" class="mui-slider" style="margin-top:15px;">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+                  <img src="../assets/img/home/appointment.png" alt="">
+									<div class="mui-media-body">预约服务</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/gohome.png" alt="">
+									<div class="mui-media-body">上门服务</div>
+							</li>
+							<li @click="goFix" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/fix.png" alt="">
+									<div class="mui-media-body">维修服务</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/suggestion.png" alt="">
+									<div class="mui-media-body">维修投诉</div>
+							</li>
+							<li @click="goDoctor" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/doctor.png" alt="">
+									<div class="mui-media-body">车大夫门诊</div>
+							</li>
+							<li @click="goCarList" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/query.png" alt="">
+									<div class="mui-media-body">爱车档案</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/goverment.png" alt="">
+									<div class="mui-media-body">政府管理</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/industry.png" alt="">
+									<div class="mui-media-body">行业自律</div>
+							</li>
+						</ul>
+					</div>
+					<div class="mui-slider-item">
+						<ul class="mui-table-view mui-grid-view mui-grid-9">
+							<li @click="goInfo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+										<img src="../assets/img/home/public.png" alt="">
+									<div class="mui-media-body">公共服务</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+										<img src="../assets/img/home/repair.png" alt="">
+									<div class="mui-media-body">维修企业服务</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/company.png" alt="">
+									<div class="mui-media-body">产业企业服务</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/mall.png" alt="">
+									<div class="mui-media-body">车品商城</div>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+									<img src="../assets/img/home/online.png" alt="">
+									<div class="mui-media-body">在线商业服务</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+ <!-- 轮播结束 -->
+ 
   <div class="info">
     <div class="title">
       <span>资讯</span><div @click="goInfo"><span>更多</span><i></i></div>
@@ -31,6 +94,7 @@
 </template>
 
 <script>
+import mui from "../lib/mui/js/mui.min.js"
 export default {
   name: 'home',
   data () {
@@ -46,54 +110,78 @@ export default {
       this.$router.push({ path: '/doctor'})
     },
     goInfo(){
-      this.$router.push({ path: '/info'})
+      this.$router.push({ path: '/infoList'})
     },
     goCarList(){
       this.$router.push({ path: '/carList'})
     }
+  },
+  mounted() {
+    mui(".mui-slider").slider()    // 解决了当页面切出去后在切回来无法滑动的问题
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+* { touch-action: none; }
+  body {
+    background-color: #f8f8f8;
+  }
+
   .home{
     margin-bottom: 50px;
-    background-color: #fff;
-  }
-// .top {
-//   height: 40px;
-//   background-color: #469df6;
-//   color: #fff;
-//   line-height: 40px;
-//   font-size: 16px;
-//   text-align: center;
-// }
-.icons{
-  display: -webkit-flex; /* Safari */
-  display: flex;
-  width: 100%;
-  padding: 20px 0;
-  font-size: 12px;
-  color: #666666;
-  border-bottom: 10px solid #f8f8f8;
-  li{
-    width: 20%;
-    text-align: center;
-    img{
-      width: 35px;
+    #Gallery {
+      margin: 0 !important;
+      padding: 10px 0 20px;
+      .mui-slider-item ul {
+        background-color: #fff;
+        border: none;
+        li {
+          border: none;
+          padding: 10px 0;
+          a {
+            padding: 0;
+          }
+          img {
+            width: 40px;
+            height: 40px;
+          }
+          .mui-media-body {
+            height: 16px;
+            margin-top: 15px;
+            font-size: 12px;
+          }
+        }
+      }
+      .mui-slider-indicator{
+        .mui-active {
+          background: linear-gradient(to right, #66a9fb, #4087f6) !important;
+          width: 12px !important;
+          margin: 1px 2px;
+          transition: all 0.3s;
+        }
+      }
+      .mui-slider-indicator .mui-indicator {
+        height: 2px;
+        width: 8px;
+        border-radius: 1px;
+        margin: 0;
+        border: none;
+        background-color: #eaeaea;
+        box-shadow: none;
+      }
     }
-    p{
-      margin-top: 10px;
-    }
   }
-}
+
 
 
 .info{
   width: 100%;
   overflow: hidden;
   padding: 0 10px;
+  margin: 0;
+  border-top: 10px solid #f8f8f8;
   .title {
     width: 100%;
     height: 40px;
@@ -120,6 +208,7 @@ export default {
     position: relative;
     p{
       margin-right: 105px;
+      color: #333;
     }
     div{
       width: 105px;

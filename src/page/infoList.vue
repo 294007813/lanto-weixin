@@ -1,5 +1,5 @@
 <template>
-<div class="info">
+<div class="infoWrap">
   <mt-navbar v-model="selected" :fixed="true">
     <mt-tab-item id="1">全部</mt-tab-item>
     <mt-tab-item id="2">办事指南</mt-tab-item>
@@ -95,9 +95,12 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-  .info{
+<style lang="scss">
+  .infoWrap{
     margin: 50px 0;
+    .mint-tab-item-label {
+      color: #666;
+    }
   }
   .msg{
     padding: 10px;
@@ -107,6 +110,7 @@ export default {
     position: relative;
     p{
       margin-right: 105px;
+      color: #333;
     }
     div{
       width: 105px;

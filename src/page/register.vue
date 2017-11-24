@@ -156,7 +156,10 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
+  body {
+    background-color: #fff;
+  }
   .top{
     height: 40px;
     line-height: 40px;
@@ -176,9 +179,20 @@
     }
   }
   .input{
-    width: 80%;
+    width: 86%;
     margin: auto;
     color: #1383ca;
+    .mint-field-core {
+      border: none ;
+      padding: 10px;
+      margin-bottom: 0;
+    }
+    .mint-cell-title {
+      width: 65px;
+    }
+    .mint-cell-value input {
+      color: #000;
+    }
   }
   .radio{
     width: 60%;
@@ -188,7 +202,7 @@
   .agree{
     text-align: center;
 
-  },
+  }
   .agree>div{
     display: inline-block;
   }
@@ -197,5 +211,4 @@
     margin: auto;
     display: block;
   }
-
 </style>

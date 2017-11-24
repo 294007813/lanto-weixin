@@ -131,24 +131,39 @@ body {
   }
 }
 .head{
-  margin-top: 20px;
+  border: none;
+  margin: 20px 0;
   text-align: center;
   color: #1383ca;
   p{
     font-size: 32px;
+    color: #1383ca;
+  }
+  span {
+    color: #1383ca;  
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 .input{
   width: 80%;
   margin: 20px auto;
   color: #1383ca;
-  
+  input {
+    color: #000;
+    font-size: 18px;
+    border: none !important;
+    background-color: #fff !important;
+    margin-bottom: 0;
+  }
+  .mint-cell-title {
+    width: 60px;
+  }
 }
-.mint-button{
+.mint-button--primary{
   width: 60%;
   margin: auto;
   display: block;
-  
 }
 .noac{
   text-align: center;
@@ -157,13 +172,5 @@ body {
   span{
     margin: 0 20px;
   }
-}
-.mint-cell-title {
-  width: 80px !important;
-}
-.mint-field-core {
-  border: none !important;
-  background-color: #fff !important;
-  margin-top: 15px;
 }
 </style>

@@ -139,6 +139,9 @@ export default {
                     top: 50%;
                     transform: translateY(-50%);
                 }
+                p {
+                    margin-bottom: 0;
+                }
             }
         }
         .repairOther {
@@ -152,6 +155,7 @@ export default {
                     transform: translateY(-50%);
                     p {
                         line-height: 22px;
+                        margin-bottom: 0;
                     }
                 }
             }

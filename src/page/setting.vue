@@ -16,7 +16,7 @@
         <li class="mui-table-view-cell">
             <a class="mui-navigate-right">鼓励一下</a>
         </li>
-        <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell" @click='goAboutUs'>
             <a class="mui-navigate-right">关于我们</a>
         </li>
     </ul>
@@ -52,6 +52,9 @@ export default {
                 }
             })
         },
+        goAboutUs(){
+            this.$router.push({path: '/aboutUs'})
+        }
     }
 }
 </script>

@@ -1,9 +1,12 @@
 <template>
   <div class="doctor">
+
+    <img src="../assets/img/doctor/doctor.png" alt="">
+
     <div class="block">
       <div class="user">
         <img src="../assets/img/my/photo.png"/>
-        <div class="userright"><p>name</p><span>2017.08.28 玛莎拉蒂GT 发动机</span></div>
+        <div class="userright"><p>我是用户名</p><span>2017.08.28 玛莎拉蒂GT 发动机</span></div>
       </div>
       <p class="question">没电后备箱打不开，前机箱的正负极在哪里？或用其他方法把车打着火，我有电瓶有正负搭线</p>
       <div class="answer">
@@ -56,6 +59,9 @@ export default {
 <style scoped lang="scss">
   .doctor{
     margin-bottom: 50px;
+    >img {
+      width: 100%;
+    }
   }
   .block{
     width: 100%;
@@ -78,6 +84,7 @@ export default {
         p{
           font-size: 14px;
           margin-bottom: 0;
+          color: #333;
         }
         span{
           font-size: 12px;
@@ -89,6 +96,7 @@ export default {
     .question{
       font-size: 14px;
       margin: 10px 0;
+      color: #333;
     }
     .answer{
       font-size: 12px;
@@ -101,7 +109,7 @@ export default {
       p{
         margin-left: 55px;
         margin-bottom: 30px;
-        color: #646464;
+        color: #666;
       }
       .violet{
         background-color: #93adf8;

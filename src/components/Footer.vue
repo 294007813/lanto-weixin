@@ -15,7 +15,7 @@
       <img src="../assets/img/footer/unask.png" v-show="findex!=3">
       <p>车大夫门诊</p>
     </router-link>
-    <router-link :class="{active: findex==4}" :to="{ path: '/info' }" tag="li">
+    <router-link :class="{active: findex==4}" :to="{ path: '/infoService' }" tag="li">
       <img src="../assets/img/footer/news.png" v-show="findex==4">
       <img src="../assets/img/footer/unnews.png" v-show="findex!=4">
       <p>公共服务</p>
@@ -25,7 +25,6 @@
       <img src="../assets/img/footer/unmy.png" v-show="findex!=5">
       <p>我的</p>
     </router-link>
-
   </ul>
 </template>
 
@@ -53,7 +52,7 @@
           case 'home': {this.findex= 1; break;}
           case 'maintain': {this.findex= 2; break;}
           case 'doctor': {this.findex= 3; break;}
-          case 'info': {this.findex= 4; break;}
+          case 'infoService': {this.findex= 4; break;}
           case 'my': {this.findex= 5; break;}
         }
       }
@@ -93,7 +92,7 @@ li:last-child img{
 }
 li p{
   font-size: 12px;
-  color: #8b9094;
+  color: #333;
   width: 100%;
   position: absolute;
   bottom: 0;

@@ -7,16 +7,33 @@
           <button type="button" class="mui-btn">内容建议</button>
       </div>
       <div class="title">我要反馈</div>
-      <textarea name="" id="" cols="30" rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验">
-
-      </textarea>
+      <textarea name="" id="" cols="30" rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
+       <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
       <button @click="submit" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">提交</button>
+      <mt-actionsheet
+        :actions="actions"
+        v-model="sheetVisible">
+      </mt-actionsheet>
   </div>
 </template>
 
 <script>
 import mui from "../lib/mui/js/mui.min.js"
+import { Actionsheet } from 'mint-ui'
 export default {
+    data(){
+        return{
+            actions: [
+                {name: '拍照',methods(){
+
+                }},
+                {name: '从相册中选择',methods(){
+
+                }}
+            ],
+            sheetVisible: false
+        }
+    },
     mounted (){
 
     },
@@ -25,6 +42,17 @@ export default {
             mui(e.target).button('loading')
             // 阻止提交loading样式的方法
            // mui(e.target).button('reset');//切换为reset状态(即重置为原始的button)
+        },
+        uploadPic(){   // 调取手机本地相机或相册接口
+            wx.chooseImage({
+                count: 1,
+                sizeType: ['original','compressed'],
+                sourceType: ['album','camera'],
+                success: function(res) {
+                    var localIds = res.localIds;
+                    alert('已选择'+ localIds.length +'张图片')
+                }
+            })
         }
     }
 }
@@ -59,6 +87,17 @@ body {
     textarea {
         border: none;
         font-size: 14px;
+    }
+    .addPic {
+        width: 50px;
+        height: 50px;
+        border: 1px dashed #ccc;
+        position: absolute;
+        top: 300px; 
+        left: 20px;
+        border-radius: 5px;
+        background: url(../assets/img/record/add.png) no-repeat center center;
+        background-size: 50% 50%;
     }
     .mui-btn-primary {
         position: absolute;

@@ -2,115 +2,208 @@
   <div id="allmap">
     <div class='search'>
       <span @click='popupVisible=!popupVisible'>筛选</span>
-      <div class="wrap">
+      <div class="mapWrap">
         <form>
           <input type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
         </form>
       </div>
-    </div> 
-    <div id="container">
+      <div id="container">
+      </div> 
     </div> 
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
-      <div class='content'>
-        <ul class="companyType_starLevel">
-          <!-- 企业类型 -->
-          <li>
-            <div class="title">
-              <p>企业类型</p>
-              <em @click='popupVisible=!popupVisible'></em>
-            </div>
-            <div class="son" ref='companyWrap'>
-              <div @click='companyIsActive' class='active'>全部</div>
-              <div @click='companyIsActive'>一类维修企业</div>
-              <div @click='companyIsActive'>二类维修企业</div>
-              <div @click='companyIsActive'>三类维修企业</div>
-              <div @click='companyIsActive'>摩托车维修厂</div>
-              <div @click='companyIsActive'>汽车快修厂</div>
-            </div>
-          </li>
-          <!-- 星级评分 -->
-          <li>
-            <div class="title">
-              <p>星级评分</p>
-            </div>
-            <div class="son" ref='starWrap'>
-              <div @click='starIsActive' class="active">全部</div>
-              <div @click='starIsActive'>1星</div>
-              <div @click='starIsActive'>2星</div>
-              <div @click='starIsActive'>3星</div>
-              <div @click='starIsActive'>4星</div>
-              <div @click='starIsActive'>5星</div>
-            </div>
-          </li>
-        </ul>
-      <!-- 车辆品牌 -->
-        <div class="title">
-          <p>车辆品牌</p>
-        </div>
-        <div class='carBrand'>
-          <mt-index-list :height='165'>
-            <mt-index-section index="A">
-              <mt-cell :class="{choosed: true}" title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>奥迪</span>
-              </mt-cell>
-              <mt-cell :class="{choosed: false}" title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>奥拓</span>
-              </mt-cell>
-              <mt-cell :class="{choosed: false}" title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>阿姆斯特朗</span>
-              </mt-cell>
-            </mt-index-section>
-            <mt-index-section index="B">
-              <mt-cell title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>宝马</span>
-              </mt-cell>
-              <mt-cell title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>宝骏</span>
-              </mt-cell>
-              <mt-cell title="">
-                <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                <span>保时捷</span>
-              </mt-cell>
-            </mt-index-section>
-            <mt-index-section index="C"></mt-index-section>
-            <mt-index-section index="D"></mt-index-section>
-            <mt-index-section index="E"></mt-index-section>
-            <mt-index-section index="F"></mt-index-section>
-            <mt-index-section index="G"></mt-index-section>
-            <mt-index-section index="H"></mt-index-section>
-            <mt-index-section index="I"></mt-index-section>
-            <mt-index-section index="J"></mt-index-section>
-            <mt-index-section index="K"></mt-index-section>
-            <mt-index-section index="L"></mt-index-section>
-            <mt-index-section index="M"></mt-index-section>
-            <mt-index-section index="N"></mt-index-section>
-            <mt-index-section index="O"></mt-index-section>
-            <mt-index-section index="P"></mt-index-section>
-            <mt-index-section index="Q"></mt-index-section>
-            <mt-index-section index="R"></mt-index-section>
-            <mt-index-section index="S"></mt-index-section>
-            <mt-index-section index="T"></mt-index-section>
-            <mt-index-section index="U"></mt-index-section>
-            <mt-index-section index="V"></mt-index-section>
-            <mt-index-section index="W"></mt-index-section>
-            <mt-index-section index="X"></mt-index-section>
-            <mt-index-section index="Y"></mt-index-section>
-            <mt-index-section index="Z"></mt-index-section>
-          </mt-index-list>
-        </div>
+      <div class="contentWrap">
+        <div class='content'>
+          <!-- 车辆品牌 -->
+          <ul class="mui-table-view"> 
+            <li class="mui-table-view-cell mui-collapse mui-active">
+              <a class="mui-navigate-right" href="javascript:;">企业类型</a>
+              <div class="mui-collapse-content">
+                <ul>
+                  <li :class="{active: item.value=='all'}" @click='getVal($event, item.value)' v-for='(item, index) in companyType' :key='index'>{{ item.name }}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>  
 
+          <ul class="mui-table-view"> 
+            <li class="mui-table-view-cell mui-collapse mui-active">
+              <a class="mui-navigate-right" href="javascript:;">星级评分</a>
+              <div class="mui-collapse-content">
+                <ul>
+                  <li class="active">全部</li>
+                  <li>★★★★★</li>
+                  <li>★★★★</li>
+                  <li>★★★</li>
+                  <li>★★</li>
+                  <li>★</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <ul class="mui-table-view"> 
+            <li class="mui-table-view-cell mui-collapse">
+              <a class="mui-navigate-right" href="javascript:;">区域范围</a>
+              <div class="mui-collapse-content">
+                <ul>
+                  <li class="active">全部</li>
+                  <li>黄浦区</li>
+                  <li>徐汇区</li>
+                  <li>长宁区</li>
+                  <li>静安区</li>
+                  <li>普陀区</li>
+                  <li>虹口区</li>
+                  <li>杨浦区</li>
+                  <li>闵行区</li>
+                  <li>宝山区</li>
+                  <li>嘉定区</li>
+                  <li>浦东新区</li>
+                  <li>金山区</li>
+                  <li>松江区</li>
+                  <li>青浦区</li>
+                  <li>奉贤区</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
 
-      <div class="confirm">
-        <button @click='clear'>清空</button>
-        <button @click='submit'>确定</button>
-      </div>
+          <ul class="mui-table-view"> 
+            <li class="mui-table-view-cell mui-collapse">
+              <a class="mui-navigate-right" href="javascript:;">车辆品牌</a>
+              <div class="mui-collapse-content carBrandChoose">
+                <div class='carBrand'>
+                  <mt-index-list :height='312'>
+                      <mt-index-section index="A">
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>奥迪</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>阿尔法·罗密欧</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>阿斯顿·马丁</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>安凯客车</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>奔驰</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                      </mt-index-section>
+                      <mt-index-section index="B">
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>宾利</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>保时捷</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>奔驰</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>宝马</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>本田</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>别克</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>比亚迪</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                        <mt-cell title="">
+                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                          <div class="mui-input-row mui-radio">
+                            <label>宝骏</label>
+                            <input name="radio" type="radio">
+                          </div>
+                        </mt-cell>
+                      </mt-index-section>
+                      <mt-index-section index="C"></mt-index-section>
+                      <mt-index-section index="D"></mt-index-section>
+                      <mt-index-section index="E"></mt-index-section>
+                      <mt-index-section index="F"></mt-index-section>
+                      <mt-index-section index="G"></mt-index-section>
+                      <mt-index-section index="H"></mt-index-section>
+                      <mt-index-section index="I"></mt-index-section>
+                      <mt-index-section index="J"></mt-index-section>
+                      <mt-index-section index="K"></mt-index-section>
+                      <mt-index-section index="L"></mt-index-section>
+                      <mt-index-section index="M"></mt-index-section>
+                      <mt-index-section index="N"></mt-index-section>
+                      <mt-index-section index="O"></mt-index-section>
+                      <mt-index-section index="P"></mt-index-section>
+                      <mt-index-section index="Q"></mt-index-section>
+                      <mt-index-section index="R"></mt-index-section>
+                      <mt-index-section index="S"></mt-index-section>
+                      <mt-index-section index="T"></mt-index-section>
+                      <mt-index-section index="U"></mt-index-section>
+                      <mt-index-section index="V"></mt-index-section>
+                      <mt-index-section index="W"></mt-index-section>
+                      <mt-index-section index="X"></mt-index-section>
+                      <mt-index-section index="Y"></mt-index-section>
+                      <mt-index-section index="Z"></mt-index-section>
+                  </mt-index-list>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </mt-popup>
+    <div v-show='popupVisible' class="confirm">
+      <button>清空</button>
+      <button @click='submit'>确定</button>
+    </div>
+
     <div class="fixGuide">
       查找最近维修点
       <img src="/static/img/position.png" alt="">
@@ -119,7 +212,8 @@
 </template>
 
 <script> 
-import { Toast, MessageBox } from 'mint-ui'
+import { Toast, MessageBox, Navbar, TabItem } from 'mint-ui'
+import $ from '../lib/jquery.min.js'
 export default {
   name: '',
   data () {
@@ -132,7 +226,34 @@ export default {
       pointX: 121.389,   // 地图中心点纬度
       pointY: 31.117,    // 地图中心点经度
       scale: 12,   // 地图放大级别 
-      value: ''
+      value: '',
+      companyType: [
+        {
+          name:'全部',
+          value: 'all'
+        },
+        {
+          name:'一类维修企业',
+          value: '43'      
+        },
+        {
+          name:'二类维修企业',
+          value: '44'      
+        },
+        {
+          name:'三类维修企业',
+          value: '45'      
+        },
+        {
+          name:'摩托车维修厂',
+          value: '46'      
+        },
+        {
+          name:'汽车快修厂',
+          value: '47'      
+        }
+      ],
+      val: ''    // 企业类型的标志
     }
   },
 
@@ -158,8 +279,17 @@ export default {
         })
       } 
       this.points=points
+      console.log(this.points);
     })
   },
+  // updated() {
+  //   var fixCompany = document.getElementsByClassName('.BMap_noprint')
+  //   for(var i=0; i<fixCompany.length; i++){
+  //     fixCompany[i].onclick=function(){
+  //       console.log(1111);
+  //     }
+  //   }
+  // },
   watch: {
     points: function(){
       var markers=[];
@@ -248,31 +378,14 @@ export default {
         })
       }
     },
-    companyIsActive(e) {
-      var that = e.target
-      for(var i=0; i<that.parentNode.children.length; i++){
-        that.parentNode.children[i].className=''
-      }
-      that.className='active'
+    submit(){
+      this.popupVisible=!this.popupVisible
     },
-    starIsActive(e) {
-      this.companyIsActive(e)
-    },
-    clear(){
-      var divs = this.$refs.companyWrap.children
-      var dvs = this.$refs.starWrap.children
-      for(var i=0; i<divs.length; i++){
-        divs[i].className=''
-      }
-      divs[0].className='active'
-      for(var j=0; j<dvs.length; j++){
-        dvs[j].className=''
-      }
-      dvs[0].className='active'
-    },
-    submit() {
-      this.popupVisible = true
-    } 
+    getVal(e,v){
+      this.val = v
+      var ele = e.target;
+      $(ele).addClass('active').siblings.removeClass('active');
+    }
   }
 }
 </script>
@@ -305,31 +418,34 @@ export default {
   }
 
   .search {
-    padding: 6px 10px;
     position: relative;
-    .wrap {
+    .mapWrap {
       margin-left: 60px;
-      input {
-        background: url(../assets/img/record/search.png) no-repeat 10px 7px;
-        font-size: 14px;
-        background-color: #eee;
-        background-size: 18px 18px;
-        text-indent: 20px;
-        border-radius: 8px;
-        outline: none;
-        border: none;
-        height: 30px;
-        width: 100%;
-        margin-bottom: 0;
-        text-align: left;
+      form{
+        margin-left:  10px;
+        input {
+          background: url(../assets/img/record/search.png) no-repeat 10px 7px;
+          font-size: 14px;
+          background-color: #eee;
+          background-size: 18px 18px;
+          text-indent: 20px;
+          border-radius: 5px;
+          outline: none;
+          border: none;
+          height: 30px;
+          width: 90%;
+          margin: 8px 0 8px;
+          text-align: left;
+        }
       }
     }
     
     >span {
       float: left;
-      height: 30px;
-      width: 60px;
-      line-height: 30px;
+      margin-left: 15px;
+      height: 46px;
+      width: 65px;
+      line-height: 50px;
       background: url(../assets/img/record/findfix.png) no-repeat;
       background-position: left center;
       background-size: 16px 16px;
@@ -343,68 +459,83 @@ export default {
     background-color: rgba(0,0,0,0);
     width: 100%;
     height: 100%;
-    .content {
+    overflow: scroll;
+    padding-bottom: 50px;
+    // position: relative;
+    .closeFilter {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f00;
+      left: 0;
+      top: 0;
+    }
+    .contentWrap {
       background-color: #fff;
+      height: 100%;
+    }
+    .content {
+      background-color: #f8f8f8;
       position: relative;
       color: #2d2d2d;
-      padding-top: 1%; 
-      height: 100%;
-      
-      ul.companyType_starLevel {
-        li {
-          border-bottom: 8px solid #f8f8f8;
-          .title{ 
-            p { 
-              text-indent: 10px;
-              font-size: 14px;
-              font-weight: 500;
-              line-height: 40px;
-              border-bottom: 1px solid #eee;
-              font-size: 16px;
-              color: #666;
-              margin-bottom: 0;
-            }
-            em {
-              position: absolute;
-              width: 12px;
-              height: 12px;
-              text-align: center;
-              right: 15px;
-              top: 3%;
-              background-image: url(../assets/img/record/Close.png);
-              background-size: 12px 12px;
+      // height: 100%;
+      >ul{
+        >li::after{
+          height: 0;
+        }
+        >li:last-child{
+          
+        }
+        >li{
+          border-bottom: 10px solid #f8f8f8;
+          a {
+            border-bottom: 1px solid #eee;
+            transition: all 50s;
+          }
+          .mui-collapse-content {
+            margin-top: 15px;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0 3px;
+            >ul{
+              margin: 0 auto;
+              width: 94%;
+              overflow: hidden;
+              >li {
+                padding: 0 3px;
+                float: left;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                width: 31%;
+                height: 35px;
+                line-height: 35px;
+                margin-right: 3.5%;
+                box-sizing: border-box;
+                font-size: 12px;
+                text-align: center;
+                margin-bottom: 12px;
+                color: #666;
+              }
+              >li:nth-child(3n) {
+                margin-right: 0;
+              }
+              .active {         /* 被选中的样式 */
+                background-color: #ecf3fe;
+                color:#4285f4;
+                border: 1px solid #3e87f6 !important;
+              }
             }
           }
-          .son {
-            font-size: 0;
-            padding: 0 8px 10px;
-            div {
-              display: inline-block;
-              width: 32%;
-              text-align: center;
-              margin-right: 2%;
-              font-size: 12px;
-              border: 1px solid #ddd;
-              border-radius: 5px; 
-              padding: 8px 5px;
-              margin-top: 3%;
-            }
-            div:nth-child(3n) {
-              margin-right: 0;
-            }
+          .carBrandChoose {
+            padding: 0 0 3px;
           }
+        }
+        .mui-active {
+          background-color: #fff;
+          margin-top: 0;
         }
       }
-      .title { 
-        p { 
-          color: #666;
-          text-indent: 10px;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 40px;
-          border-bottom: 1px solid #eee;
-          font-size: 16px;
-        }
+      >ul::before, >ul::after{
+        height: 0;
       }
       .carBrand {
         height: 100%;
@@ -418,54 +549,67 @@ export default {
         .mint-cell-title {
           flex: 0;
         }
-        .mint-cell-value {
-          span{
-            margin-left: 15px;
-            color: #333;
+        .mint-cell-wrapper{
+          position: relative;
+          .mint-cell-value {
+            width: 100%;
+            span{
+              margin-left: 15px;
+              color: #333;
+            }
+            .mui-radio {
+              width: 100%;
+              position: static;
+              label {
+                color: #333;
+              }
+              input {
+                position: absolute;
+                right: 35px;
+                top: 10px;
+              }
+              input[type=radio]::before {
+                content: ''
+              }
+              input[type=radio]:checked::before {
+                content: '\e442'
+              }
+            }
           }
         }
-        .choosed {
-          background: url(../assets/img/record/gouxuan.png) no-repeat;
-          background-position: 85% center;
-          background-size: 20px 20px;
-        }
-      }
-      .confirm {
-        height: 50px;
-        width: 100%;
-        border-top: 1px solid #eee;
-        position: fixed;
-        left: 12%;
-        bottom: 0;
-        padding: 0 6%;
-        font-size: 0;
-        z-index: 30000;
-        background-color: #fff;
-        button {
-          font-size: 16px;
-          width: 40%;
-          margin-right: 6%;
-          height: 35px;
-          margin-top: 7px;
-          background-color: #fff;
-          border-radius: 6px;
-          border: none;
-          border: 1px solid #ddd;
-          outline: none;
-        }
-        button:nth-child(2){
-          background: linear-gradient(to right, #77b9fe, #3882f5);
-          color: #fff;
-        }
-      }
-
-      .active {
-        background-color: #d8e7fd;
-        color:#3e87f6;
-        border: 1px solid #3e87f6 !important;
       }
     }
   }
+
+  .confirm {
+      height: 50px;
+      width: 100%;
+      border-top: 1px solid #eee;
+      position: fixed;
+      left: 12%;
+      bottom: 0;
+      padding: 0 6%;
+      font-size: 0;
+      z-index: 30000;
+      background-color: #fff;
+      button {
+        font-size: 16px;
+        width: 40%;
+        margin-right: 6%;
+        height: 35px;
+        margin-top: 7px;
+        background-color: #fff;
+        border-radius: 6px;
+        border: none;
+        border: 1px solid #ddd;
+        outline: none;
+      }
+      button:nth-child(2){
+        background: linear-gradient(to right, #77b9fe, #3882f5);
+        color: #fff;
+      }
+    }
+
   #container{
     width: 100%;
     height: calc(100vh - 95px);

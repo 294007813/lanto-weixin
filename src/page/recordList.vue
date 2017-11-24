@@ -2,17 +2,18 @@
 <div>
   <div class="basinfo">
     <div class="title"><img src="../assets/img/record/list.png"/><span>基本信息</span></div>
-    <ul class="info" v-for='(item, index) in info' :key='index'>
-      <li><i>*</i><span>车牌号码</span><p>{{ item.vehicleplatenumber }}</p></li>
-      <li><span>车辆品牌</span><p>{{ item.brand }}</p></li>
-      <li><span>车系</span><p>{{ item.cartype }}</p></li>
+    <!-- <ul class="info" v-for='(item, index) in info' :key='index'> -->
+    <ul class="info">
+      <li><i>*</i><span>车牌号码</span><p>{{ info[0].vehicleplatenumber }}</p></li>
+      <li><span>车辆品牌</span><p>{{  }}</p></li>
+      <li><span>车系</span><p>{{  }}</p></li>
       <li><span>排量</span><p>{{  }}T</p></li>
       <li><span>生产年份</span><p>{{  }}</p></li>
       <!-- item.manufacturedate.substr(0,4)+'-'+item.manufacturedate.substr(4,2)+'-'+item.manufacturedate.substr(6) -->
       <li><span>购买日期</span><p>{{  }}</p></li>
       <!-- item.registerdate.substr(0,4)+'-'+item.registerdate.substr(4,2)+'-'+item.registerdate.substr(6) -->
-      <li><i>*</i><span>车架号</span><p>{{ item.vin }}</p></li>
-      <li><span>发动机号</span><p>{{ item.engineno }}</p></li>
+      <li><i>*</i><span>车架号</span><p>{{ info[0].vin }}</p></li>
+      <li><span>发动机号</span><p>{{  }}</p></li>
     </ul>
   </div>
   <div class="basinfo">
@@ -47,8 +48,7 @@ export default {
     let data = {
       accessToken: localStorage.getItem("ACCESSTOKEN"),
       vehicleplatenumber: this.$route.query.vehicleplatenumber,
-      limit: 0,
-      page: 0
+      limit: 0
     }
     let params = {
       accessToken: localStorage.getItem("ACCESSTOKEN"),
@@ -59,12 +59,12 @@ export default {
 
     this.axios({
       method: 'post',
-      url: '/vehicle/owner/queryVehicelist',
+      url: '/vehicle/carfile/query',
       headers: {'Content-type': 'application/json'},
       data: JSON.stringify(data)
     })
     .then(res => {
-      this.info = res.data.data
+      this.info = res.data.data.content
       console.log('----',   this.info);
     })
     this.axios({
@@ -105,6 +105,7 @@ export default {
   }
   .info{
     padding-left: 30px;
+    margin: 0;
     li{
       height: 35px;
       line-height: 35px;

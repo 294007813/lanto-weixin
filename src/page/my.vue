@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="head">
+    <div class="header">
       <b>{{name}}</b>
       <u @click="popupVisible=!popupVisible"></u>
-      <span>{{ tel }}</span>
+      <span class="telNum">{{ tel }}</span>
       <img src="../assets/img/my/user.png" alt="">
     </div>
     <div class="list" @click="goCarList">
@@ -15,7 +15,6 @@
     <div class="list">
       <img src="../assets/img/my/expert_info.png" alt=""><span>专家信息</span> <i></i>
     </div>
-    
     <div class="list">
       <img src="../assets/img/my/Satisfaction_degree.png" alt=""><span>满意度调查</span> <i></i>
     </div>
@@ -25,7 +24,7 @@
     <div class="list" @click='goSuggestion'>
       <img src="../assets/img/my/feedback.png" alt=""><span>意见反馈</span> <i></i>
     </div>
-    <div class="list">
+    <div class="list" @click='goComplaint'>
       <img src="../assets/img/my/report.png" alt=""><span>投诉举报</span> <i></i>
     </div>
   </div>
@@ -60,6 +59,9 @@
     },
     goSuggestion() {
       this.$router.push({ path: '/suggestion'})
+    },
+    goComplaint() {
+      this.$router.push({path: '/complaint'})
     }
   }
 }
@@ -74,7 +76,7 @@ body {
   width: 100%;
   position: relative;
 }
-.head{
+.header{
   height: 100px;
   line-height: 60px;
   border-top: 10px solid #f8f8f8;
@@ -83,6 +85,7 @@ body {
   position: relative;
   b {
     font-size: 20px;
+    color: #000;
   }
   img{
     width: 60px;
@@ -97,7 +100,7 @@ body {
     background-size: 100% 100%;
     margin-left: 10px;
   }
-  span {
+  .telNum {
     position: absolute;
     left: 10px;
     top: 25px;
