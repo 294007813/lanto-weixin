@@ -110,7 +110,7 @@ export default {
       this.$router.push({ path: '/doctor'})
     },
     goInfo(){
-      this.$router.push({ path: '/infoList'})
+      this.$router.push({ path: '/infoService'})
     },
     goCarList(){
       this.$router.push({ path: '/carList'})

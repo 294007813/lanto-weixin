@@ -38,7 +38,7 @@ export default new Router({
     {path: '/repairSearchList', name: 'repairSearchList', component: RepairSearchList, meta: { requiresAuth: true }},
     {path: '/setting', name: 'setting', component: Setting, meta: { requiresAuth: true }},
     {path: '/suggestion', name: 'suggestion', component: Suggestion},
-    {path: '/infoList', name: 'infoList', component: InfoList, meta: { requiresAuth: true }},
+    {path: '/infoList', name: 'infoList', component: InfoList},
     {path: '/complaint', name: 'complaint', component: Complaint},
     {path: '/aboutUs', name: 'aboutUs', component: AboutUs}
   ]

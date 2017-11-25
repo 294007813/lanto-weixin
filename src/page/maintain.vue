@@ -19,178 +19,51 @@
               <a class="mui-navigate-right" href="javascript:;">企业类型</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li :class="{active: item.value=='all'}" @click='getVal($event, item.value)' v-for='(item, index) in companyType' :key='index'>{{ item.name }}</li>
+                  <li :class="{active: item.value=='all'}" @click='getCompanyType($event, item.value)' v-for='(item, index) in companyType' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
           </ul>  
-
+          <!-- 星级评分 -->
           <ul class="mui-table-view"> 
             <li class="mui-table-view-cell mui-collapse mui-active">
               <a class="mui-navigate-right" href="javascript:;">星级评分</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li class="active">全部</li>
-                  <li>★★★★★</li>
-                  <li>★★★★</li>
-                  <li>★★★</li>
-                  <li>★★</li>
-                  <li>★</li>
+                  <li :class="{active: item.value=='all'}" @click='getStarLevel($event, item.value)' v-for='(item, index) in starLevel' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
           </ul>
+          <!-- 区域范围 -->
           <ul class="mui-table-view"> 
             <li class="mui-table-view-cell mui-collapse">
               <a class="mui-navigate-right" href="javascript:;">区域范围</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li class="active">全部</li>
-                  <li>黄浦区</li>
-                  <li>徐汇区</li>
-                  <li>长宁区</li>
-                  <li>静安区</li>
-                  <li>普陀区</li>
-                  <li>虹口区</li>
-                  <li>杨浦区</li>
-                  <li>闵行区</li>
-                  <li>宝山区</li>
-                  <li>嘉定区</li>
-                  <li>浦东新区</li>
-                  <li>金山区</li>
-                  <li>松江区</li>
-                  <li>青浦区</li>
-                  <li>奉贤区</li>
+                  <li :class="{active: item.value=='all'}" @click='getArea($event, item.value)' v-for='(item, index) in Area' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
           </ul>
-
+          <!-- 车辆品牌 -->
           <ul class="mui-table-view"> 
             <li class="mui-table-view-cell mui-collapse">
               <a class="mui-navigate-right" href="javascript:;">车辆品牌</a>
               <div class="mui-collapse-content carBrandChoose">
                 <div class='carBrand'>
                   <mt-index-list :height='312'>
-                      <mt-index-section index="A">
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>奥迪</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>阿尔法·罗密欧</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>阿斯顿·马丁</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>安凯客车</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>奔驰</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                      </mt-index-section>
-                      <mt-index-section index="B">
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>宾利</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>保时捷</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>奔驰</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>宝马</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>本田</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>别克</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>比亚迪</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                        <mt-cell title="">
-                          <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
-                          <div class="mui-input-row mui-radio">
-                            <label>宝骏</label>
-                            <input name="radio" type="radio">
-                          </div>
-                        </mt-cell>
-                      </mt-index-section>
-                      <mt-index-section index="C"></mt-index-section>
-                      <mt-index-section index="D"></mt-index-section>
-                      <mt-index-section index="E"></mt-index-section>
-                      <mt-index-section index="F"></mt-index-section>
-                      <mt-index-section index="G"></mt-index-section>
-                      <mt-index-section index="H"></mt-index-section>
-                      <mt-index-section index="I"></mt-index-section>
-                      <mt-index-section index="J"></mt-index-section>
-                      <mt-index-section index="K"></mt-index-section>
-                      <mt-index-section index="L"></mt-index-section>
-                      <mt-index-section index="M"></mt-index-section>
-                      <mt-index-section index="N"></mt-index-section>
-                      <mt-index-section index="O"></mt-index-section>
-                      <mt-index-section index="P"></mt-index-section>
-                      <mt-index-section index="Q"></mt-index-section>
-                      <mt-index-section index="R"></mt-index-section>
-                      <mt-index-section index="S"></mt-index-section>
-                      <mt-index-section index="T"></mt-index-section>
-                      <mt-index-section index="U"></mt-index-section>
-                      <mt-index-section index="V"></mt-index-section>
-                      <mt-index-section index="W"></mt-index-section>
-                      <mt-index-section index="X"></mt-index-section>
-                      <mt-index-section index="Y"></mt-index-section>
-                      <mt-index-section index="Z"></mt-index-section>
+                    
+                    <mt-index-section :index=item.index v-for="(item, i) in carBrand" :key='i'>
+                      <mt-cell title="" v-for="(list, i) in item.brand" :key='i'>
+                        <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
+                        <div class="mui-input-row mui-radio" @click='getBrand(list.name)'>
+                          <label>{{ list.name }}</label>
+                          <input name="radio" type="radio">
+                        </div>
+                      </mt-cell>
+                    </mt-index-section>
+
                   </mt-index-list>
                 </div>
               </div>
@@ -200,7 +73,7 @@
       </div>
     </mt-popup>
     <div v-show='popupVisible' class="confirm">
-      <button>清空</button>
+      <button @click='clear'>清空</button>
       <button @click='submit'>确定</button>
     </div>
 
@@ -213,7 +86,6 @@
 
 <script> 
 import { Toast, MessageBox, Navbar, TabItem } from 'mint-ui'
-import $ from '../lib/jquery.min.js'
 export default {
   name: '',
   data () {
@@ -253,7 +125,473 @@ export default {
           value: '47'      
         }
       ],
-      val: ''    // 企业类型的标志
+      type: '',    // 企业类型的标志
+      starLevel: [
+        {
+          name:'全部',
+          value: 'all'
+        },
+        {
+          name:'★★★★★',
+          value: '43'      
+        },
+        {
+          name:'★★★★',
+          value: '44'      
+        },
+        {
+          name:'★★★',
+          value: '45'      
+        },
+        {
+          name:'★★',
+          value: '46'      
+        },
+        {
+          name:'★',
+          value: '47'      
+        }
+      ],
+      level: '',   // 星级评分标志
+      Area: [
+        {
+          name: '全部',
+          value: 'all'
+        },
+        {
+          name: '黄浦区',
+          value: '1'
+        },{
+          name: '徐汇区',
+          value: '2'
+        },
+        {
+          name: '长宁区',
+          value: '3'
+        },
+        {
+          name: '静安区',
+          value: '4'
+        },
+        {
+          name: '普陀区',
+          value: '5'
+        },
+        {
+          name: '虹口区',
+          value: '6'
+        },
+        {
+          name: '杨浦区',
+          value: '7'
+        },
+        {
+          name: '闵行区',
+          value: '8'
+        },
+        {
+          name: '宝山区',
+          value: '9'
+        },
+        {
+          name: '嘉定区',
+          value: '10'
+        },
+        {
+          name: '浦东新区',
+          value: '11'
+        },
+        {
+          name: '金山区',
+          value: '12'
+        },
+        {
+          name: '松江区',
+          value: '13'
+        },
+        {
+          name: '青浦区',
+          value: '14'
+        },
+        {
+          name: '奉贤区',
+          value: '15'
+        },
+      ],
+      area: '',
+      carBrand: [
+        {
+          index: 'A',
+          brand: [
+            {
+              name: '奥迪',
+              pic: 'aodi',
+            },
+            {
+              name: '阿尔法·罗密欧',
+              pic: 'aodi'
+            },
+            {
+              name: '阿斯顿·马丁',
+              pic: 'aodi'
+            },
+            {
+              name: '安凯客车',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'B',
+          brand: [       
+             {
+              name: '宾利',
+              pic: 'aodi'
+            },
+            {
+              name: '保时捷',
+              pic: 'aodi'
+            },
+            {
+              name: '奔驰',
+              pic: 'aodi'
+            },
+            {
+              name: '宝马',
+              pic: 'aodi'
+            },
+            {
+              name: '别克',
+              pic: 'aodi'
+            },
+            {
+              name: '本田',
+              pic: 'aodi'
+            },
+            {
+              name: '比亚迪',
+              pic: 'aodi'
+            },
+            {
+              name: '宝骏',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'C',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'D',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'E',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'F',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'G',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'H',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'I',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'J',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'K',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'L',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'M',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'N',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'O',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'P',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'Q',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'R',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'S',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'T',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'U',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'V',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'W',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'X',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'Y',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+        {
+          index: 'Z',
+          brand: [
+             {
+              name: '迈巴赫',
+              pic: 'aodi'
+            },
+             {
+              name: '玛莎拉蒂',
+              pic: 'aodi'
+            }
+          ]
+        },
+      ],
+      brand: ''  
     }
   },
 
@@ -378,13 +716,43 @@ export default {
         })
       }
     },
-    submit(){
+    clear(){   // 清空
+      this.type='all'
+      this.level='all'
+      this.area='all'
+      this.brand=''
+      var lis = document.getElementsByClassName('content')[0]
+      console.log(lis);
+    },
+    submit(){  // 确定
       this.popupVisible=!this.popupVisible
     },
-    getVal(e,v){
-      this.val = v
-      var ele = e.target;
-      $(ele).addClass('active').siblings.removeClass('active');
+    getCompanyType(e,v){
+      this.type = v
+      this.addclass(e)
+      console.log(this.type);
+    },
+    getStarLevel(e,v){
+      this.level = v
+      console.log(this.level);
+      this.addclass(e)
+    },
+    getArea(e,v){
+      this.area = v
+      console.log(this.area);
+      this.addclass(e)
+    },
+    getBrand(v){
+      this.brand = v
+      console.log(this.brand);
+    },
+    addclass(e){
+      var ele = e.target
+      var brothers = ele.parentNode.children
+      for(var i=0;i<brothers.length;i++){
+        brothers[i].className = ''
+      }
+      ele.className='active'
     }
   }
 }
@@ -475,10 +843,10 @@ export default {
       height: 100%;
     }
     .content {
-      background-color: #f8f8f8;
+      // background-color: #f8f8f8;
       position: relative;
       color: #2d2d2d;
-      // height: 100%;
+      padding-bottom: 50px;
       >ul{
         >li::after{
           height: 0;
