@@ -2,12 +2,10 @@
   <div class="suggest">
       <div class="title">分类标签</div>
       <div class="content">
-          <button type="button" class="mui-btn active">功能建议</button>
-          <button type="button" class="mui-btn">体验建议</button>
-          <button type="button" class="mui-btn">内容建议</button>
+          <button type="button" @click='checkoutTag($event)' :data-index="item.index" :class="{'mui-btn': true, 'active': i==index}" v-for='(item, i) in tags' :key="i">{{ item.name }}</button>
       </div>
       <div class="title">我要反馈</div>
-      <textarea name="" id="" cols="30" rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
+      <textarea name="" id="" cols="30" v-model='text' rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
        <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
       <button @click="submit" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">提交</button>
       <mt-actionsheet
@@ -19,40 +17,61 @@
 
 <script>
 import mui from "../lib/mui/js/mui.min.js"
-import { Actionsheet } from 'mint-ui'
+import { Actionsheet, Toast } from 'mint-ui'
 export default {
     data(){
+        var self = this
         return{
             actions: [
-                {name: '拍照',methods(){
-
+                {name: '拍照', method:function(){
+                   self.openCamera()
                 }},
-                {name: '从相册中选择',methods(){
-
+                {name: '从相册中选择',method:function(){
+                    self.openPhoto()
                 }}
             ],
-            sheetVisible: false
+            sheetVisible: false,
+            tags: [
+                {name:'功能建议', index:0},
+                {name:'体验建议', index:1},
+                {name:'内容建议', index:2},
+            ],
+            index: 0,
+            text: ''
         }
     },
     mounted (){
 
     },
     methods: {
-        submit(e) {
+        submit(e) {   //点击提交按钮
+            if(this.text.trim()==''){
+               Toast('请输入反馈内容')
+               return
+            }
+            this.text=''
             mui(e.target).button('loading')
-            // 阻止提交loading样式的方法
-           // mui(e.target).button('reset');//切换为reset状态(即重置为原始的button)
+            setTimeout(function(){
+                Toast('提交成功')
+                mui(e.target).button('reset')
+            },1000)
         },
-        uploadPic(){   // 调取手机本地相机或相册接口
+        openCamera(){   // 调取手机本地相机    参照网址:https://mp.weixin.qq.com/debug/wxadoc/dev/api/media-picture.html#wxchooseimageobject
             wx.chooseImage({
-                count: 1,
-                sizeType: ['original','compressed'],
-                sourceType: ['album','camera'],
+                count: 1,  //选择照片的数量
+                sizeType: ['original','compressed'],    // 可以指定是原图还是压缩图，默认二者都有 
+                sourceType: ['album'],  // 可以指定来源是相册还是相机，默认二者都有 
                 success: function(res) {
-                    var localIds = res.localIds;
-                    alert('已选择'+ localIds.length +'张图片')
+                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                    var tempFilePaths = res.tempFilePaths
                 }
             })
+        },
+        openPhoto(){     // 调取手机本地相册
+
+        },
+        checkoutTag(e){
+            this.index=e.target.getAttribute('data-index')
         }
     }
 }
@@ -65,8 +84,8 @@ body {
 .suggest {
     .title {
         background-color: #f8f8f8;
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
         padding-left: 15px;
     }
     .content {
@@ -87,13 +106,14 @@ body {
     textarea {
         border: none;
         font-size: 14px;
+        // padding-bottom: 0px; 
     }
     .addPic {
         width: 50px;
         height: 50px;
         border: 1px dashed #ccc;
         position: absolute;
-        top: 300px; 
+        top: 280px; 
         left: 20px;
         border-radius: 5px;
         background: url(../assets/img/record/add.png) no-repeat center center;

@@ -4,11 +4,24 @@
       <span @click='popupVisible=!popupVisible'>筛选</span>
       <div class="mapWrap">
         <form>
-          <input type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
+          <input class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
         </form>
       </div>
       <div id="container">
       </div> 
+      <!-- 企业详情开始 -->
+      <div id="popover" class="mui-popover">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell"><a href="#">Item1</a></li>
+          <li class="mui-table-view-cell"><a href="#">Item2</a></li>
+          <li class="mui-table-view-cell"><a href="#">Item3</a></li>
+          <li class="mui-table-view-cell"><a href="#">Item4</a></li>
+          <li class="mui-table-view-cell"><a href="#">Item5</a></li>
+        </ul>
+      </div>
+      <!-- 企业详情结束 -->
+
+
     </div> 
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
       <div class="contentWrap">
@@ -53,7 +66,6 @@
               <div class="mui-collapse-content carBrandChoose">
                 <div class='carBrand'>
                   <mt-index-list :height='312'>
-                    
                     <mt-index-section :index=item.index v-for="(item, i) in carBrand" :key='i'>
                       <mt-cell title="" v-for="(list, i) in item.brand" :key='i'>
                         <img src="../assets/img/record/aodi.png" width="30" height="20" alt="">
@@ -63,7 +75,6 @@
                         </div>
                       </mt-cell>
                     </mt-index-section>
-
                   </mt-index-list>
                 </div>
               </div>
@@ -620,21 +631,12 @@ export default {
       console.log(this.points);
     })
   },
-  // updated() {
-  //   var fixCompany = document.getElementsByClassName('.BMap_noprint')
-  //   for(var i=0; i<fixCompany.length; i++){
-  //     fixCompany[i].onclick=function(){
-  //       console.log(1111);
-  //     }
-  //   }
-  // },
   watch: {
     points: function(){
       var markers=[];
       var map = new BMap.Map("container")          // 创建地图实例  
       var point = new BMap.Point(this.pointX, this.pointY)  // 创建点坐标  
       map.centerAndZoom(point, this.scale)                 // 初始化地图，设置中心点坐标和地图级别  
-      map.enableScrollWheelZoom(true)     //开启鼠标滚轮缩放
       map.addControl(new BMap.NavigationControl())  //添加放大缩小控件
 
 
@@ -668,13 +670,23 @@ export default {
           var center = map.getCenter()
           centerLng = center.lng
           centerLat = center.lat
+          console.log('中心点坐标:'+centerLng+','+centerLat);
         }
       )
+
 
       // 圆形区域检索
       // map.centerAndZoom(new BMap.Point(centerLng, centerLat), 13)
       // var local = new BMap.LocalSearch(map, { renderOptions:{map: map, autoViewport: true}})
       // local.searchNearby("小吃", "前门")
+
+
+      // 点击维修企业图标查看详细信息
+      for(var i=0; i<markers.length; i++){
+        markers[i].addEventListener('click',function(){
+          mui('.bottomPopover').popover(toggle,document.getElementById("openPopover"));
+        })
+      }
     }
   },
   methods:{

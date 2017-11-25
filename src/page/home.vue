@@ -1,9 +1,8 @@
 <template>
 <div class="animated fadeIn home">
   <!-- 轮播开始 -->
-  <div id="Gallery" class="mui-slider" style="margin-top:15px;">
-				<div class="mui-slider-group">
-					<div class="mui-slider-item">
+  <div id="Gallery" style="margin-top:15px;">
+					<div>
 						<ul class="mui-table-view mui-grid-view mui-grid-9">
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
                   <img src="../assets/img/home/appointment.png" alt="">
@@ -37,11 +36,7 @@
 									<img src="../assets/img/home/industry.png" alt="">
 									<div class="mui-media-body">行业自律</div>
 							</li>
-						</ul>
-					</div>
-					<div class="mui-slider-item">
-						<ul class="mui-table-view mui-grid-view mui-grid-9">
-							<li @click="goInfo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+              <li @click="goInfo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 										<img src="../assets/img/home/public.png" alt="">
 									<div class="mui-media-body">公共服务</div>
 							</li>
@@ -59,15 +54,10 @@
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 									<img src="../assets/img/home/online.png" alt="">
-									<div class="mui-media-body">在线商业服务</div>
+									<div class="mui-media-body">在线商务</div>
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-				</div>
 			</div>
  <!-- 轮播结束 -->
  
@@ -99,7 +89,7 @@ export default {
   name: 'home',
   data () {
     return {
-
+      
     }
   },
   methods:{
@@ -133,8 +123,8 @@ export default {
     margin-bottom: 50px;
     #Gallery {
       margin: 0 !important;
-      padding: 10px 0 20px;
-      .mui-slider-item ul {
+      padding: 5px 0 5px;
+      ul {
         background-color: #fff;
         border: none;
         li {
@@ -149,7 +139,7 @@ export default {
           }
           .mui-media-body {
             height: 16px;
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 12px;
           }
         }
