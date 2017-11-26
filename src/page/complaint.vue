@@ -150,11 +150,12 @@ export default {
         height: 0;
     }
     .submitComplain {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
         height: 40px;
         background-color: #9fc7fa;
         border: none;
+        font-size: 16px;
     }
 </style>

@@ -4,18 +4,62 @@
       <span @click='popupVisible=!popupVisible'>筛选</span>
       <div class="mapWrap">
         <form>
-          <input class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
+          <input id='search_repaire' class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
         </form>
       </div>
+
       <div id="container">
       </div> 
       <!-- 企业详情开始 -->
       <div id="popover" class="mui-popover">
-       <div class="close_btn"></div>
+        <div class="top">
+          <div class="title">
+            <div class="img">
+              <!-- <img src="" alt="">  -->
+            </div>
+            <span>上海百信多好车行管理服务有限公司梅陇西路分公司</span>
+          </div>
+          <div class="address">
+            <div class="name">
+              <em></em>
+              <span>梅陇西路1972号底层、1976号底层</span>
+            </div>
+            <div class="mile">
+              <i></i>
+              <span>1.7km</span>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="top">
+            <div class="left">
+              <p>AA</p>
+              <span>信誉等级</span>
+            </div>
+            <div class="right">
+              <div class="stars">
+                <img src="../assets/img/maintain/score_yellow.png" alt="">
+                <img src="../assets/img/maintain/score_yellow.png" alt="">
+                <img src="../assets/img/maintain/score_yellow.png" alt="">
+                <img src="../assets/img/maintain/score_yellow.png" alt="">
+                <img src="../assets/img/maintain/score_gray.png" alt="">
+              </div>
+              <p>综合评分: 7.5分</p>
+            </div>
+          </div>
+          <div class="middle">
+            <div class="one hehe">
+            </div>
+            <div class="two hehe"></div>
+            <div class="three hehe"></div>
+            <div class="four hehe"></div>
+          </div>
+          <div class="bottom" @click='goRemark'>我要评价</div>
+        </div>
+        <!-- xx关闭按钮 -->
+       <div class="close_btn" @click='closeModel'></div>
       </div>
       <!-- 企业详情结束 -->
-
-
     </div> 
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
       <div class="contentWrap">
@@ -81,7 +125,6 @@
       <button @click='clear'>清空</button>
       <button @click='submit'>确定</button>
     </div>
-
     <div class="fixGuide">
       查找最近维修点
       <img src="/static/img/position.png" alt="">
@@ -618,7 +661,6 @@ export default {
     .then(response => {
       let points = []
       let datas=response.data.data.content
-      console.log(datas)
       for( let i in datas){
         points.push({
           lng: datas[i].lat,
@@ -672,7 +714,6 @@ export default {
         }
       )
 
-
       // 圆形区域检索
       // map.centerAndZoom(new BMap.Point(centerLng, centerLat), 13)
       // var local = new BMap.LocalSearch(map, { renderOptions:{map: map, autoViewport: true}})
@@ -682,7 +723,7 @@ export default {
       // 点击维修企业图标查看详细信息
       for(var i=0; i<markers.length; i++){
         markers[i].addEventListener('click',function(){
-          mui('.mui-popover').popover('show',document.getElementById("popover"));
+          mui('.mui-popover').popover('show',document.getElementById("popover"))
         })
       }
     }
@@ -690,6 +731,8 @@ export default {
   methods:{
     key(e){
       if(e.keyCode=='13' && document.hasFocus()){
+        var search = document.getElementById('search_repaire');
+        search.blur()
         let data={
           systemToken: localStorage.getItem("SYSTEMTOKEN"),
           corpName: this.repairName
@@ -763,15 +806,20 @@ export default {
         brothers[i].className = ''
       }
       ele.className='active'
+    },
+    closeModel(){
+      mui('.mui-popover').popover('hide',document.getElementById("popover"))
+    },
+    goRemark(){
+      mui('.mui-popover').popover('hide',document.getElementById("popover"))
+      this.$router.push({
+        path: '/remark'
+      })
     }
   }
 }
 </script>
-
 <style lang="scss">
-  .mui-backdrop {
-    background-color: rgba(0,0,0,.6);
-  }
   #allmap {
     position: relative;
     .fixGuide {
@@ -797,7 +845,6 @@ export default {
       }
     }
   }
-
   .search {
     position: relative;
     .mapWrap {
@@ -833,14 +880,16 @@ export default {
       text-indent: 20px;
       font-size: 16px;
     }
-    // 企业详情弹出框样式
+    // 企业详情弹出框样式开始
     #popover{
       z-index: 2500;
       width: 90%;
+      height: 450px;
       border-radius: 15px;
       left: 5% !important;
-      top:  50px !important;
-      height: 430px;
+      top:  50% !important;
+      transform: translateY(-50%);
+      background-color: #fff;
       .mui-popover-arrow {
         height: 0;
       }
@@ -854,7 +903,146 @@ export default {
         background: url(../assets/img/maintain/close.png) no-repeat;
         background-size: contain;
       }
+      >.top {
+        height: 130px;
+        border-radius: 15px 15px 0 0;
+        background: linear-gradient(to right, #67aafb, #3b83f6);
+        overflow: hidden;
+        .title {
+          height: 60px;
+          margin-top: 25px;
+          .img {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            margin: 0 13px;
+            float: left;
+          }
+          span {
+            color: #fff;
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'PingFang-SC-Medium';
+          }
+        }
+        @media screen and (min-width: 320px) {
+          .address{
+            font-size: 12px;
+          }
+        }
+        @media screen and (min-width: 375px) {
+          .address{
+            font-size: 14px;
+          }
+        }
+        .address {
+          height: 20px;
+          color: #fff;
+          margin-top: 12px;
+          margin-left: 15px;
+          .name{
+            height: 20px;
+            float: left;
+            position: relative;
+            em {
+              width: 15px;
+              height: 15px;
+              background: url(../assets/img/maintain/address.png) no-repeat;
+              background-size: contain;
+              position: absolute;
+              top: 3px;
+            }
+            span {
+              margin-left: 18px;
+              display: inline-block;
+              width: 93%;
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
+            }
+          }
+          .mile {
+            float: right;
+            margin-right: 10px;
+            position: relative;
+            i {
+              position: absolute;
+              width: 15px;
+              height: 15px;
+              background: url(../assets/img/maintain/mile.png) no-repeat;
+              background-size: contain;
+              top: -15px;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
+        }
+      }
+      >.content {
+        >.top {
+          height: 50px;
+          color: #666;
+          >.left {
+            float: left;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            width: 50%;
+            height: 100%;
+            box-sizing: border-box;
+            >p {
+              text-align: center;
+              color: red;
+              margin-bottom: 0;
+              margin-top: 2px;
+            }
+            span {
+              display: block;
+              text-align: center;
+              font-size: 14px;
+            }
+          }
+          >.right {
+            border-bottom: 1px solid #eee;
+            height: 100%;
+            float: right;
+            width: 50%;
+            position: relative;
+            .stars {
+              position: absolute;
+              font-size: 1px;
+              width: 80px;
+              height: 14px;
+              left: 50%;
+              transform: translateX(-50%);
+              top: 5px;
+              img {
+                width: 14px;
+                height: 14px;
+              }
+            }
+            p {
+              text-align: center;
+              margin-top: 22px;
+              color: #666;
+            }
+          }
+        }
+        >.middle {
+          height: 230px;
+          background: pink;
+          padding: 17px 12px;
+
+        }
+        >.bottom {
+          text-align: center;
+          height: 40px;
+          line-height: 40px;
+          border-radius: 0 0 15px 15px;
+          color: #4285f4;
+        }
+      }
     }
+// 企业详情弹出框样式结束
   } 
 
   .filter {

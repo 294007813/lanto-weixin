@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="register">
     <div class="top">
       <p @click="goback()"><i></i></p>
     </div>
@@ -156,8 +156,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  body {
-    background-color: #fff;
+  .register {
+    height: 100vh;
   }
   .top{
     height: 40px;

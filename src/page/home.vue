@@ -183,7 +183,6 @@ export default {
   .title {
     width: 100%;
     height: 40px;
-    font-size: 13px;
     line-height: 40px;
     border-bottom: 1px solid #f7f7f7;
     >div{
@@ -223,7 +222,7 @@ export default {
     }
     span{
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       color: #8f8f8f;
       position: absolute;
       bottom: 10px;

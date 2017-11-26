@@ -109,7 +109,7 @@ export default {
     },
     // 输入车牌号进行搜索
     key(e) {
-      if (e.keyCode == '13' && document.hasFocus()) {
+      if (e.keyCode == '13') {
         if (this.vehicleplatenumber.trim() == '') {
           Toast('请输入车牌号')
           return

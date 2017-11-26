@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login">
     <div class="top">
       <p @click="goBack()"><i></i></p>
     </div>
@@ -109,8 +109,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-body {
-  background-color: #fff !important;
+#login {
+  height: 100vh;
 }
 .top{
   height: 40px;
@@ -147,7 +147,7 @@ body {
 }
 .input{
   width: 80%;
-  margin: 20px auto;
+  margin: 20px auto !important;
   color: #1383ca;
   input {
     color: #000;

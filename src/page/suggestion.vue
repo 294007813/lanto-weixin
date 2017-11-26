@@ -5,8 +5,10 @@
         <button type="button" @click='checkoutTag($event)' :data-index="item.index" :class="{'mui-btn': true, 'active': i==index}" v-for='(item, i) in tags' :key="i">{{ item.name }}</button>
     </div>
     <div class="title">我要反馈</div>
-    <textarea name="" id="" cols="30" v-model='text' rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
-    <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
+    <textarea name="" id="" cols="30" v-model='text' rows="4" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
+    <div class="addWrap">
+        <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
+    </div>
     <button @click="submit" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">提交</button>
     <mt-actionsheet
     :actions="actions"
@@ -106,26 +108,28 @@ body {
     textarea {
         border: none;
         font-size: 14px;
+        margin-bottom: 10px;
         // padding-bottom: 0px; 
     }
-    .addPic {
-        width: 50px;
-        height: 50px;
-        border: 1px dashed #ccc;
-        position: absolute;
-        top: 280px; 
-        left: 20px;
-        border-radius: 5px;
-        background: url(../assets/img/record/add.png) no-repeat center center;
-        background-size: 50% 50%;
+    .addWrap {
+        padding: 0 0 15px 15px;
+        .addPic {
+            width: 50px;
+            height: 50px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            background: url(../assets/img/record/add.png) no-repeat center center;
+            background-size: 50% 50%;
+        }
     }
     .mui-btn-primary {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
         height: 40px;
         background-color: #9fc7fa;
         border: none;
+        font-size: 16px;
     }
 }
 </style>

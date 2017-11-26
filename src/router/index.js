@@ -18,6 +18,7 @@ import Suggestion from '@/page/suggestion'
 import InfoService from '@/page/infoService'
 import Complaint from '@/page/complaint'
 import AboutUs from '@/page/aboutUs'
+import Remark from '@/page/remark'
 
 Vue.use(Router)
 
@@ -40,6 +41,7 @@ export default new Router({
     {path: '/suggestion', name: 'suggestion', component: Suggestion},
     {path: '/infoList', name: 'infoList', component: InfoList},
     {path: '/complaint', name: 'complaint', component: Complaint},
-    {path: '/aboutUs', name: 'aboutUs', component: AboutUs}
+    {path: '/aboutUs', name: 'aboutUs', component: AboutUs},
+    {path: '/remark', name: 'remark', component: Remark, meta: { requiresAuth: true }},
   ]
 })
