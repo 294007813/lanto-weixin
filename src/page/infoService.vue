@@ -1,6 +1,6 @@
 <template>
   <div id='wrap'>
-    <mt-swipe :auto="4000">
+    <mt-swipe :auto="0">
       <mt-swipe-item>
         <img src="../assets/img/infoService/1.png" alt="">
         <p>机动车维修企业质量信誉考核办法</p>
@@ -93,7 +93,7 @@ export default {
       .mint-swipe-indicator {
         width: 12px;
         height: 3px;
-        background: rgba(0,0,0,.4);
+        background: rgba(0,0,0,.6);
         border-radius: 2px;
       }
       .is-active {
@@ -121,13 +121,16 @@ export default {
       }
     }
     ul{
-      padding: 15px 0 0 10px;
+      border-top: 10px solid #f8f8f8;
       overflow: hidden;
+
       li{
         width: 50%;
-        height: 50px;
         float: left;
-        margin-bottom: 10px;
+        padding: 10px 0 10px 12px;
+        border: 1px solid #f8f8f8;
+        border-top: none;
+        border-left: none;
         .left{
           float: left;
           width: 20px;
@@ -139,10 +142,10 @@ export default {
           }
         }
         .right {
-          width: 75%;
+          width: 77%;
           float: right;
-          margin-right: 8px;
-          margin-left: 8px;
+          margin-right: 5px;
+          margin-left: 5px;
           margin-top: 10px;
           h4 {
             font-weight: normal;

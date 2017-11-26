@@ -11,13 +11,7 @@
       </div> 
       <!-- 企业详情开始 -->
       <div id="popover" class="mui-popover">
-        <ul class="mui-table-view">
-          <li class="mui-table-view-cell"><a href="#">Item1</a></li>
-          <li class="mui-table-view-cell"><a href="#">Item2</a></li>
-          <li class="mui-table-view-cell"><a href="#">Item3</a></li>
-          <li class="mui-table-view-cell"><a href="#">Item4</a></li>
-          <li class="mui-table-view-cell"><a href="#">Item5</a></li>
-        </ul>
+       <div class="close_btn"></div>
       </div>
       <!-- 企业详情结束 -->
 
@@ -97,6 +91,7 @@
 
 <script> 
 import { Toast, MessageBox, Navbar, TabItem } from 'mint-ui'
+import mui from "../lib/mui/js/mui.min.js"
 export default {
   name: '',
   data () {
@@ -606,7 +601,7 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     let data={
       systemToken: localStorage.getItem("SYSTEMTOKEN")
     }
@@ -620,7 +615,6 @@ export default {
     })
     .then(response => {
       let points = [], datas=response.data.data;
-      console.log(datas);
       for( let i in datas){
         points.push({
           lng: datas[i].longitude,
@@ -647,7 +641,7 @@ export default {
       });
 
       for(var i=0; i<this.points.length;i++){
-        var points = new BMap.Point(this.points[i].lng, this.points[i].lat)
+        var points = new BMap.Point(this.points[i].lat, this.points[i].lng)
         markers.push(new BMap.Marker(points, {icon: myIcon}))
       }
 
@@ -684,7 +678,7 @@ export default {
       // 点击维修企业图标查看详细信息
       for(var i=0; i<markers.length; i++){
         markers[i].addEventListener('click',function(){
-          mui('.bottomPopover').popover(toggle,document.getElementById("openPopover"));
+          mui('.mui-popover').popover('show',document.getElementById("popover"));
         })
       }
     }
@@ -771,6 +765,9 @@ export default {
 </script>
 
 <style lang="scss">
+  .mui-backdrop {
+    background-color: rgba(0,0,0,.6);
+  }
   #allmap {
     position: relative;
     .fixGuide {
@@ -819,7 +816,6 @@ export default {
         }
       }
     }
-    
     >span {
       float: left;
       margin-left: 15px;
@@ -827,10 +823,33 @@ export default {
       width: 65px;
       line-height: 50px;
       background: url(../assets/img/record/findfix.png) no-repeat;
-      background-position: left center;
+      background-position: left 55%;
       background-size: 16px 16px;
       background-color: #fff;
       text-indent: 20px;
+      font-size: 16px;
+    }
+    // 企业详情弹出框样式
+    #popover{
+      z-index: 2500;
+      width: 90%;
+      border-radius: 15px;
+      left: 5% !important;
+      top:  50px !important;
+      height: 430px;
+      .mui-popover-arrow {
+        height: 0;
+      }
+      .close_btn {
+        position: absolute;
+        left: 50%;
+        bottom: -50px;
+        width: 35px;
+        height: 35px;
+        transform: translateX(-50%);
+        background: url(../assets/img/maintain/close.png) no-repeat;
+        background-size: contain;
+      }
     }
   } 
 

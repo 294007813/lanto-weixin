@@ -68,10 +68,11 @@ body {
         ul {
             margin-top: 8px;
             li{
-                padding: 13px 15px;
+                padding: 12px 15px;
                 position: relative;
                 a {
                     color: #333;
+                    font-size: 15px;
                 }
                 span {
                     position: absolute;

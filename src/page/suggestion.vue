@@ -1,17 +1,17 @@
 <template>
   <div class="suggest">
-      <div class="title">分类标签</div>
-      <div class="content">
-          <button type="button" @click='checkoutTag($event)' :data-index="item.index" :class="{'mui-btn': true, 'active': i==index}" v-for='(item, i) in tags' :key="i">{{ item.name }}</button>
-      </div>
-      <div class="title">我要反馈</div>
-      <textarea name="" id="" cols="30" v-model='text' rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
-       <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
-      <button @click="submit" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">提交</button>
-      <mt-actionsheet
-        :actions="actions"
-        v-model="sheetVisible">
-      </mt-actionsheet>
+    <div class="title">分类标签</div>
+    <div class="content">
+        <button type="button" @click='checkoutTag($event)' :data-index="item.index" :class="{'mui-btn': true, 'active': i==index}" v-for='(item, i) in tags' :key="i">{{ item.name }}</button>
+    </div>
+    <div class="title">我要反馈</div>
+    <textarea name="" id="" cols="30" v-model='text' rows="8" placeholder="期待您的宝贵意见,我们将为您带来更好的使用体验"></textarea>
+    <div class="addPic" @click='sheetVisible=!sheetVisible'></div>
+    <button @click="submit" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn mui-btn-primary">提交</button>
+    <mt-actionsheet
+    :actions="actions"
+    v-model="sheetVisible">
+    </mt-actionsheet>
   </div>
 </template>
 

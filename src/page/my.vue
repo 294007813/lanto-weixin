@@ -77,11 +77,9 @@ body {
   position: relative;
 }
 .header{
-  height: 100px;
   line-height: 60px;
-  border-top: 10px solid #f8f8f8;
   border-bottom: 10px solid #f8f8f8;
-  padding: 0 10px;
+  padding: 30px 10px;
   position: relative;
   b {
     font-size: 20px;
@@ -89,13 +87,13 @@ body {
   }
   img{
     width: 60px;
-    margin: 10px;
+    margin-right: 10px;
     float: right;
   }
   u {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     background: url(../assets/img/my/edit.png);
     background-size: 100% 100%;
     margin-left: 10px;
@@ -103,7 +101,7 @@ body {
   .telNum {
     position: absolute;
     left: 10px;
-    top: 25px;
+    top: 55px;
     color: #999;
   }
 }
@@ -115,13 +113,14 @@ body {
   position: relative;
   img {
     position: absolute;
-    width: 22px;
-    height: 22px;
-    top: 13px;
+    width: 16px;
+    height: 16px;
+    top: 17px;
     left: 18px;
   }
   span {
-    margin-left: 45px;
+    margin-left: 35px;
+    font-size: 15px;
   }
   i{
     position: absolute;

@@ -140,7 +140,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// * { touch-action: none; }
 .box {
   padding-top: 50px;
   .search {

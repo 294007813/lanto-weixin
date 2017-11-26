@@ -2,63 +2,63 @@
 <div class="animated fadeIn home">
   <!-- 轮播开始 -->
   <div id="Gallery" style="margin-top:15px;">
-					<div>
-						<ul class="mui-table-view mui-grid-view mui-grid-9">
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-                  <img src="../assets/img/home/appointment.png" alt="">
-									<div class="mui-media-body">预约服务</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/gohome.png" alt="">
-									<div class="mui-media-body">上门服务</div>
-							</li>
-							<li @click="goFix" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/fix.png" alt="">
-									<div class="mui-media-body">维修服务</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/suggestion.png" alt="">
-									<div class="mui-media-body">维修投诉</div>
-							</li>
-							<li @click="goDoctor" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/doctor.png" alt="">
-									<div class="mui-media-body">车大夫门诊</div>
-							</li>
-							<li @click="goCarList" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/query.png" alt="">
-									<div class="mui-media-body">爱车档案</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/goverment.png" alt="">
-									<div class="mui-media-body">政府管理</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/industry.png" alt="">
-									<div class="mui-media-body">行业自律</div>
-							</li>
-              <li @click="goInfo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-										<img src="../assets/img/home/public.png" alt="">
-									<div class="mui-media-body">公共服务</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-										<img src="../assets/img/home/repair.png" alt="">
-									<div class="mui-media-body">维修企业服务</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/company.png" alt="">
-									<div class="mui-media-body">产业企业服务</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/mall.png" alt="">
-									<div class="mui-media-body">车品商城</div>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-									<img src="../assets/img/home/online.png" alt="">
-									<div class="mui-media-body">在线商务</div>
-							</li>
-						</ul>
-					</div>
-			</div>
+    <div>
+      <ul class="mui-table-view mui-grid-view mui-grid-9">
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/appointment.png" alt="">
+            <div class="mui-media-body">预约服务</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/gohome.png" alt="">
+            <div class="mui-media-body">上门服务</div>
+        </li>
+        <li @click="goFix" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/fix.png" alt="">
+            <div class="mui-media-body">维修服务</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/suggestion.png" alt="">
+            <div class="mui-media-body">维修投诉</div>
+        </li>
+        <li @click="goDoctor" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/doctor.png" alt="">
+            <div class="mui-media-body">车大夫门诊</div>
+        </li>
+        <li @click="goCarList" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/query.png" alt="">
+            <div class="mui-media-body">爱车档案</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/goverment.png" alt="">
+            <div class="mui-media-body">政府管理</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/industry.png" alt="">
+            <div class="mui-media-body">行业自律</div>
+        </li>
+        <li @click="goInfo" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+              <img src="../assets/img/home/public.png" alt="">
+            <div class="mui-media-body">公共服务</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+              <img src="../assets/img/home/repair.png" alt="">
+            <div class="mui-media-body">维修企业服务</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/company.png" alt="">
+            <div class="mui-media-body">产业企业服务</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/mall.png" alt="">
+            <div class="mui-media-body">车品商城</div>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+            <img src="../assets/img/home/online.png" alt="">
+            <div class="mui-media-body">在线商务</div>
+        </li>
+      </ul>
+    </div>
+  </div>
  <!-- 轮播结束 -->
  
   <div class="info">
@@ -114,7 +114,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-* { touch-action: none; }
   body {
     background-color: #f8f8f8;
   }

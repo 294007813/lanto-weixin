@@ -6,27 +6,28 @@
                 <input type="text" class="mui-input-clear" v-model='type' placeholder="选择类型">
                 <span @click='showMore($event)' class="mui-icon mui-icon-arrowright"></span>
             </div>
-            <ul class="mui-table-view" v-show="isShow">
-                <li class="mui-table-view-cell" @click='chooseType($event)' v-for='(item, index) in Type' :key='index'>{{ item }}</li>
-            </ul>
-            <div class="mui-input-row">
+            <!-- <ul class="mui-table-view" v-show="isShow">
+                <li class="mui-table-view-cell" @click='chooseType($event)' v-for='(item, index) in Type' :key='index'><span>*</span>{{ item }}></li>
+            </ul> -->
+            <mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
+            <div class="mui-input-row tit">
                 <label><span>*</span>标题</label>
                 <input type="text" v-model='title' class="mui-input-clear" placeholder="填写标题">
             </div>
             <div class="mui-input-row">
-                <label>投诉企业</label>
+                <label><span class="tit">投诉企业</span></label>
                 <input type="text" class="mui-input-clear" placeholder="填写投诉企业">
             </div>
             <div class="mui-input-row">
-                <label>涉及车辆</label>
+                <label><span class="tit">涉及车辆</span></label>
                 <input type="text" class="mui-input-clear" placeholder="填写涉及车辆">
             </div>
             <div class="mui-input-row">
-                <label>投诉人</label>
+                <label><span class="tit">投诉人</span></label>
                 <input type="text" class="mui-input-clear" placeholder="填写投诉人">
             </div>
             <div class="mui-input-row">
-                <label>联系电话</label>
+                <label><span class="tit">联系电话</span></label>
                 <input type="number" class="mui-input-clear" placeholder="填写联系电话">
             </div>
             <div class="mui-input-row">
@@ -40,7 +41,7 @@
 
 <script>
 import mui from "../lib/mui/js/mui.min.js"
-import { Toast } from 'mint-ui'
+import { Toast, Picker } from 'mint-ui'
 export default {
     data(){
         return{
@@ -48,7 +49,15 @@ export default {
             isShow: false,
             type: '',
             title: '',
-            content: ''
+            content: '',
+            slots: [
+                {
+                flex: 1,
+                values: ['服务态度', '维修质量', '商品价格'],
+                className: 'slot1',
+                textAlign: 'center'
+                }
+            ]
         }
     },
     methods: {
@@ -76,6 +85,9 @@ export default {
                 Toast('提交成功')
             },1000)
         },
+        onValuesChange(){
+
+        }
     }
 }
 </script>
@@ -86,21 +98,33 @@ export default {
     }
     .complainWrap {
         margin-top: 10px;
+        .tit {
+            border-top: 1px solid #eee;
+        }
         .mui-input-row {
-            height: 60px;
+            height: 50px;
             border-bottom: 1px solid #eee;
             position: relative;
+            .mui-icon-clear {
+                top: 33px;
+            }
             label {
-                line-height: 60px;
+                line-height: 50px;
                 padding: 0 15px;
                 color: #333;
+                font-size: 15px;
                 span {
                     color: red;
                     margin-right: 3px;
                 }
+                .tit {
+                    color: #333;
+                    margin-left: 8px;
+                }
             }
             input {
-                margin-top: 10px;
+                margin-top: 5px;
+                font-size: 15px;
             }
             >span {
                 width: 24px;
