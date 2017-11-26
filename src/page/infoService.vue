@@ -1,6 +1,6 @@
 <template>
   <div id='wrap'>
-    <mt-swipe :auto="0">
+    <mt-swipe :auto="4000">
       <mt-swipe-item>
         <img src="../assets/img/infoService/1.png" alt="">
         <p>机动车维修企业质量信誉考核办法</p>

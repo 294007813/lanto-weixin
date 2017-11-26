@@ -110,7 +110,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 body {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 .top{
   height: 40px;
