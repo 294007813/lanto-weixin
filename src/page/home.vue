@@ -136,12 +136,12 @@ export default {
             width: 40px;
             height: 40px;
           }
-          @media screen and (max-width: 320px){
+          @media screen and (min-width: 320px){
             .mui-media-body{
               font-size: 12px;
             }
           }
-          @media screen and (max-width: 640px){
+          @media screen and (min-width: 375px){
             .mui-media-body{
               font-size: 14px;
             }

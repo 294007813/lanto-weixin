@@ -603,7 +603,9 @@ export default {
 
   mounted() {
     let data={
-      systemToken: localStorage.getItem("SYSTEMTOKEN")
+      systemToken: localStorage.getItem("SYSTEMTOKEN"),
+      limit: 300,
+      page: 1
     }
     this.axios({
       method: 'post',
@@ -614,11 +616,13 @@ export default {
       data: JSON.stringify(data)
     })
     .then(response => {
-      let points = [], datas=response.data.data;
+      let points = []
+      let datas=response.data.data.content
+      console.log(datas)
       for( let i in datas){
         points.push({
-          lng: datas[i].longitude,
-          lat: datas[i].latitude
+          lng: datas[i].lat,
+          lat: datas[i].lng
         })
       } 
       this.points=points
