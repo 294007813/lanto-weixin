@@ -136,10 +136,19 @@ export default {
             width: 40px;
             height: 40px;
           }
+          @media screen and (max-width: 320px){
+            .mui-media-body{
+              font-size: 12px;
+            }
+          }
+          @media screen and (max-width: 640px){
+            .mui-media-body{
+              font-size: 14px;
+            }
+          }
           .mui-media-body {
             height: 16px;
             margin-top: 10px;
-            font-size: 12px;
           }
         }
       }

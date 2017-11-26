@@ -5,7 +5,7 @@
     </div>
     <div class="head">
       <p>Welcome</p>
-      <span>上海汽修</span>
+      <span>上海汽修平台</span>
     </div>
     <div class="input">
       <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
