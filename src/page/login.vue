@@ -94,7 +94,8 @@
 
             MessageBox.alert('登录成功').then(action => {
               self.$router.replace({
-                path:self.$route.query.redirect
+                // path:self.$route.query.redirect
+                path: '/index'
               })
             });
           }else{

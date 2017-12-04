@@ -4,12 +4,12 @@
       <span @click='popupVisible=!popupVisible'>筛选</span>
       <div class="mapWrap">
         <form>
-          <input id='search_repaire' class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @keyup="key($event)">
+          <input id='search_repaire' class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @blur='fixedFooter' @keyup="key($event)" @focus='staticFooter'>
         </form>
       </div>
 
       <div id="container">
-      </div> 
+      </div>
       <!-- 企业详情开始 -->
       <div id="popover" class="mui-popover">
         <div class="top">
@@ -48,11 +48,30 @@
             </div>
           </div>
           <div class="middle">
-            <div class="one hehe">
+            <div class="hehe">
+              <div class="left">经营范围
+                <img src="../assets/img/maintain/range.png" alt="">
+              </div>
+              <div class="right">三类机动车维修(轮胎东平衡及修补),三类机动车维修(供油系统维护及油品更换),三类机动车维修(车辆装潢(篷布,坐垫及内装饰))</div>
             </div>
-            <div class="two hehe"></div>
-            <div class="three hehe"></div>
-            <div class="four hehe"></div>
+            <div class="hehe">
+              <div class="left">特约维修
+                <img src="../assets/img/maintain/fix.png" alt="">
+              </div>
+              <div class="right">宝马,奥迪,凯迪拉克,玛莎拉蒂</div>
+            </div>
+            <div class="hehe">
+              <div class="left">联系电话
+                <img src="../assets/img/maintain/tel.png" alt="">
+              </div>
+              <a href="tel:020-12345678" class="right">020-12345678</a>
+            </div>
+            <div class="hehe">
+              <div class="left">经营状况
+                <img src="../assets/img/maintain/status.png" alt="">
+              </div>
+              <div class="right">公司近期经营状况正常，公司控股股东和实控人不存在未披露的重大事项</div>
+            </div>
           </div>
           <div class="bottom" @click='goRemark'>我要评价</div>
         </div>
@@ -60,45 +79,45 @@
        <div class="close_btn" @click='closeModel'></div>
       </div>
       <!-- 企业详情结束 -->
-    </div> 
+    </div>
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
       <div class="contentWrap">
         <div class='content'>
-          <!-- 车辆品牌 -->
-          <ul class="mui-table-view"> 
+          <!-- 企业类型 -->
+          <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-collapse mui-active">
               <a class="mui-navigate-right" href="javascript:;">企业类型</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li :class="{active: item.value=='all'}" @click='getCompanyType($event, item.value)' v-for='(item, index) in companyType' :key='index'>{{ item.name }}</li>
+                  <li :class="{active: item.value==type}" @click='getCompanyType($event, item.value)' v-for='(item, index) in companyType' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
-          </ul>  
+          </ul>
           <!-- 星级评分 -->
-          <ul class="mui-table-view"> 
+          <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-collapse mui-active">
               <a class="mui-navigate-right" href="javascript:;">星级评分</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li :class="{active: item.value=='all'}" @click='getStarLevel($event, item.value)' v-for='(item, index) in starLevel' :key='index'>{{ item.name }}</li>
+                  <li :class="{active: item.value==level}" @click='getStarLevel($event, item.value)' v-for='(item, index) in starLevel' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
           </ul>
           <!-- 区域范围 -->
-          <ul class="mui-table-view"> 
+          <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-collapse">
               <a class="mui-navigate-right" href="javascript:;">区域范围</a>
               <div class="mui-collapse-content">
                 <ul>
-                  <li :class="{active: item.value=='all'}" @click='getArea($event, item.value)' v-for='(item, index) in Area' :key='index'>{{ item.name }}</li>
+                  <li :class="{active: item.value==area}" @click='getArea($event, item.value)' v-for='(item, index) in Area' :key='index'>{{ item.name }}</li>
                 </ul>
               </div>
             </li>
           </ul>
           <!-- 车辆品牌 -->
-          <ul class="mui-table-view"> 
+          <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-collapse">
               <a class="mui-navigate-right" href="javascript:;">车辆品牌</a>
               <div class="mui-collapse-content carBrandChoose">
@@ -132,7 +151,7 @@
   </div>
 </template>
 
-<script> 
+<script>
 import { Toast, MessageBox, Navbar, TabItem } from 'mint-ui'
 import mui from "../lib/mui/js/mui.min.js"
 export default {
@@ -143,128 +162,128 @@ export default {
       zoom: 13,
       points: [],
       popupVisible: false,
-      repairName: '',    
+      repairName: '',
       pointX: 121.389,   // 地图中心点纬度
       pointY: 31.117,    // 地图中心点经度
-      scale: 12,   // 地图放大级别 
+      scale: 12,   // 地图放大级别
       value: '',
       companyType: [
         {
           name:'全部',
-          value: 'all'
+          value: ''
         },
         {
           name:'一类维修企业',
-          value: '43'      
+          value: '43'
         },
         {
           name:'二类维修企业',
-          value: '44'      
+          value: '44'
         },
         {
           name:'三类维修企业',
-          value: '45'      
+          value: '45'
         },
         {
           name:'摩托车维修厂',
-          value: '46'      
+          value: '46'
         },
         {
           name:'汽车快修厂',
-          value: '47'      
+          value: '47'
         }
       ],
       type: '',    // 企业类型的标志
       starLevel: [
         {
           name:'全部',
-          value: 'all'
+          value: ''
         },
         {
           name:'★★★★★',
-          value: '43'      
+          value: '5'
         },
         {
           name:'★★★★',
-          value: '44'      
+          value: '4'
         },
         {
           name:'★★★',
-          value: '45'      
+          value: '3'
         },
         {
           name:'★★',
-          value: '46'      
+          value: '2'
         },
         {
           name:'★',
-          value: '47'      
+          value: '1'
         }
       ],
       level: '',   // 星级评分标志
       Area: [
         {
           name: '全部',
-          value: 'all'
+          value: ''
         },
         {
           name: '黄浦区',
-          value: '1'
+          value: '310101'
         },{
           name: '徐汇区',
-          value: '2'
+          value: '310104'
         },
         {
           name: '长宁区',
-          value: '3'
+          value: '310105'
         },
         {
           name: '静安区',
-          value: '4'
+          value: '310106'
         },
         {
           name: '普陀区',
-          value: '5'
+          value: '310107'
         },
         {
           name: '虹口区',
-          value: '6'
+          value: '310109'
         },
         {
           name: '杨浦区',
-          value: '7'
+          value: '310110'
         },
         {
           name: '闵行区',
-          value: '8'
+          value: '310112'
         },
         {
           name: '宝山区',
-          value: '9'
+          value: '310113'
         },
         {
           name: '嘉定区',
-          value: '10'
+          value: '3101q4'
         },
         {
           name: '浦东新区',
-          value: '11'
+          value: '310115'
         },
         {
           name: '金山区',
-          value: '12'
+          value: '310116'
         },
         {
           name: '松江区',
-          value: '13'
+          value: '310117'
         },
         {
           name: '青浦区',
-          value: '14'
+          value: '310118'
         },
         {
           name: '奉贤区',
-          value: '15'
+          value: '310120'
         },
       ],
       area: '',
@@ -292,7 +311,7 @@ export default {
         },
         {
           index: 'B',
-          brand: [       
+          brand: [
              {
               name: '宾利',
               pic: 'aodi'
@@ -640,50 +659,31 @@ export default {
           ]
         },
       ],
-      brand: ''  
+      brand: ''
     }
   },
-
-  mounted() {
+  created() {
     let data={
       systemToken: localStorage.getItem("SYSTEMTOKEN"),
       limit: 300,
-      page: 1
+      page: 1,
+      type: 164
     }
-    this.axios({
-      method: 'post',
-      url: '/maintain/getRangeCorps',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      data: JSON.stringify(data)
-    })
-    .then(response => {
-      let points = []
-      let datas=response.data.data.content
-      for( let i in datas){
-        points.push({
-          lng: datas[i].lat,
-          lat: datas[i].lng
-        })
-      } 
-      this.points=points
-      console.log(this.points);
-    })
+    this.sendAjax(data)
   },
   watch: {
     points: function(){
       var markers=[];
-      var map = new BMap.Map("container")          // 创建地图实例  
-      var point = new BMap.Point(this.pointX, this.pointY)  // 创建点坐标  
-      map.centerAndZoom(point, this.scale)                 // 初始化地图，设置中心点坐标和地图级别  
+      var map = new BMap.Map("container")          // 创建地图实例
+      var point = new BMap.Point(this.pointX, this.pointY)  // 创建点坐标
+      map.centerAndZoom(point, this.scale)                 // 初始化地图，设置中心点坐标和地图级别
       map.addControl(new BMap.NavigationControl())  //添加放大缩小控件
 
 
       //更改红色水滴样式
-      var myIcon = new BMap.Icon("/static/img/findfix-2x.png",  
-        new BMap.Size(52, 52), {  
-          offset: new BMap.Size(10, 25)
+      var myIcon = new BMap.Icon("/static/img/findfix-2x.png",
+        new BMap.Size(52, 52), {
+          offset: new BMap.Size(0, 0)
       });
 
       for(var i=0; i<this.points.length;i++){
@@ -729,14 +729,50 @@ export default {
     }
   },
   methods:{
+    sendAjax(data){
+      this.axios({
+        method: 'post',
+        url: '/maintain/getRangeCorps',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        data: JSON.stringify(data)
+      })
+      .then(response => {
+        let points = []
+        let datas=response.data.data.content
+        for( let i in datas){
+          points.push({
+            lng: datas[i].lat,
+            lat: datas[i].lng
+          })
+        }
+        if(points.length == 0){
+          Toast('未搜索到维修企业')
+          return
+        }
+        console.log(datas);
+        this.points=points
+        this.pointX = points[0].lat
+        this.pointY = points[0].lng
+        this.scale = 12
+      })
+    },
     key(e){
       if(e.keyCode=='13' && document.hasFocus()){
-        var search = document.getElementById('search_repaire');
-        search.blur()
+        document.getElementById('search_repaire').blur()
         let data={
           systemToken: localStorage.getItem("SYSTEMTOKEN"),
-          corpName: this.repairName
+          limit: 300,
+          page: 1,
+          corpName: this.repairName,
+          companycategory: this.type,
+          corpAreaEq: this.area,
+          magorBrandsLk: this.brand,
+          starLevel:  this.level,
+          type: 164
         }
+        this.repairName=''
         this.axios({
           method: 'post',
           url: '/maintain/getRangeCorps',
@@ -746,12 +782,12 @@ export default {
           data: JSON.stringify(data)
         })
         .then(response => {
-          let points = [], datas=response.data.data
-          console.log(datas);
+          let points = [], datas=response.data.data.content
+          // console.log(datas);
           for( let i in datas){
             points.push({
-              lng: datas[i].longitude,
-              lat: datas[i].latitude
+              lng: datas[i].lat,
+              lat: datas[i].lng
             })
           }
           if(points.length==0){
@@ -763,22 +799,35 @@ export default {
             return
           }
           this.points=points
-          this.pointX=this.points[0].lng
-          this.pointY=this.points[0].lat
+          console.log(this.points);
+          this.pointX=points[0].lat
+          this.pointY=points[0].lng
           this.scale = 14
         })
       }
     },
     clear(){   // 清空
-      this.type='all'
-      this.level='all'
-      this.area='all'
+      this.type=''
+      this.level=''
+      this.area=''
       this.brand=''
       var lis = document.getElementsByClassName('content')[0]
       console.log(lis);
     },
     submit(){  // 确定
       this.popupVisible=!this.popupVisible
+      let data={
+        systemToken: localStorage.getItem("SYSTEMTOKEN"),
+        limit: 300,
+        page: 1,
+        corpName: this.repairName,
+        companycategory: this.type,
+        corpAreaEq: this.area,
+        magorBrandsLk: this.brand,
+        starLevel:  this.level,
+        type: 164  
+      }
+      this.sendAjax(data)
     },
     getCompanyType(e,v){
       this.type = v
@@ -815,6 +864,12 @@ export default {
       this.$router.push({
         path: '/remark'
       })
+    },
+    staticFooter(){
+      document.getElementsByClassName('footer')[0].style.position = 'static';
+    },
+    fixedFooter(){
+      document.getElementsByClassName('footer')[0].style.position = 'fixed';
     }
   }
 }
@@ -833,7 +888,7 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
       background-color: #3272F7;
-      z-index: 2000;
+      z-index: 10;
       img {
         position: absolute;
         width: 14px;
@@ -882,7 +937,7 @@ export default {
     }
     // 企业详情弹出框样式开始
     #popover{
-      z-index: 2500;
+      z-index: 1000;
       width: 90%;
       height: 450px;
       border-radius: 15px;
@@ -1029,9 +1084,36 @@ export default {
         }
         >.middle {
           height: 230px;
-          background: pink;
+          // background: pink;
           padding: 17px 12px;
-
+          font-size: 12px;
+          color: #333;
+          overflow: auto;
+          .hehe {
+            .left {
+              float: left;
+              width: 70px;
+              // background-color: #0f0;
+              padding-bottom: 10px;
+              position: relative;
+              img {
+                position: absolute;
+                width: 22px;
+                height: 22px;
+                right: 0;
+                top: 0;
+                transform: translate(50%,0);
+                border-radius: 50%;
+              }
+            }
+            .right {
+              margin-left: 70px;
+              padding-left: 20px;
+              border-left: 1px solid #f8f8f8;
+              padding-bottom: 10px;
+              display: block;
+            }
+          }
         }
         >.bottom {
           text-align: center;
@@ -1039,12 +1121,12 @@ export default {
           line-height: 40px;
           border-radius: 0 0 15px 15px;
           color: #4285f4;
+          border-top: 1px solid #f8f8f8;
         }
       }
     }
-// 企业详情弹出框样式结束
-  } 
-
+  // 企业详情弹出框样式结束
+  }
   .filter {
     padding-left: 12%;
     background-color: rgba(0,0,0,0);
@@ -1075,7 +1157,7 @@ export default {
           height: 0;
         }
         >li:last-child{
-          
+        
         }
         >li{
           border-bottom: 10px solid #f8f8f8;
@@ -1135,7 +1217,7 @@ export default {
           overflow: auto;
         }
         .mint-indexsection-index {
-          padding:  5px 10px; 
+          padding:  5px 10px;
         }
         .mint-cell-title {
           flex: 0;
@@ -1181,7 +1263,7 @@ export default {
       bottom: 0;
       padding: 0 6%;
       font-size: 0;
-      z-index: 30000;
+      z-index: 3000;
       background-color: #fff;
       button {
         font-size: 16px;

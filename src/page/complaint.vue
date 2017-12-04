@@ -4,12 +4,9 @@
             <div class="mui-input-row">
                 <label><span>*</span>类型</label>
                 <input type="text" class="mui-input-clear" v-model='type' placeholder="选择类型">
-                <span @click='showMore($event)' class="mui-icon mui-icon-arrowright"></span>
+                <span @click='showPicker' class="mui-icon mui-icon-arrowright"></span>
             </div>
-            <!-- <ul class="mui-table-view" v-show="isShow">
-                <li class="mui-table-view-cell" @click='chooseType($event)' v-for='(item, index) in Type' :key='index'><span>*</span>{{ item }}></li>
-            </ul> -->
-            <mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
+            <mt-picker :slots="slots" @change="onValuesChange" v-show='isShow'></mt-picker>
             <div class="mui-input-row tit">
                 <label><span>*</span>标题</label>
                 <input type="text" v-model='title' class="mui-input-clear" placeholder="填写标题">
@@ -35,7 +32,7 @@
                 <input type="text" v-model='content' class="mui-input-clear" placeholder="填写举报内容">
             </div>
         </form>
-        <button @click="submit($event)" type="button" data-loading-text='提交中' data-loading-icon="mui-spinner mui-spinner-custom" class="submitComplain mui-btn mui-btn-primary">提交</button>
+        <button @click='submit($event)' type="button" data-loading-text='提交中...' data-loading-icon="mui-spinner mui-spinner-custom" class="submitComplain mui-btn mui-btn-primary">提交</button>
     </div>
 </template>
 
@@ -45,24 +42,27 @@ import { Toast, Picker } from 'mint-ui'
 export default {
     data(){
         return{
-            Type: ['服务态度', '维修质量', '商品价格'],
             isShow: false,
-            type: '',
-            title: '',
-            content: '',
             slots: [
                 {
                 flex: 1,
-                values: ['服务态度', '维修质量', '商品价格'],
+                values: ['服务态度', '维修质量', '维修速度', '维修价格'],
                 className: 'slot1',
                 textAlign: 'center'
                 }
-            ]
+            ],
+            type: '',
+            title: '',
+            content: ''
         }
     },
     methods: {
-        showMore(e){
-            this.isShow = !this.isShow;
+        showPicker(){
+            this.isShow=!this.isShow
+            this.type='维修速度'
+        },
+        onValuesChange(picker, values){
+            this.type=picker.getValues()[0]
         },
         chooseType(e){
             this.isShow = !this.isShow;
@@ -83,10 +83,7 @@ export default {
             setTimeout(function(){
                 mui(e.target).button('reset')
                 Toast('提交成功')
-            },1000)
-        },
-        onValuesChange(){
-
+            },2000)
         }
     }
 }
@@ -116,6 +113,7 @@ export default {
                 span {
                     color: red;
                     margin-right: 3px;
+                    border-top: none;
                 }
                 .tit {
                     color: #333;

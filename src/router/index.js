@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Welcome from '@/page/welcome'
 import Index from '@/page/index'
 import Home from '@/page/home'
 import Doctor from '@/page/doctor'
@@ -19,12 +20,14 @@ import InfoService from '@/page/infoService'
 import Complaint from '@/page/complaint'
 import AboutUs from '@/page/aboutUs'
 import Remark from '@/page/remark'
+import MyQuestion from '@/page/myQuestion'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', name: 'index', component: Index, children: [
+    {path: '/', name: 'welcome', component: Welcome},
+    {path: '/index', name: 'index', component: Index, children: [
       {path: '/home', name: 'home', alias: '', component: Home},
       {path: '/doctor', name: 'doctor', component: Doctor},
       {path: '/infoService', name: 'infoService', component: InfoService},
@@ -43,5 +46,6 @@ export default new Router({
     {path: '/complaint', name: 'complaint', component: Complaint},
     {path: '/aboutUs', name: 'aboutUs', component: AboutUs},
     {path: '/remark', name: 'remark', component: Remark, meta: { requiresAuth: true }},
+    {path: '/myQuestion', name: 'myQuestion', component: MyQuestion, meta: { requiresAuth: true }}
   ]
 })

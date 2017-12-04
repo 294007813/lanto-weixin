@@ -97,9 +97,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   .infoWrap{
-    margin: 50px 0;
-    .mint-tab-item-label {
-      color: #666;
+    margin-top: 50px;
+    .mint-navbar {
+      height: 47px;
+    }
+    a {
+      .mint-tab-item-label {
+        color: #666;
+      } 
+    }
+    .is-selected {
+      border-bottom: 2px solid #26a2ff !important;
     }
   }
   .msg{

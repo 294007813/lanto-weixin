@@ -70,6 +70,7 @@ export default {
                 line-height: 40px;
                 padding: 0 15px;
                 color: #2d2d2d;
+                font-size: 15px;
                 span:last-child {
                     float: right;
                     color: #7d7d7d;

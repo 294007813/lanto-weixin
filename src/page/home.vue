@@ -16,7 +16,7 @@
             <img src="../assets/img/home/fix.png" alt="">
             <div class="mui-media-body">维修服务</div>
         </li>
-        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+        <li @click='goComplaint' class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
             <img src="../assets/img/home/suggestion.png" alt="">
             <div class="mui-media-body">维修投诉</div>
         </li>
@@ -30,7 +30,7 @@
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
             <img src="../assets/img/home/goverment.png" alt="">
-            <div class="mui-media-body">政府管理</div>
+            <div class="mui-media-body">行业管理</div>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
             <img src="../assets/img/home/industry.png" alt="">
@@ -104,6 +104,9 @@ export default {
     },
     goCarList(){
       this.$router.push({ path: '/carList'})
+    },
+    goComplaint(){
+      this.$router.push({ path: '/complaint'})
     }
   },
   mounted() {

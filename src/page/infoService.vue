@@ -84,10 +84,12 @@ export default {
 </script>
 
 <style lang='scss'>
-  body {
-    background-color: #fff;
-  }
+  
   #wrap {
+    height: 100vh;
+    .mint-swipe { 
+      height: auto;
+    }
     .mint-swipe-indicators {
       bottom: 30px;
       .mint-swipe-indicator {
@@ -123,7 +125,6 @@ export default {
     ul{
       border-top: 10px solid #f8f8f8;
       overflow: hidden;
-
       li{
         width: 50%;
         float: left;

@@ -69,6 +69,10 @@ export default {
         data: JSON.stringify(data)
       })
       .then(res => {
+        if(res.data.code=='130412'){
+          Toast('请重新登录')
+          return
+        }
         this.carList = res.data.data.content
         this.lastPage = res.data.data.lastPage
         if (this.carList.length == 0) {
@@ -90,7 +94,7 @@ export default {
         }
       let data = {
         accessToken: localStorage.getItem("ACCESSTOKEN"),
-        vehicleplatenumber: '',
+        vehicleplatenumber: this.vehicleplatenumber,
         limit: 10,
         page: this.page,
       }
@@ -109,7 +113,9 @@ export default {
     },
     // 输入车牌号进行搜索
     key(e) {
+      this.page=0
       if (e.keyCode == '13') {
+        e.target.blur()
         if (this.vehicleplatenumber.trim() == '') {
           Toast('请输入车牌号')
           return
@@ -117,7 +123,8 @@ export default {
         let data = {
           accessToken: localStorage.getItem("ACCESSTOKEN"),
           vehicleplatenumber: this.vehicleplatenumber,
-          limit: 10
+          limit: 10,
+          page: this.page
         }
         this.axios({
           method: 'post',
@@ -125,7 +132,7 @@ export default {
           headers: { 'Content-type': 'application/json' },
           data: JSON.stringify(data)
         }).then(res => {
-          if (res.data.data.content.length == 0) {
+          if (res.data.data.content.length == 0){
             Toast('未找到匹配车辆')
             return
           }

@@ -46,7 +46,7 @@ export default {
                 localStorage.removeItem("USERINFO")
                 MessageBox.alert('退出成功').then(action => {
                     self.$router.replace({
-                    path:'/'
+                    path:'/login'
                     })
                 });
                 }

@@ -7,9 +7,9 @@
       <img src="../assets/img/my/user.png" alt="">
     </div>
     <div class="list" @click="goCarList">
-      <img src="../assets/img/my/health.png" alt=""><span>健康档案</span> <i></i>
+      <img src="../assets/img/my/health.png" alt=""><span>爱车档案</span> <i></i>
     </div>
-    <div class="list" >
+    <div class="list" @click="goMyQuestion">
       <img src="../assets/img/my/my_questions.png" alt=""><span>我的提问</span> <i></i>
     </div>
     <div class="list">
@@ -62,7 +62,10 @@
     },
     goComplaint() {
       this.$router.push({path: '/complaint'})
-    }
+    },
+    goMyQuestion() {
+      this.$router.push({path: '/myQuestion'})
+    },
   }
 }
 </script>
