@@ -24,46 +24,46 @@
     </mt-swipe>
     <ul>
       <li @click='goInfoServiceList'>
-        <div class="left">
+        <div class="lef">
           <img src="../assets/img/infoService/11.png" alt="">
         </div>
-        <div class="right">
+        <div class="rig">
           <h4>公共管理</h4>
           <span>推进社会整体协调发展</span>
         </div>
       </li>
       <li @click='goInfoServiceList'>
-        <div class="left">
+        <div class="lef">
           <img src="../assets/img/infoService/22.png" alt="">
         </div>
-        <div class="right">
+        <div class="rig">
           <h4>管理动态</h4>
           <span>再造行业管理新机制</span>
         </div>
       </li>
       <li @click='goInfoServiceList'>
-        <div class="left">
+        <div class="lef">
           <img src="../assets/img/infoService/33.png" alt="">
         </div>
-        <div class="right">
+        <div class="rig">
           <h4>创先争优</h4>
           <span>优质的行业配置服务</span>
         </div>
       </li>
       <li @click='goInfoServiceList'>
-        <div class="left">
+        <div class="lef">
           <img src="../assets/img/infoService/44.png" alt="">
         </div>
-        <div class="right">
+        <div class="rig">
           <h4>文明建设</h4>
           <span>激发市场活力和市场潜能</span>
         </div>
       </li>
       <li @click='goInfoServiceList'>
-        <div class="left">
+        <div class="lef">
           <img src="../assets/img/infoService/55.png" alt="">
         </div>
-        <div class="right">
+        <div class="rig">
           <h4>行业治理</h4>
           <span>构建高效行业治理机制</span>
         </div>
@@ -132,7 +132,7 @@ export default {
         border: 1px solid #f8f8f8;
         border-top: none;
         border-left: none;
-        .left{
+        .lef{
           float: left;
           width: 20px;
           height: 20px;
@@ -142,7 +142,7 @@ export default {
             height: 100%;
           }
         }
-        .right {
+        .rig {
           width: 77%;
           float: right;
           margin-right: 5px;
@@ -154,8 +154,13 @@ export default {
             font-size: 12px;
           }
           span {
+            display: inline-block;
+            width: 98%;
             font-size: 10px;
             color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }

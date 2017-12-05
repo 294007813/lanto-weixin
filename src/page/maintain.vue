@@ -12,28 +12,27 @@
       </div>
       <!-- 企业详情开始 -->
       <div id="popover" class="mui-popover">
-        <div class="top">
+        <div id="top">
           <div class="title">
             <div class="img">
-              <!-- <img src="" alt="">  -->
             </div>
-            <span>上海百信多好车行管理服务有限公司梅陇西路分公司</span>
+            <span>{{companyDetail.corpName}}</span>
           </div>
           <div class="address">
             <div class="name">
               <em></em>
-              <span>梅陇西路1972号底层、1976号底层</span>
+              <span>{{ companyDetail.corpAdd }}</span>
             </div>
             <div class="mile">
               <i></i>
-              <span>1.7km</span>
+              <span>{{ companyDetail.apart }}m</span>
             </div>
           </div>
         </div>
         <div class="content">
           <div class="top">
             <div class="left">
-              <p>AA</p>
+              <p>{{ companyDetail.creditLevel }}</p>
               <span>信誉等级</span>
             </div>
             <div class="right">
@@ -52,19 +51,19 @@
               <div class="left">经营范围
                 <img src="../assets/img/maintain/range.png" alt="">
               </div>
-              <div class="right">三类机动车维修(轮胎东平衡及修补),三类机动车维修(供油系统维护及油品更换),三类机动车维修(车辆装潢(篷布,坐垫及内装饰))</div>
+              <div class="right">{{ companyDetail.companybusinessscope }}</div>
             </div>
             <div class="hehe">
               <div class="left">特约维修
                 <img src="../assets/img/maintain/fix.png" alt="">
               </div>
-              <div class="right">宝马,奥迪,凯迪拉克,玛莎拉蒂</div>
+              <div class="right">{{ companyDetail.magorBrands }}</div>
             </div>
             <div class="hehe">
               <div class="left">联系电话
                 <img src="../assets/img/maintain/tel.png" alt="">
               </div>
-              <a href="tel:020-12345678" class="right">020-12345678</a>
+              <a href="tel:020-12345678" class="right">{{ companyDetail.linkTel }}</a>
             </div>
             <div class="hehe">
               <div class="left">经营状况
@@ -659,7 +658,8 @@ export default {
           ]
         },
       ],
-      brand: ''
+      brand: '',
+      companyDetail: {}
     }
   },
   created() {
@@ -673,6 +673,7 @@ export default {
   },
   watch: {
     points: function(){
+      var that = this
       var markers=[];
       var map = new BMap.Map("container")          // 创建地图实例
       var point = new BMap.Point(this.pointX, this.pointY)  // 创建点坐标
@@ -688,8 +689,12 @@ export default {
 
       for(var i=0; i<this.points.length;i++){
         var points = new BMap.Point(this.points[i].lat, this.points[i].lng)
-        markers.push(new BMap.Marker(points, {icon: myIcon}))
+        var xx = new BMap.Marker(points, {icon: myIcon})
+        xx.corpId = this.points[i].corpId
+        markers.push(xx)
       }
+      
+      
 
       var markerClusterer = new BMapLib.MarkerClusterer(map, {
         markers: markers,
@@ -723,12 +728,32 @@ export default {
       // 点击维修企业图标查看详细信息
       for(var i=0; i<markers.length; i++){
         markers[i].addEventListener('click',function(){
-          mui('.mui-popover').popover('show',document.getElementById("popover"))
+          var data = {
+            systemToken: localStorage.getItem("SYSTEMTOKEN"),
+            corpId: this.corpId
+          }
+          that.getCompanyDetail(data)
         })
       }
     }
   },
   methods:{
+    getCompanyDetail(data){
+      this.axios({
+        method: 'post',
+        url: '/maintain/corpDetail',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        data: JSON.stringify(data)
+      })
+      .then(res=>{
+        console.log(res);
+        this.companyDetail=res.data.data
+        console.log(res)
+        mui('.mui-popover').popover('show',document.getElementById("popover"))
+      })
+    },
     sendAjax(data){
       this.axios({
         method: 'post',
@@ -744,14 +769,14 @@ export default {
         for( let i in datas){
           points.push({
             lng: datas[i].lat,
-            lat: datas[i].lng
+            lat: datas[i].lng,
+            corpId: datas[i].corpId
           })
         }
         if(points.length == 0){
           Toast('未搜索到维修企业')
           return
         }
-        console.log(datas);
         this.points=points
         this.pointX = points[0].lat
         this.pointY = points[0].lng
@@ -958,8 +983,9 @@ export default {
         background: url(../assets/img/maintain/close.png) no-repeat;
         background-size: contain;
       }
-      >.top {
+      >#top {
         height: 130px;
+        // line-height: 20px;
         border-radius: 15px 15px 0 0;
         background: linear-gradient(to right, #67aafb, #3b83f6);
         overflow: hidden;
@@ -976,8 +1002,13 @@ export default {
           span {
             color: #fff;
             font-size: 16px;
-            line-height: 24px;
+            line-height: 26px;
             font-family: 'PingFang-SC-Medium';
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
           }
         }
         @media screen and (min-width: 320px) {
@@ -993,10 +1024,11 @@ export default {
         .address {
           height: 20px;
           color: #fff;
-          margin-top: 12px;
+          margin-top: 15px;
           margin-left: 15px;
           .name{
             height: 20px;
+            width: 85%;
             float: left;
             position: relative;
             em {
@@ -1005,12 +1037,12 @@ export default {
               background: url(../assets/img/maintain/address.png) no-repeat;
               background-size: contain;
               position: absolute;
-              top: 3px;
+              top: 2px;
             }
             span {
               margin-left: 18px;
               display: inline-block;
-              width: 93%;
+              width: 92%;
               overflow: hidden;
               text-overflow:ellipsis;
               white-space: nowrap;
@@ -1022,6 +1054,7 @@ export default {
             position: relative;
             i {
               position: absolute;
+              border: none;
               width: 15px;
               height: 15px;
               background: url(../assets/img/maintain/mile.png) no-repeat;
@@ -1048,12 +1081,16 @@ export default {
               text-align: center;
               color: red;
               margin-bottom: 0;
-              margin-top: 2px;
+              margin-top: 5px;
+              width: 100%;
+              height: 18px;
+              line-height: 22px;
             }
             span {
               display: block;
               text-align: center;
               font-size: 14px;
+              line-height: 24px;
             }
           }
           >.right {
@@ -1065,11 +1102,11 @@ export default {
             .stars {
               position: absolute;
               font-size: 1px;
-              width: 80px;
+              width: 85px;
               height: 14px;
               left: 50%;
               transform: translateX(-50%);
-              top: 5px;
+              top: 8px;
               img {
                 width: 14px;
                 height: 14px;
@@ -1079,21 +1116,22 @@ export default {
               text-align: center;
               margin-top: 22px;
               color: #666;
+              width: 100%;
+              line-height: 26px;
             }
           }
         }
         >.middle {
           height: 230px;
-          // background: pink;
           padding: 17px 12px;
           font-size: 12px;
           color: #333;
           overflow: auto;
           .hehe {
+            min-height: 31px;
             .left {
               float: left;
               width: 70px;
-              // background-color: #0f0;
               padding-bottom: 10px;
               position: relative;
               img {
@@ -1109,7 +1147,7 @@ export default {
             .right {
               margin-left: 70px;
               padding-left: 20px;
-              border-left: 1px solid #f8f8f8;
+              border-left: 1px solid #eee;
               padding-bottom: 10px;
               display: block;
             }
@@ -1121,7 +1159,7 @@ export default {
           line-height: 40px;
           border-radius: 0 0 15px 15px;
           color: #4285f4;
-          border-top: 1px solid #f8f8f8;
+          border-top: 1px solid #eee;
         }
       }
     }

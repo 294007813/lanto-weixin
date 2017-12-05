@@ -1,5 +1,6 @@
 <template>
   <div class="welcome">
+      <img src="../assets/img/welcome/welcome.jpg" alt="">
   </div>
 </template>
 
@@ -18,11 +19,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss' scoped>
     .welcome {
         width: 100%;
         height: 100vh;
-        background: url(../assets/img/welcome/welcome.jpg) no-repeat;
-        background-size: contain;
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="myQuestion">
+  <div id="myQuestion">
     <div class="top">
       <div class="quetionsCategory">
         <button @click='chooseCategory($event)' type="button" :data-code='item.code' :class="{'active': i==code}" v-for='(item, i) in quetionsCategory' :key="i">{{ item.name }}</button>
@@ -24,10 +24,7 @@
         </ul>
     </div>
     <button @click='sendProblem($event)' data-loading-text='提交中...' type="button" data-loading-icon="mui-spinner mui-spinner-custom" class="mui-btn sendProblem mui-btn-primary">发布问题</button>
-    <mt-actionsheet
-  :actions="actions"
-  v-model="sheetVisible">
-</mt-actionsheet>
+    <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
   </div>
 </template>
 
@@ -104,20 +101,19 @@ export default {
 </script>
 
 <style lang='scss'>
-  .myQuestion {
+  #myQuestion {
     background-color: #f8f8f8;
     height: 100vh;
     position: relative;
-    .top {
+    >.top {
       background-color: #fff;
       padding: 12px;
+      height: 311px; 
+      line-height: 0; 
     }
     .quetionsCategory {
-      // display: flex;
-      // flex-wrap: wrap;
-      // justify-content: space-around;
+      height: 120px;
       >button {
-        // padding: 2px 12px;
         color: #666;
         width: 30%;
         height: 28px;
@@ -147,23 +143,32 @@ export default {
       border-radius: 8px;
       background: url(../assets/img/record/add.png) no-repeat center center;
       background-size: 50% 50%;
+      line-height: 0px !important;
     }
     .list{
       margin-top: 10px;
       font-size: 14px;
       color: #666;
       padding: 0;
+      line-height: 0;
       ul::before, ul::after {
         height: 0;
       }
-      ul li span {
-        float: right;
-        color: #ccc;
-        margin-right: 18px;
+      ul li {
+        height: 42px;
+        a {
+          margin: 0 -15px;
+           span {
+            float: right;
+            color: #ccc;
+            margin-right: 18px;
+          }
+        }
       }
     }
     .mui-btn-primary {
       width: 100%;
+      height: 40px;
       position: fixed;
       bottom: 0;
       background-color: #90bbf8;

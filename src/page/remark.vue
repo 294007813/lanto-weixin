@@ -156,6 +156,9 @@ export default {
             margin-top: 2px;
           }
         }
+        .right {
+          text-align: center;
+        }
       }
     }
     .assess {
