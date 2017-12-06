@@ -4,7 +4,7 @@
       <div class="title">评价企业</div>
       <div class="content">
         <ul>
-          <li v-for='(item, index) in satisfaction' :key='index'>
+          <li :data-index='index' v-for='(item, index) in satisfaction' :key='index'>
             <div class="left">{{ item.title }}</div>
             <div class="center">
               <img data-index='0' src="../assets/img/remark/yellow.png" alt="" @click='chooseLevel($event)'>
@@ -41,6 +41,10 @@ export default {
     return {
       satisfaction: [    //满意度
         {
+          title: '履约情况',
+          level: ''
+        },
+        {
           title: '服务态度',
           level: ''
         },
@@ -66,7 +70,12 @@ export default {
           self.openPhoto()
         }}
       ],
-      assessText: ''
+      assessText: '',       // 综合评价文本内容
+      promise: 5,           // 履约情况
+      serviceQuality: 5,    // 服务质量
+      repairQuality: 5,     // 维修质量
+      repairSpeed: 5,       // 维修速度  
+      repairPrice: 5        // 维修价格
     }
   },
   methods: {
@@ -77,6 +86,23 @@ export default {
       var imgs = e.target.parentNode.children
       var next=[], previous=[]
       var satisfaction = e.target.parentNode.nextElementSibling
+      switch(e.target.parentNode.parentNode.getAttribute('data-index')){
+        case '0':
+          this.promise=Number(e.target.getAttribute('data-index'))+1;
+          break;
+        case '1':
+          this.serviceQuality=Number(e.target.getAttribute('data-index'))+1;
+          break;
+        case '2':
+          this.repairQuality=Number(e.target.getAttribute('data-index'))+1;
+          break;
+        case '3':
+          this.repairSpeed=Number(e.target.getAttribute('data-index'))+1;
+          break;
+        case '4':
+          this.repairPrice=Number(e.target.getAttribute('data-index'))+1;
+          break;
+      }
       switch(e.target.getAttribute('data-index')){
         case '0': 
           satisfaction.innerText='非常不满意';  
@@ -107,11 +133,21 @@ export default {
       for(var i=0; i<previous.length; i++){
         previous[i].setAttribute('src','/static/img/yellow.png')
       }
+      console.log(this.promise,this.serviceQuality,this.repairQuality,this.repairSpeed,this.repairPrice);
     },
     sendProblem(e){
       if(!this.assessText.trim()){
         Toast('请输入综合评价内容')
         return
+      }
+      let data = {
+        companyId: this.$route.query.corpId,      // 企业ID
+        promise: this.promise,                    // 履约情况
+        serviceQuality: this.serviceQuality,      // 服务质量
+        repairQuality: this.repairQuality,        // 维修质量
+        repairSpeed: this.repairSpeed,            // 维修速度
+        repairPrice: his.repairPrice,             // 维修价格
+        assessText: this.assessText               // 综合评价文本内容
       }
       mui(e.target).button('loading')
       setTimeout(function(){

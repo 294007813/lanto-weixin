@@ -659,7 +659,8 @@ export default {
         },
       ],
       brand: '',
-      companyDetail: {}
+      companyDetail: {},  // 企业详情
+      corpId: 0
     }
   },
   created() {
@@ -715,7 +716,7 @@ export default {
           var center = map.getCenter()
           centerLng = center.lng
           centerLat = center.lat
-          console.log('中心点坐标:'+centerLng+','+centerLat);
+          // console.log('中心点坐标:'+centerLng+','+centerLat);
         }
       )
 
@@ -733,6 +734,7 @@ export default {
             corpId: this.corpId
           }
           that.getCompanyDetail(data)
+          that.corpId = this.corpId
         })
       }
     }
@@ -748,9 +750,7 @@ export default {
         data: JSON.stringify(data)
       })
       .then(res=>{
-        console.log(res);
         this.companyDetail=res.data.data
-        console.log(res)
         mui('.mui-popover').popover('show',document.getElementById("popover"))
       })
     },
@@ -837,7 +837,7 @@ export default {
       this.area=''
       this.brand=''
       var lis = document.getElementsByClassName('content')[0]
-      console.log(lis);
+      // console.log(lis);
     },
     submit(){  // 确定
       this.popupVisible=!this.popupVisible
@@ -857,21 +857,17 @@ export default {
     getCompanyType(e,v){
       this.type = v
       this.addclass(e)
-      console.log(this.type);
     },
     getStarLevel(e,v){
       this.level = v
-      console.log(this.level);
       this.addclass(e)
     },
     getArea(e,v){
       this.area = v
-      console.log(this.area);
       this.addclass(e)
     },
     getBrand(v){
       this.brand = v
-      console.log(this.brand);
     },
     addclass(e){
       var ele = e.target
@@ -885,9 +881,11 @@ export default {
       mui('.mui-popover').popover('hide',document.getElementById("popover"))
     },
     goRemark(){
+      var that = this
       mui('.mui-popover').popover('hide',document.getElementById("popover"))
       this.$router.push({
-        path: '/remark'
+        path: '/remark',
+        query: {corpId: that.corpId}
       })
     },
     staticFooter(){
