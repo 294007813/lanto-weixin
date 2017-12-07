@@ -88,56 +88,56 @@ export default {
 </script>
 
 <style lang='scss'>
-body {
-    background-color: #f8f8f8;
-}
-.suggest {
-    .title {
+    body {
         background-color: #f8f8f8;
-        height: 40px;
-        line-height: 40px;
-        padding-left: 15px;
     }
-    .content {
-        height: 70px;
-        padding-left: 15px;
-        button {
+    .suggest {
+        .title {
+            background-color: #f8f8f8;
             height: 40px;
-            width: 80px;
-            margin-top: 15px;
-            margin-right: 12px;
+            line-height: 40px;
+            padding-left: 15px;
         }
-        .active {
-            color: #5285f4;
-            border-color: #3e87f6;
-            background-color: #ecf3fe;
+        .content {
+            height: 70px;
+            padding-left: 15px;
+            button {
+                height: 40px;
+                width: 80px;
+                margin-top: 15px;
+                margin-right: 12px;
+            }
+            .active {
+                color: #5285f4;
+                border-color: #3e87f6;
+                background-color: #ecf3fe;
+            }
+        }
+        textarea {
+            border: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            // padding-bottom: 0px; 
+        }
+        .addWrap {
+            padding: 0 0 15px 15px;
+            .addPic {
+                width: 50px;
+                height: 50px;
+                border: 1px dashed #ccc;
+                border-radius: 5px;
+                background: url(../assets/img/record/add.png) no-repeat center center;
+                background-size: 50% 50%;
+            }
+        }
+        .mui-btn-primary {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #9fc7fa;
+            border: none;
+            font-size: 16px;
         }
     }
-    textarea {
-        border: none;
-        font-size: 14px;
-        margin-bottom: 10px;
-        // padding-bottom: 0px; 
-    }
-    .addWrap {
-        padding: 0 0 15px 15px;
-        .addPic {
-            width: 50px;
-            height: 50px;
-            border: 1px dashed #ccc;
-            border-radius: 5px;
-            background: url(../assets/img/record/add.png) no-repeat center center;
-            background-size: 50% 50%;
-        }
-    }
-    .mui-btn-primary {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 40px;
-        background-color: #9fc7fa;
-        border: none;
-        font-size: 16px;
-    }
-}
 </style>
