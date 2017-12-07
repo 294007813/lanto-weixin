@@ -25,7 +25,7 @@
             </div>
             <div class="mile">
               <i></i>
-              <span>{{ companyDetail.apart }}m</span>
+              <span>{{ companyDetail.apart >= 1000 ?  companyDetail.apart / 1000 + 'km' :  companyDetail.apart + 'm'}}</span>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
               <div class="left">经营范围
                 <img src="../assets/img/maintain/range.png" alt="">
               </div>
-              <div class="right">{{ companyDetail.companybusinessscope }}</div>
+              <div class="right"></div>
             </div>
             <div class="hehe">
               <div class="left">特约维修
@@ -63,7 +63,7 @@
               <div class="left">联系电话
                 <img src="../assets/img/maintain/tel.png" alt="">
               </div>
-              <a href="tel:020-12345678" class="right">{{ companyDetail.linkTel }}</a>
+              <a :href="'tel:'+ companyDetail.linkTel" class="right">{{ companyDetail.linkTel }}</a>
             </div>
             <div class="hehe">
               <div class="left">经营状况
@@ -845,7 +845,7 @@ export default {
         systemToken: localStorage.getItem("SYSTEMTOKEN"),
         limit: 300,
         page: 1,
-        corpName: this.repairName,
+        corpName: '',
         companycategory: this.type,
         corpAreaEq: this.area,
         magorBrandsLk: this.brand,
@@ -892,6 +892,7 @@ export default {
       document.getElementsByClassName('footer')[0].style.position = 'static';
     },
     fixedFooter(){
+      this.repairName=''
       document.getElementsByClassName('footer')[0].style.position = 'fixed';
     }
   }

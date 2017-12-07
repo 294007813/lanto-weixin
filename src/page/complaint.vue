@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <form class="mui-input-group complainWrap">
+    <div id='complaint'>
+        <!-- <form class="mui-input-group complainWrap">
             <div class="mui-input-row">
                 <label><span>*</span>类型</label>
                 <input type="text" class="mui-input-clear" v-model='complainType' placeholder="选择类型">
@@ -32,7 +32,13 @@
                 <input type="text" v-model='complainContent' class="mui-input-clear" placeholder="填写举报内容">
             </div>
         </form>
-        <button @click='submit($event)' type="button" data-loading-text='提交中...' data-loading-icon="mui-spinner mui-spinner-custom" class="submitComplain mui-btn mui-btn-primary">提交</button>
+        <button @click='submit($event)' type="button" data-loading-text='提交中...' data-loading-icon="mui-spinner mui-spinner-custom" class="submitComplain mui-btn mui-btn-primary">提交</button> -->
+        <div class="tit">投诉电话</div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell"><span>市民热线</span><a href="tel:12345">12345</a></li>
+            <li class="mui-table-view-cell"><span>城建热线</span><a href="tel:12319">12319</a></li>
+            <li class="mui-table-view-cell"><span>全国运输客服电话</span><a href="tel:12328">12328</a></li>
+        </ul>
     </div>
 </template>
 
@@ -40,137 +46,162 @@
 import mui from "../lib/mui/js/mui.min.js"
 import { Toast, Picker } from 'mint-ui'
 export default {
-    data(){
-        return{
-            isShow: false,
-            slots: [
-                {
-                flex: 1,
-                values: ['服务态度', '维修质量', '维修速度', '维修价格'],
-                className: 'slot1',
-                textAlign: 'center'
-                }
-            ],
-            complainType: '',
-            complainTitle: '',
-            complainContent: '',
-            complainCompany: '',
-            complainCar: '',
-            complainPerson: '',
-            complainTel: ''
-        }
-    },
-    methods: {
-        showPicker(){
-            this.isShow=!this.isShow
-            if(this.isShow){
-                this.complainType=picker.getValues()[0]
-            }
-        },
-        onValuesChange(picker, values){
-            this.complainType=picker.getValues()[0]
-        },
-        chooseType(e){
-            this.isShow = !this.isShow;
-            this.complainType=e.target.innerText
-        },
-        submit(e) {   //点击提交按钮
-            if(!this.complainType.trim()){
-                Toast('请选择类型')
-                return
-            }else if (!this.complainTitle.trim()){
-                Toast('请输入标题')
-                return
-            }else if(!this.complainContent.trim()) {
-                 Toast('请输入举报内容')
-                 return
-            }
-            this.complainType=''
-            this.complainTitle=''
-            this.complainContent=''
-            this.complainCompany=''
-            this.complainCar=''
-            this.complainPerson=''
-            this.complainTel=''
-            mui(e.target).button('loading')
-            setTimeout(function(){
-                mui(e.target).button('reset')
-                Toast('提交成功')
-            },2000)
-        }
-    }
+    // data(){
+    //     return{
+    //         isShow: false,
+    //         slots: [
+    //             {
+    //             flex: 1,
+    //             values: ['服务态度', '维修质量', '维修速度', '维修价格'],
+    //             className: 'slot1',
+    //             textAlign: 'center'
+    //             }
+    //         ],
+    //         complainType: '',
+    //         complainTitle: '',
+    //         complainContent: '',
+    //         complainCompany: '',
+    //         complainCar: '',
+    //         complainPerson: '',
+    //         complainTel: ''
+    //     }
+    // },
+    // methods: {
+    //     showPicker(){
+    //         this.isShow=!this.isShow
+    //         if(this.isShow){
+    //             this.complainType=picker.getValues()[0]
+    //         }
+    //     },
+    //     onValuesChange(picker, values){
+    //         this.complainType=picker.getValues()[0]
+    //     },
+    //     chooseType(e){
+    //         this.isShow = !this.isShow;
+    //         this.complainType=e.target.innerText
+    //     },
+    //     submit(e) {   //点击提交按钮
+    //         if(!this.complainType.trim()){
+    //             Toast('请选择类型')
+    //             return
+    //         }else if (!this.complainTitle.trim()){
+    //             Toast('请输入标题')
+    //             return
+    //         }else if(!this.complainContent.trim()) {
+    //              Toast('请输入举报内容')
+    //              return
+    //         }
+    //         this.complainType=''
+    //         this.complainTitle=''
+    //         this.complainContent=''
+    //         this.complainCompany=''
+    //         this.complainCar=''
+    //         this.complainPerson=''
+    //         this.complainTel=''
+    //         mui(e.target).button('loading')
+    //         setTimeout(function(){
+    //             mui(e.target).button('reset')
+    //             Toast('提交成功')
+    //         },2000)
+    //     }
+    // }
 }
 </script>
 
-<style lang='scss'>
-    body {
-        background-color: #f8f8f8;
-    }
-    .complainWrap {
-        margin-top: 10px;
-        .tit {
-            border-top: 1px solid #eee;
-        }
-        .mui-input-row {
-            height: 50px;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            .mui-icon-clear {
-                top: 33px;
-            }
-            label {
-                line-height: 50px;
-                padding: 0 15px;
-                color: #333;
-                font-size: 15px;
-                span {
-                    color: red;
-                    margin-right: 3px;
-                    border-top: none;
-                }
-                .tit {
-                    color: #333;
-                    margin-left: 8px;
-                }
-            }
-            input {
-                margin-top: 5px;
-                font-size: 15px;
-            }
-            >span {
-                width: 24px;
-                height: 24px;
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
-                color: #ddd;
-            }
-        }
-        .picker 
-        .picker-item{
-            font-size: 15px;
-        }
-        .mui-input-row:after {
-            height: 0 ;
-        }
-        .mui-input-row:last-child {
-            border: none;
-        }
-        .mui-table-view::before {
-            height: 0;
-        }
-    }
-    .complainWrap:before, .complainWrap:after{
-        height: 0;
-    }
-    .submitComplain {
-        position: fixed;
-        bottom: 0;
+<style lang='scss' scoped>
+    #complaint {
         width: 100%;
-        height: 40px;
-        background-color: #9fc7fa;
-        border: none;
-        font-size: 16px;
+        height: 100vh;
+        .tit {
+            height: 40px;
+            line-height: 40px;
+            background: #f8f8f8;
+            padding-left: 15px;
+        }
+        > ul li {
+            border-bottom: 1px solid #eee;
+            &:after {
+                height: 0;
+            }
+            span {
+                float: left;
+            }
+            a {
+                float: right;
+                color: rgb(3,169,244);
+                font-style: italic;
+                font-size: 18px;
+            }
+            &:after {
+                height: 0;
+            }
+        }
     }
+    // .complainWrap {
+    //     margin-top: 10px;
+    //     .tit {
+    //         border-top: 1px solid #eee;
+    //     }
+    //     .mui-input-row {
+    //         height: 50px;
+    //         border-bottom: 1px solid #eee;
+    //         position: relative;
+    //         .mui-icon-clear {
+    //             top: 33px;
+    //         }
+    //         label {
+    //             line-height: 50px;
+    //             padding: 0 15px;
+    //             color: #333;
+    //             font-size: 15px;
+    //             span {
+    //                 color: red;
+    //                 margin-right: 3px;
+    //                 border-top: none;
+    //             }
+    //             .tit {
+    //                 color: #333;
+    //                 margin-left: 8px;
+    //             }
+    //         }
+    //         input {
+    //             margin-top: 5px;
+    //             font-size: 15px;
+    //         }
+    //         >span {
+    //             width: 24px;
+    //             height: 24px;
+    //             position: absolute;
+    //             top: 50%;
+    //             right: 10px;
+    //             transform: translateY(-50%);
+    //             color: #ddd;
+    //         }
+    //     }
+    //     .picker 
+    //     .picker-item{
+    //         font-size: 15px;
+    //     }
+    //     .mui-input-row:after {
+    //         height: 0 ;
+    //     }
+    //     .mui-input-row:last-child {
+    //         border: none;
+    //     }
+    //     .mui-table-view::before {
+    //         height: 0;
+    //     }
+    // }
+    // .complainWrap:before, .complainWrap:after{
+    //     height: 0;
+    // }
+    // .submitComplain {
+    //     position: fixed;
+    //     bottom: 0;
+    //     width: 100%;
+    //     height: 40px;
+    //     background-color: #9fc7fa;
+    //     border: none;
+    //     font-size: 16px;
+    // }
 </style>

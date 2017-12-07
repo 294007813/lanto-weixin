@@ -135,25 +135,50 @@ export default {
       }
       console.log(this.promise,this.serviceQuality,this.repairQuality,this.repairSpeed,this.repairPrice);
     },
-    sendProblem(e){
+    sendProblem(e){ 
       if(!this.assessText.trim()){
         Toast('请输入综合评价内容')
         return
       }
       let data = {
-        companyId: this.$route.query.corpId,      // 企业ID
-        promise: this.promise,                    // 履约情况
-        serviceQuality: this.serviceQuality,      // 服务质量
-        repairQuality: this.repairQuality,        // 维修质量
-        repairSpeed: this.repairSpeed,            // 维修速度
-        repairPrice: his.repairPrice,             // 维修价格
-        assessText: this.assessText               // 综合评价文本内容
+        accessToken: localStorage.getItem('ACCESSTOKEN'), // 用户票据
+        companyId: this.$route.query.corpId,              // 企业ID
+        performance: this.promise,                        // 履约情况
+        attitude: this.serviceQuality,                    // 服务质量
+        quality: this.repairQuality,                      // 维修质量
+        speed: this.repairSpeed,                          // 维修速度
+        price: this.repairPrice,                          // 维修价格
+        jsoninfo: `{"content": "this.assessText","images": ["aa","bb","ss"]}`,  //  综合评分
+        composite: Math.round(this.promise*0.6+this.serviceQuality*0.1+this.repairQuality*0.2+this.repairSpeed*0.05+this.repairPrice*0.05)
       }
-      mui(e.target).button('loading')
-      setTimeout(function(){
-          mui(e.target).button('reset')
-          Toast('提交成功')
-      },2000)
+      this.axios({
+          method: 'post',
+          url: '/company/review/submit',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          data: JSON.stringify(data)
+        })
+        .then(res => {
+          console.log(res);
+          if(res.data.code=='130412'){
+            Toast('提交评论失败,用户票据失效,请重新登录')
+          }
+          if(res.data.code=='120514'){
+            Toast('提交评论失败,不存在您在该维修企业未评论的维修记录')
+          }else if(res.data.code=='120513'){
+            Toast('提交评论失败,您还未绑定车辆')
+          }else if(res.data.code=='120509'){
+            Toast('提交评论失败,评论内容过长')
+          }else if(res.data.code=='120500'){
+            Toast('提交评论成功')
+            setTimeout(function(){
+                this.$router.push({
+                path: '/maintain'
+              })
+            },3000)
+          }
+        })
       this.assessText=''
     }
   }
@@ -174,16 +199,13 @@ export default {
     .content ul {
       padding: 10px 0;
       li {
-        // background-color: #0f0;
         padding: 8px 15px;
         .left {
           float: left;
-          // background-color: #f00;
           width: 80px;
         }
         .center {
           float: left;
-          // background-color: #00f;
           width: 140px;
           img {
             width: 16px;
