@@ -51,7 +51,7 @@
               <div class="left">经营范围
                 <img src="../assets/img/maintain/range.png" alt="">
               </div>
-              <div class="right"></div>
+              <div class="right">{{  }}</div>
             </div>
             <div class="hehe">
               <div class="left">特约维修
@@ -69,7 +69,7 @@
               <div class="left">经营状况
                 <img src="../assets/img/maintain/status.png" alt="">
               </div>
-              <div class="right">公司近期经营状况正常，公司控股股东和实控人不存在未披露的重大事项</div>
+              <div class="right">{{  }}</div>
             </div>
           </div>
           <div class="bottom" @click='goRemark'>我要评价</div>
