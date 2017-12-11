@@ -3,7 +3,7 @@
 
     <img src="../assets/img/doctor/doctor.png" alt="">
 
-    <div class="block">
+    <div class="block" @click='goQuestionDetail'>
       <div class="user">
         <img src="../assets/img/my/photo.png"/>
         <div class="userright"><p>我是用户名</p><span>2017.08.28 玛莎拉蒂GT 发动机</span></div>
@@ -16,7 +16,7 @@
       <div class="foot">27浏览 4回答</div>
     </div>
 
-    <div class="block">
+    <div class="block" @click='goQuestionDetail'>
       <div class="user">
         <img src="../assets/img/my/photo.png"/>
         <div class="userright"><p>name</p><span>2017.08.28 玛莎拉蒂GT 发动机</span></div>
@@ -29,7 +29,7 @@
       <div class="foot">27浏览 4回答</div>
     </div>
 
-    <div class="block">
+    <div class="block" @click='goQuestionDetail'>
       <div class="user">
         <img src="../assets/img/my/photo.png"/>
         <div class="userright"><p>name</p><span>2017.08.28 玛莎拉蒂GT 发动机</span></div>
@@ -50,6 +50,14 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    goQuestionDetail(){
+      this.$router.push({
+        path: '/questionDetail',
+        questionId: 1
+      })
     }
   }
 }

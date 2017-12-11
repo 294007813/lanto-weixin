@@ -4,7 +4,7 @@
       <span @click='popupVisible=!popupVisible'>筛选</span>
       <div class="mapWrap">
         <form>
-          <input id='search_repaire' class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @blur='fixedFooter' @keyup="key($event)" @focus='staticFooter'>
+          <input id='search_repaire' class="mui-input-clear" type="search" v-model='repairName' placeholder="搜索维修站点" @blur='fixedFooter' @keydown="key($event)" @focus='staticFooter'>
         </form>
       </div>
 
@@ -37,13 +37,10 @@
             </div>
             <div class="right">
               <div class="stars">
-                <img src="../assets/img/maintain/score_yellow.png" alt="">
-                <img src="../assets/img/maintain/score_yellow.png" alt="">
-                <img src="../assets/img/maintain/score_yellow.png" alt="">
-                <img src="../assets/img/maintain/score_yellow.png" alt="">
-                <img src="../assets/img/maintain/score_gray.png" alt="">
+                <img src="../assets/img/maintain/score_yellow.png" alt="" v-for="(item, index) in yellowStars" :key="index">
+                <img src="../assets/img/maintain/score_gray.png" alt="" v-for="(item, index) in grayStars" :key="index">
               </div>
-              <p>综合评分: 7.5分</p>
+              <p>综合评分: {{ score*2 }}分</p>
             </div>
           </div>
           <div class="middle">
@@ -80,6 +77,7 @@
       <!-- 企业详情结束 -->
     </div>
     <mt-popup v-model="popupVisible" class="filter" model=false position="right">
+      <div class="contentAside" @click='closeFilter'></div>
       <div class="contentWrap">
         <div class='content'>
           <!-- 企业类型 -->
@@ -660,7 +658,10 @@ export default {
       ],
       brand: '',
       companyDetail: {},  // 企业详情
-      corpId: 0
+      corpId: 0,    // 企业ID
+      score: 0,   // 企业综合评分
+      yellowStars: [],  // 黄星
+      grayStars: []     // 灰星
     }
   },
   created() {
@@ -683,7 +684,7 @@ export default {
 
 
       //更改红色水滴样式
-      var myIcon = new BMap.Icon("/static/img/findfix-2x.png",
+      var myIcon = new BMap.Icon("/static/img/find_fix.png",
         new BMap.Size(52, 52), {
           offset: new BMap.Size(0, 0)
       });
@@ -735,6 +736,26 @@ export default {
           }
           that.getCompanyDetail(data)
           that.corpId = this.corpId
+
+          // 获取企业综合评分
+          let params = {
+            accessToken: localStorage.getItem("ACCESSTOKEN"),
+            companyId: this.corpId
+          }
+          that.axios({
+            method: 'post',
+            url: '/company/review/score',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            data: JSON.stringify(params)
+          })
+          .then (res=>{
+            console.log(res);
+            that.score = res.data.score / 10
+            that.yellowStars = new Array(Math.round(res.data.score / 10))
+            that.grayStars = new Array(Math.round(5 - res.data.score / 10))
+          })
         })
       }
     }
@@ -764,7 +785,7 @@ export default {
         data: JSON.stringify(data)
       })
       .then(response => {
-        let points = []
+        var points = []
         let datas=response.data.data.content
         for( let i in datas){
           points.push({
@@ -784,8 +805,8 @@ export default {
       })
     },
     key(e){
-      if(e.keyCode=='13' && document.hasFocus()){
-        document.getElementById('search_repaire').blur()
+      var that = this;
+      if(e.keyCode=='13'){
         let data={
           systemToken: localStorage.getItem("SYSTEMTOKEN"),
           limit: 300,
@@ -797,7 +818,7 @@ export default {
           starLevel:  this.level,
           type: 164
         }
-        this.repairName=''
+        document.getElementById('search_repaire').blur()
         this.axios({
           method: 'post',
           url: '/maintain/getRangeCorps',
@@ -808,13 +829,14 @@ export default {
         })
         .then(response => {
           let points = [], datas=response.data.data.content
-          // console.log(datas);
           for( let i in datas){
             points.push({
               lng: datas[i].lat,
-              lat: datas[i].lng
+              lat: datas[i].lng,
+              corpId: datas[i].corpId
             })
           }
+          console.log(points);
           if(points.length==0){
             MessageBox({
               message: '未找到该维修站点',
@@ -854,9 +876,12 @@ export default {
       }
       this.sendAjax(data)
     },
+    closeFilter(){  // 关闭刷选框
+      this.popupVisible=!this.popupVisible
+    },
     getCompanyType(e,v){
       this.type = v
-      this.addclass(e)
+      this.addclass(e) 
     },
     getStarLevel(e,v){
       this.level = v
@@ -881,11 +906,34 @@ export default {
       mui('.mui-popover').popover('hide',document.getElementById("popover"))
     },
     goRemark(){
+      if(!localStorage.getItem("ACCESSTOKEN")){
+        Toast('您还未登录账号!')
+        return
+      }
       var that = this
-      mui('.mui-popover').popover('hide',document.getElementById("popover"))
-      this.$router.push({
-        path: '/remark',
-        query: {corpId: that.corpId}
+      let data = {
+        accessToken: localStorage.getItem("ACCESSTOKEN"),
+        companyId: this.corpId
+      }
+      this.axios({
+        method: 'post',
+        url: '/company/review/isExistUnreviewRepairBasicInfo',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        data: JSON.stringify(data)
+      })
+      .then(res=>{
+        console.log(res);
+        if(res.data.result){
+          this.$router.push({
+            path: '/remark',
+            query: {corpId: that.corpId}
+          })
+        }else { 
+          // mui('.mui-popover').popover('hide',document.getElementById("popover"))
+          Toast('未找到您在该企业未评论的维修记录')
+        }
       })
     },
     staticFooter(){
@@ -1109,6 +1157,7 @@ export default {
               img {
                 width: 14px;
                 height: 14px;
+                margin-right: 3px;
               }
             }
             p {
@@ -1149,6 +1198,7 @@ export default {
               border-left: 1px solid #eee;
               padding-bottom: 10px;
               display: block;
+              min-height: 31px;
             }
           }
         }
@@ -1165,13 +1215,11 @@ export default {
   // 企业详情弹出框样式结束
   }
   .filter {
-    padding-left: 12%;
     background-color: rgba(0,0,0,0);
     width: 100%;
     height: 100%;
     overflow: scroll;
     padding-bottom: 50px;
-    // position: relative;
     .closeFilter {
       position: absolute;
       width: 20px;
@@ -1180,7 +1228,13 @@ export default {
       left: 0;
       top: 0;
     }
+    .contentAside {
+      width: 12%;
+      height: 100%;
+      float: left;
+    }
     .contentWrap {
+      margin-left: 12%;
       background-color: #fff;
       height: 100%;
     }

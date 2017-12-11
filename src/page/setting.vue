@@ -20,7 +20,7 @@
             <a class="mui-navigate-right">关于我们</a>
         </li>
     </ul>
-    <div @click="logout" class="loginOut">退出登录</div>
+    <div @click="logout" class="loginOut" v-if="typeof(isLogin) == 'string'">退出登录</div>
   </div>
 </template>
 
@@ -29,8 +29,12 @@ import { MessageBox } from 'mint-ui'
 export default {
     data() {
         return{
-            num: this.$route.query.num
+            num: this.$route.query.num,
+            isLogin: localStorage.getItem("ACCESSTOKEN")
         }
+    },
+    mounted(){
+       
     },
     methods: {
         logout(){
@@ -60,9 +64,9 @@ export default {
 </script>
 
 <style lang='scss'>
-body {
-    background-color: #f8f8f8;
-}
+    body {
+        background-color: #f8f8f8;
+    }
     .wrap {
         background-color: #f8f8f8;
         ul {

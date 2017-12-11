@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div class="header">
+    <!-- 已登录 -->
+    <div class="header" v-if="userInfo">
       <b>{{name}}</b>
       <u @click="popupVisible=!popupVisible"></u>
       <span class="telNum">{{ tel }}</span>
       <img src="../assets/img/my/user.png" alt="">
     </div>
+    <!-- 未登录 -->
+    <div class="header" v-else>
+      <span class="login" @click="goLogin">点击登录</span>
+      <span class="fastLogin">1秒登录,体验更多功能</span>
+      <img src="../assets/img/my/user.png" alt="">
+    </div>
+
     <div class="list" @click="goCarList">
       <img src="../assets/img/my/health.png" alt=""><span>爱车档案</span> <i></i>
     </div>
@@ -37,7 +45,8 @@
   data () {
     return {
       name:"",
-      tel: ''
+      tel: '',
+      userInfo: localStorage.getItem("USERINFO")
     }
   },
   beforeMount(){
@@ -46,6 +55,11 @@
     this.tel=userinfo.telphone.substr(0,3)+"****"+ userinfo.telphone.substr(7)
   },
   methods:{
+    goLogin(){
+      this.$router.push({
+        path: '/login'
+      })
+    },
     goCarList(){
       this.$router.push({ path: '/carList'})
     },
@@ -80,18 +94,20 @@ body {
   position: relative;
 }
 .header{
-  line-height: 60px;
   border-bottom: 10px solid #f8f8f8;
-  padding: 30px 10px;
+  padding: 38px 10px 0;
   position: relative;
+  height: 125px;
   b {
     font-size: 20px;
     color: #000;
   }
   img{
+    position: absolute;
     width: 60px;
-    margin-right: 10px;
-    float: right;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   u {
     display: inline-block;
@@ -101,11 +117,17 @@ body {
     background-size: 100% 100%;
     margin-left: 10px;
   }
-  .telNum {
+  .telNum, .fastLogin {
     position: absolute;
     left: 10px;
-    top: 55px;
+    top: 65px;
     color: #999;
+  }
+  >.login {
+    font-size: 20px;
+  }
+  >.fastLogin {
+    font-size: 14px;
   }
 }
 .list{

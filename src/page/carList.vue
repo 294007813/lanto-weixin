@@ -1,12 +1,10 @@
 <template>
   <div class='box'>
-
     <div class='search'>
       <form>
         <input type="search" placeholder="搜索车牌号码" v-model='vehicleplatenumber' @keyup="key($event)">
       </form>
     </div>
-
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomDropText='bottomDropText' :bottomPullText='bottomPullText' ref="loadmore">
       <ul>
         <li @click="goRecordList(item.repairbasicinfoId, item.vehicleplatenumber)"  class="block" v-for='(item, index) in carList' :key='index'>
@@ -21,16 +19,41 @@
             <p><span>发动机号：{{ item.engineno }}</span></p>
           </div>
         </li>
-      </ul>  
+        <li class="block" v-if="isShow">
+          <div class="title">
+            <img width="15" height="15" src="../assets/img/record/list.png"/>
+            <span>{{ plate }}</span>
+            <img class="arrow" src="../assets/img/my/right-arrow.png" width="7px" height="14px">
+          </div>
+          <div class="info">
+            <form class="mui-input-group">
+              <div class="mui-input-row">
+                  <label>车牌号:</label>
+                  <input type="text" class="mui-input-clear" placeholder="请输入车牌号" v-model='plate'>
+              </div>
+              <div class="mui-input-row">
+                  <label>车架号:</label>
+                  <input type="text" class="mui-input-clear" placeholder="请输入车架号" v-model='frame'>
+              </div>
+            </form>
+          </div>
+          <mt-button type="default" size="small" style="padding: 0 20px" @click="cancel">取消</mt-button>
+          <mt-button type="primary" size="small" @click='addCar' style="float:right; padding: 0 20px">确定</mt-button>
+        </li>
+        <li class="addCar" @click="isShow=true">
+          <mt-button type="primary" v-if='isShowAddButton' class="add_car" size="large" style="margin-top: 10px">新增绑定车辆</mt-button>
+        </li>   
+      </ul>
     </mt-loadmore>
   </div>
 </template>
 
 <script>
-import { Toast, Loadmore } from 'mint-ui'
+import { Toast, Loadmore, Button } from 'mint-ui'
 export default {
   created() {
     this.getData()
+    this.checkUser()
   },
 
   data() {
@@ -42,11 +65,22 @@ export default {
       lastPage: false,
       page: 1,
       allLoaded: false,
-      vehicleplatenumber: ''
+      vehicleplatenumber: '',
+      plate: '',  // 车牌号
+      frame: '',  // 车架号
+      isShow: false,
+      isShowAddButton: false
     }
   },
 
   methods: {
+    // 查询用户角色
+    checkUser(){
+      let info = JSON.parse(localStorage.getItem('USERINFO')).userRoleId
+      if(info===1){
+        this.isShowAddButton=true  
+      }
+    },
     goRecordList(id, vehicleplatenumber) {
       this.$router.push({
         path: '/recordList',
@@ -78,10 +112,8 @@ export default {
         if (this.carList.length == 0) {
           Toast('暂无数据')
         }
-        console.log(this.carList);
       })
     },
-
     // 上拉加载更多
     loadBottom() {
         this.page+=1
@@ -141,6 +173,40 @@ export default {
           console.log(this.carList)
         })
       }
+    },
+    // 取消新增绑定车辆
+    cancel(){
+      this.isShow = !this.isShow
+      this.plate=''
+      this.frame=''
+    },
+    // 确定新增绑定车辆 
+    addCar(){
+      if(this.plate.trim()==''){
+        Toast("请输入车牌号")
+        return
+      }else if(this.frame.trim()==''){
+        Toast("请输入车架号")
+        return
+      }
+      let data={
+        accessToken: localStorage.getItem("ACCESSTOKEN"),
+        vehicleplatenumber: this.plate,
+        vin: this.frame
+      }
+      this.axios({
+        method: 'post',
+        url: '/vehicle/owner/bind',
+        headers: { 'Content-type': 'application/json' },
+        data: JSON.stringify(data)
+      })
+      .then(res=>{
+        console.log(res);
+        if(res.data.code==="000000"){
+          Toast("车辆绑定成功")
+          this.isShow = !this.isShow
+        }
+      })
     }
   }
 }
@@ -184,7 +250,6 @@ export default {
       }
     }
   }
-
   .mint-search {
     height: auto!important;
   }
@@ -225,6 +290,31 @@ export default {
           float: right;
         }
       }
+      form {
+         &:after, &:before {
+            height: 0;
+          }
+        font-size: 14px;
+        .mui-input-row {
+          label {
+            padding: 11px 0;
+            width: 50px;
+          }
+          input {
+            float: left;
+            font-size: 14px;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+    .mint-button {
+      width: 80px;
+    }
+  }
+  .addCar {
+    button {
+      width: 100%;
     }
   }
 }

@@ -71,10 +71,11 @@ export default {
         }}
       ],
       assessText: '',       // 综合评价文本内容
+      picPath: [],          // 照片路径
       promise: 5,           // 履约情况
       serviceQuality: 5,    // 服务质量
       repairQuality: 5,     // 维修质量
-      repairSpeed: 5,       // 维修速度  
+      repairSpeed: 5,       // 维修速度
       repairPrice: 5        // 维修价格
     }
   },
@@ -143,14 +144,18 @@ export default {
       let data = {
         accessToken: localStorage.getItem('ACCESSTOKEN'), // 用户票据
         companyId: this.$route.query.corpId,              // 企业ID
-        performance: this.promise,                        // 履约情况
-        attitude: this.serviceQuality,                    // 服务质量
-        quality: this.repairQuality,                      // 维修质量
-        speed: this.repairSpeed,                          // 维修速度
-        price: this.repairPrice,                          // 维修价格
-        jsoninfo: `{"content": "this.assessText","images": ["aa","bb","ss"]}`,  //  综合评分
-        composite: Math.round(this.promise*0.6+this.serviceQuality*0.1+this.repairQuality*0.2+this.repairSpeed*0.05+this.repairPrice*0.05)
+        performance: this.promise*10,                        // 履约情况
+        attitude: this.serviceQuality*10,                    // 服务质量
+        quality: this.repairQuality*10,                      // 维修质量
+        speed: this.repairSpeed*10,                          // 维修速度
+        price: this.repairPrice*10,                          // 维修价格
+        jsoninfo: {
+          content: this.assessText,                          // 评论文字
+          images: this.picPath                               // 照片路径
+        },  
+        composite: Math.round(this.promise*6+this.serviceQuality+this.repairQuality*2+this.repairSpeed*0.5+this.repairPrice*0.5) //  综合评分
       }
+      console.log(JSON.stringify(data));
       this.axios({
           method: 'post',
           url: '/company/review/submit',
@@ -163,9 +168,6 @@ export default {
           console.log(res);
           if(res.data.code=='130412'){
             Toast('提交评论失败,用户票据失效,请重新登录')
-          }
-          if(res.data.code=='120514'){
-            Toast('提交评论失败,不存在您在该维修企业未评论的维修记录')
           }else if(res.data.code=='120513'){
             Toast('提交评论失败,您还未绑定车辆')
           }else if(res.data.code=='120509'){
@@ -179,7 +181,7 @@ export default {
             },3000)
           }
         })
-      this.assessText=''
+      this.assessText='' 
     }
   }
 }

@@ -21,6 +21,7 @@ import Complaint from '@/page/complaint'
 import AboutUs from '@/page/aboutUs'
 import Remark from '@/page/remark'
 import MyQuestion from '@/page/myQuestion'
+import QuestionDetail from '@/page/questionDetail'
 
 Vue.use(Router)
 
@@ -32,7 +33,7 @@ export default new Router({
       {path: '/doctor', name: 'doctor', component: Doctor},
       {path: '/infoService', name: 'infoService', component: InfoService},
       {path: '/maintain', name: 'maintain', component: Maintain},
-      {path: '/my', name: 'my', component: My, meta: { requiresAuth: true }}
+      {path: '/my', name: 'my', component: My}
     ]},
     {path: '/login', name: 'login', component: Login},
     {path: '/register', name: 'register', component: Register},
@@ -40,12 +41,13 @@ export default new Router({
     {path: '/recordlist', name: 'recordlist', component: RecordList, meta: { requiresAuth: true }},
     {path: '/vehicleDetail', name: 'vehicleDetail', component: VehicleDetail, meta: { requiresAuth: true }},
     {path: '/repairSearchList', name: 'repairSearchList', component: RepairSearchList, meta: { requiresAuth: true }},
-    {path: '/setting', name: 'setting', component: Setting, meta: { requiresAuth: true }},
-    {path: '/suggestion', name: 'suggestion', component: Suggestion},
+    {path: '/setting', name: 'setting', component: Setting},
+    {path: '/suggestion', name: 'suggestion', component: Suggestion, meta: { requiresAuth: true }},
     {path: '/infoList', name: 'infoList', component: InfoList},
     {path: '/complaint', name: 'complaint', component: Complaint},
     {path: '/aboutUs', name: 'aboutUs', component: AboutUs},
     {path: '/remark', name: 'remark', component: Remark, meta: { requiresAuth: true }},
-    {path: '/myQuestion', name: 'myQuestion', component: MyQuestion, meta: { requiresAuth: true }}
+    {path: '/myQuestion', name: 'myQuestion', component: MyQuestion, meta: { requiresAuth: true }},
+    {path: '/questionDetail', name: 'questionDetail', component: QuestionDetail}
   ]
 })
